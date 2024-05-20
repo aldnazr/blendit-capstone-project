@@ -1,3 +1,3 @@
 # blendit-capstone-project
 
-# kok susah ya
+Face Recognition for Makeup Recommendation apps
