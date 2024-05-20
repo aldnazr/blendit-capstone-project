@@ -54,12 +54,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="65dp"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="#6D2E46"
             android:text="Login"
             android:textSize="18sp"
-            app:cornerRadius="18dp" />
+            app:cornerRadius="20dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
