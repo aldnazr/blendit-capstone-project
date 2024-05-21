@@ -8,7 +8,7 @@
     android:background="@color/primaryColor"
     android:gravity="bottom"
     android:orientation="vertical"
-    tools:context=".ui.LoginActivity">
+    tools:context=".ui.RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/login_register_background"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -27,16 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="sans-serif-black"
-                android:text="Login"
+                android:text="Buat akun baru"
                 android:textSize="40sp" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif"
-                android:text="Sign in to continue" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
@@ -44,6 +36,26 @@
                 android:layout_gravity="start"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="30dp"
+                android:text="Nama" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="3dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/login_register_textfield_background" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
                 android:text="Email/Username" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -78,22 +90,50 @@
                     android:background="@drawable/login_register_textfield_background" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Konfirmasi kata sandi" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="3dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/login_register_textfield_background" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="20dp"
-                android:text="Login"
+                android:text="Daftar"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Sudah punya akun?" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginVertical="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Buat akun"
+                android:text="Login disini"
+                android:layout_marginBottom="20dp"
                 android:textColor="@color/primaryColor" />
         </LinearLayout>
     </ScrollView>
