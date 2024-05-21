@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Blendit"
         tools:targetApi="31">
         <activity
+            android:name=".ui.HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.RegisterActivity"
             android:exported="false" />
         <activity
