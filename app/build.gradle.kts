@@ -56,4 +56,11 @@ dependencies {
     implementation ("androidx.camera:camera-view:1.1.0")
 
 
+    // Coroutines KTX
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
+
+    //Fragment KTX
+    implementation (libs.androidx.fragment.ktx)
+
 }
