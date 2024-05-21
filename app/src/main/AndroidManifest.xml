@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Blendit"
         tools:targetApi="31">
         <activity
+            android:name=".ui.analysis.ResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.analysis.AnalysisActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.HistoryActivity"
             android:exported="false" />
         <activity
