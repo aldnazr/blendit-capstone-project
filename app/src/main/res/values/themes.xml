@@ -5,4 +5,5 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <!-- Customize your theme here. -->
     </style>
+
 </resources>

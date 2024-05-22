@@ -6,9 +6,9 @@
             android:icon="@drawable/bottom_navigation_home"
             android:title="Beranda" />
         <item
-            android:id="@+id/history"
-            android:icon="@drawable/bottom_navigation_history"
-            android:title="Riwayat" />
+            android:id="@+id/wishlist"
+            android:icon="@drawable/bottom_navigation_wishlist"
+            android:title="Wishlist" />
         <item
             android:id="@+id/scan"
             android:icon="@drawable/ic_scan"

@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> switchFragment(HomeFragment())
-                R.id.history -> switchFragment(HistoryFragment())
+                R.id.wishlist -> switchFragment(HistoryFragment())
                 R.id.category -> switchFragment(CategoryFragment())
                 R.id.account -> switchFragment(AccountFragment())
             }
