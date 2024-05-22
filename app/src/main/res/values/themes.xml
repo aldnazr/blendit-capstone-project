@@ -4,6 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">?isLightTheme</item>
     </style>
 
 </resources>

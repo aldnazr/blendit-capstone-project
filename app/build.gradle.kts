@@ -51,10 +51,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Camera
-    implementation ("androidx.camera:camera-camera2:1.1.0")
-    implementation ("androidx.camera:camera-lifecycle:1.1.0")
-    implementation ("androidx.camera:camera-view:1.1.0")
-
+    implementation ("androidx.camera:camera-camera2:1.3.3")
+    implementation ("androidx.camera:camera-lifecycle:1.3.3")
+    implementation ("androidx.camera:camera-view:1.3.3")
 
     // Coroutines KTX
     implementation (libs.kotlinx.coroutines.core)

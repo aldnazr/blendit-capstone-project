@@ -13,9 +13,6 @@
         android:theme="@style/Theme.Blendit"
         tools:targetApi="31">
         <activity
-            android:name=".ui.category.CategoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.recommendation.RecommendationActivity"
             android:exported="false" />
         <activity

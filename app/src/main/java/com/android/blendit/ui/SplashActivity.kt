@@ -24,6 +24,7 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Main) {
             delay(2000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
         }
     }
 
