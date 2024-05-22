@@ -13,16 +13,17 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/recommendation_image"
+            android:id="@+id/iv_category"
             android:layout_width="117dp"
             android:layout_height="103dp"
             android:layout_margin="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/bold" />
+            android:src="@drawable/bold"
+            android:onClick="onImageViewClick"/>
 
 
         <TextView
-            android:id="@+id/product_name"
+            android:id="@+id/tv_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/primaryColor"
