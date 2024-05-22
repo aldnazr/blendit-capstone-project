@@ -7,12 +7,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import com.android.blendit.AccountFragment
-import com.android.blendit.CategoryFragment
-import com.android.blendit.HistoryFragment
-import com.android.blendit.HomeFragment
 import com.android.blendit.R
 import com.android.blendit.databinding.ActivityMainBinding
+import com.android.blendit.ui.fragments.AccountFragment
+import com.android.blendit.ui.fragments.CategoryFragment
+import com.android.blendit.ui.fragments.HistoryFragment
+import com.android.blendit.ui.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
