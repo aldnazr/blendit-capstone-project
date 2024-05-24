@@ -1,6 +1,7 @@
 package com.android.blendit.ui
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,7 +25,11 @@ class MainActivity : AppCompatActivity() {
 
         setFullscreen()
         switchFragment(HomeFragment())
+        setupBottomNavigation()
+        setupOnBackPressedCallback()
+    }
 
+    private fun setupBottomNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> switchFragment(HomeFragment())
@@ -36,9 +41,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupOnBackPressedCallback() {
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val currentFragment =
+                    supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+                if (currentFragment !is HomeFragment) {
+                    binding.bottomNavigation.selectedItemId = R.id.home
+                } else {
+                    finishAffinity()
+                }
+            }
+
+        })
+    }
+
     private fun switchFragment(fragment: Fragment) {
         supportFragmentManager.commit {
-            replace(binding.fragmentContainer.id, fragment)
+            replace(R.id.fragmentContainer, fragment)
         }
     }
 
