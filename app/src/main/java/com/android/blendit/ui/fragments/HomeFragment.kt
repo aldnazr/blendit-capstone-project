@@ -1,25 +1,48 @@
 package com.android.blendit.ui.fragments
 
+import adapter.CarouselAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.android.blendit.R
+import com.android.blendit.databinding.FragmentHomeBinding
+import kotlin.random.Random
 
 class HomeFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var binding: FragmentHomeBinding
+    private val adapter = CarouselAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setFullscreen()
+        binding.recyclerView.adapter = adapter
+        for (i in 1..5) {
+            val randomNumber = Random.nextInt(100)
+            val imageRandom = "https://picsum.photos/id/$randomNumber/600/400"
+            adapter.list.add(imageRandom)
+        }
+    }
+
+    private fun setFullscreen() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.appBar.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
     }
 
 }

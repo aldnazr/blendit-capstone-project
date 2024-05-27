@@ -62,4 +62,7 @@ dependencies {
     //Fragment KTX
     implementation (libs.androidx.fragment.ktx)
 
+    // Image Network
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
 }
