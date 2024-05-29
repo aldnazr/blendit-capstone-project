@@ -6,8 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android.blendit.R
+import com.android.blendit.databinding.ActivityTutorialBinding
 
 class TutorialActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityTutorialBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
