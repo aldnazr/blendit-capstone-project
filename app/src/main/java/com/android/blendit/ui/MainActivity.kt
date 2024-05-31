@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         setupOnBackPressedCallback()
     }
 
+
     private fun setupBottomNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
@@ -63,10 +64,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setFullscreen() {
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
             insets
         }
     }

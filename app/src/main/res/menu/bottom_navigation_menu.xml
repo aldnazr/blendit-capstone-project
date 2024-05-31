@@ -11,8 +11,8 @@
             android:title="Wishlist" />
         <item
             android:id="@+id/scan"
-            android:icon="@drawable/ic_scan"
-            android:title="Scan" />
+            android:enabled="false"
+            android:title="" />
         <item
             android:id="@+id/category"
             android:icon="@drawable/bottom_navigation_category"
