@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    android:gravity="bottom"
     android:orientation="vertical"
-    tools:context=".ui.RegisterActivity">
+    tools:context=".ui.register.RegisterActivity">
 
-    <ScrollView
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:indeterminate="true"
+        android:visibility="gone"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +43,7 @@
                 android:layout_gravity="start"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="30dp"
-                android:text="Nama" />
+                android:text="Username" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -45,6 +52,7 @@
                 android:layout_marginTop="3dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/usernameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/login_register_textfield_background" />
@@ -56,7 +64,7 @@
                 android:layout_gravity="start"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:text="Email/Username" />
+                android:text="Email" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -65,6 +73,7 @@
                 android:layout_marginTop="3dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/login_register_textfield_background" />
@@ -85,6 +94,7 @@
                 android:layout_marginTop="3dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/login_register_textfield_background" />
@@ -105,12 +115,14 @@
                 android:layout_marginTop="3dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/retypePasswordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/login_register_textfield_background" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_marginHorizontal="40dp"
@@ -128,13 +140,15 @@
                 android:text="Sudah punya akun?" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/toLoginPage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="5dp"
                 android:text="Login disini"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/primaryColor" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

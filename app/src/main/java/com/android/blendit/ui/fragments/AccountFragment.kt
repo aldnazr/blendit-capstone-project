@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android.blendit.databinding.FragmentAccountBinding
-import com.android.blendit.ui.LoginActivity
+import com.android.blendit.ui.login.LoginActivity
 
 class AccountFragment : Fragment() {
 
