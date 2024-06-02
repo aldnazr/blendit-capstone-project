@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.android.blendit.R
 import com.android.blendit.databinding.ActivityLoginBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
@@ -18,6 +17,7 @@ import com.android.blendit.remote.response.LoginResult
 import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.ui.ViewModelFactory
 import com.android.blendit.ui.main.MainActivity
+import com.android.blendit.ui.register.RegisterActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LoginActivity : AppCompatActivity() {
@@ -32,10 +32,24 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(binding.root)
 
         setFullScreen()
-        binding.loginBtn.setOnClickListener { processLogin() }
+        setView()
+    }
+
+    private fun setView() {
+        with(binding) {
+            loginBtn.setOnClickListener { processLogin() }
+            textCreateAccount.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this@LoginActivity,
+                        RegisterActivity::class.java
+                    )
+                )
+            }
+        }
     }
 
     private fun processLogin() {

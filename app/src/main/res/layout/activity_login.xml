@@ -16,7 +16,7 @@
         android:indeterminate="true"
         android:visibility="gone"/>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
@@ -98,6 +98,7 @@
                 app:cornerRadius="20dp" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textCreateAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -106,5 +107,5 @@
                 android:text="Buat akun"
                 android:textColor="@color/primaryColor" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </RelativeLayout>

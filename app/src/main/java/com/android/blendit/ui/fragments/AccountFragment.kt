@@ -9,11 +9,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android.blendit.databinding.FragmentAccountBinding
+import com.android.blendit.preference.AccountPreference
 import com.android.blendit.ui.login.LoginActivity
 
 class AccountFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountBinding
+    private val accountPreference by lazy { AccountPreference(requireActivity()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,14 +30,19 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setFullscreen()
+        setView()
+    }
 
+    private fun setView() {
         binding.logoutButton.setOnClickListener {
+            accountPreference.removeLoginUser()
             startActivity(
                 Intent(
                     requireActivity(),
                     LoginActivity::class.java
                 )
             )
+            requireActivity().finishAffinity()
         }
     }
 

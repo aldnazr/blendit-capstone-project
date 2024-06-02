@@ -16,7 +16,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL", "\"http://vps.danar.site:8080/\"")
+        buildConfigField("String", "BASE_URL", "\"https://vps.danar.site/\"")
     }
 
     buildTypes {

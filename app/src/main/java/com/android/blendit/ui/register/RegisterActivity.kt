@@ -29,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        setContentView(binding.root)
 
         setFullScreen()
         setView()
@@ -67,7 +67,7 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        if (password.length < 8) {
+        if (password.length < 6) {
             Toast.makeText(this, "Sandi kurang dari 8", Toast.LENGTH_SHORT).show()
             return
         }
