@@ -5,10 +5,10 @@ import com.android.blendit.preference.AccountPreference
 import com.android.blendit.viewmodel.Repository
 
 class LoginViewModel(
-    loginPreferences: AccountPreference
+    accountPreference: AccountPreference
 ) : ViewModel() {
 
-    private val repository = Repository(loginPreferences)
+    private val repository = Repository(accountPreference)
 
     fun userLogin(email: String, password: String) = repository.login(email, password)
 }

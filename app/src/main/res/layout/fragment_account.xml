@@ -54,6 +54,7 @@
                 app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/nameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -67,6 +68,8 @@
                 android:layout_marginTop="30dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailEditText"
+                    android:editable="false"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/login_register_textfield_background"

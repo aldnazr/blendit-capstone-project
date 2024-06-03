@@ -55,6 +55,7 @@
                     android:id="@+id/usernameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textPersonName"
                     android:background="@drawable/login_register_textfield_background" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,6 +77,7 @@
                     android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textEmailAddress"
                     android:background="@drawable/login_register_textfield_background" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,6 +100,7 @@
                     android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textPassword"
                     android:background="@drawable/login_register_textfield_background" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,6 +123,7 @@
                     android:id="@+id/retypePasswordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textPassword"
                     android:background="@drawable/login_register_textfield_background" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -147,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:text="Login disini"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/primaryColor" />

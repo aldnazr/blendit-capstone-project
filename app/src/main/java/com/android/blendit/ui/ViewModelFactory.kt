@@ -36,9 +36,9 @@ class ViewModelFactory(
 
         @JvmStatic
         fun getInstance(
-            loginPreferences: AccountPreference
+            accountPreference: AccountPreference
         ): ViewModelFactory = INSTANCE ?: synchronized(this) {
-            INSTANCE ?: ViewModelFactory(loginPreferences)
+            INSTANCE ?: ViewModelFactory(accountPreference)
         }
     }
 }

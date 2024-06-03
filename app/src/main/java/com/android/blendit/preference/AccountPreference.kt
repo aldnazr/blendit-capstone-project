@@ -37,6 +37,6 @@ class AccountPreference(context: Context) {
         const val EMAIL = "email"
         const val USERNAME = "username"
         const val TOKEN = "token"
-        const val PROFILEPIC = "token"
+        const val PROFILEPIC = "profilepic"
     }
 }

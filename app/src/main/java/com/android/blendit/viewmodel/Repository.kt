@@ -1,17 +1,25 @@
 package com.android.blendit.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.android.blendit.preference.AccountPreference
+import com.android.blendit.remote.Result
+import com.android.blendit.remote.response.LoginResult
 import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
 import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.remote.retrofit.ApiService
-import com.android.blendit.remote.Result
 
 class Repository(private val accountPreference: AccountPreference) {
 
     private val apiService: ApiService = ApiConfig.getApiService()
+    private val _loginInfo = MutableLiveData<LoginResult>()
+    val loginInfo: LiveData<LoginResult> = _loginInfo
+
+    init {
+        loadLoginInfo()
+    }
 
     fun register(
         name: String, email: String, password: String
@@ -47,5 +55,10 @@ class Repository(private val accountPreference: AccountPreference) {
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
+    }
+
+    private fun loadLoginInfo() {
+        val loginResult = accountPreference.getLoginInfo()
+        _loginInfo.value = loginResult
     }
 }
