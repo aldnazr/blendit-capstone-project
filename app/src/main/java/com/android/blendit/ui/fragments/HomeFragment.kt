@@ -1,6 +1,6 @@
 package com.android.blendit.ui.fragments
 
-import adapter.CarouselAdapter
+import com.android.blendit.adapter.CarouselAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

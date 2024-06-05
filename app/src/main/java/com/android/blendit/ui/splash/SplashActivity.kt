@@ -1,4 +1,4 @@
-package com.android.blendit.ui
+package com.android.blendit.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,22 +9,40 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.android.blendit.R
+import com.android.blendit.preference.AccountPreference
+import com.android.blendit.ui.login.LoginActivity
+import com.android.blendit.ui.main.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
+
+    private val launchTime = 2000L
+    private val accountLogin by lazy { AccountPreference(this).getLoginInfo() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
         setFullscreen()
+        launchApp()
+    }
 
-        lifecycleScope.launch(Dispatchers.Main) {
-            delay(2000)
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-            finish()
+    private fun launchApp() {
+        lifecycleScope.launch {
+            delay(launchTime)
+            withContext(Dispatchers.Main) {
+                val intent = if (accountLogin.token.isNullOrEmpty()) {
+                    Intent(this@SplashActivity, LoginActivity::class.java)
+                } else {
+                    Intent(this@SplashActivity, MainActivity::class.java)
+                }
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

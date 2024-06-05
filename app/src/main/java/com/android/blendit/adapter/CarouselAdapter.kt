@@ -1,4 +1,4 @@
-package adapter
+package com.android.blendit.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
