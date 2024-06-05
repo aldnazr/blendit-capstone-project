@@ -19,54 +19,81 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android.blendit.R
 import com.android.blendit.databinding.ActivityCameraBinding
+import com.android.blendit.ui.analysis.AnalysisActivity
 import com.android.blendit.ui.utils.createFile
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
+    private lateinit var cameraExecutor: ExecutorService
 
-    private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private var imageCapture: ImageCapture? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        cameraExecutor = Executors.newSingleThreadExecutor()
+
         binding.captureImage.setOnClickListener { takePhoto() }
         binding.switchCamera.setOnClickListener {
-            cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) CameraSelector.DEFAULT_FRONT_CAMERA
-            else CameraSelector.DEFAULT_BACK_CAMERA
-
+            cameraSelector =
+                if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) CameraSelector.DEFAULT_FRONT_CAMERA
+                else CameraSelector.DEFAULT_BACK_CAMERA
             startCamera()
         }
     }
 
+    public override fun onResume() {
+        super.onResume()
+        hideSystemUI()
+        startCamera()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cameraExecutor.shutdown()
+    }
+
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
+
         val photoFile = createFile(application)
+
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         imageCapture.takePicture(
             outputOptions,
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Toast.makeText(this@CameraActivity, "Gagal mengambil gambar.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@CameraActivity,
+                        "Failed to take picture.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
-                    val intent = Intent().apply {
+                    val savedUri = Uri.fromFile(photoFile)
+                    val intent = Intent(this@CameraActivity, AnalysisActivity::class.java).apply {
+                        putExtra("pictureUri", savedUri.toString())
                         putExtra("isBackCamera", cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
-                        putExtra("selected_image", savedUri)
                     }
-                    setResult(RESULT_OK, intent)
+                    startActivity(intent)
                     finish()
                 }
             }
         )
     }
 
+
     private fun startCamera() {
+
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
@@ -87,48 +114,27 @@ class CameraActivity : AppCompatActivity() {
                     preview,
                     imageCapture
                 )
+
             } catch (exc: Exception) {
-                Toast.makeText(this@CameraActivity, "Gagal meluncurkan kamera", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@CameraActivity,
+                    "Failed to bring up the camera.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }, ContextCompat.getMainExecutor(this))
     }
 
-    private fun hideSystemUI(state: Boolean) {
+    private fun hideSystemUI() {
         @Suppress("DEPRECATION")
-        if (state) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                window.insetsController?.hide(WindowInsets.Type.statusBars())
-            } else {
-                window.setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
-                )
-            }
-            supportActionBar?.hide()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                window.insetsController?.show(WindowInsets.Type.statusBars())
-            } else {
-                window.clearFlags(
-                    WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN
-                )
-                window.setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
-                )
-            }
-            supportActionBar?.show()
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        hideSystemUI(true)
-        startCamera()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        hideSystemUI(false)
+        supportActionBar?.hide()
     }
 }

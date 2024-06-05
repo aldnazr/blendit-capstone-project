@@ -1,15 +1,22 @@
 package com.android.blendit.ui.main
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.android.blendit.R
 import com.android.blendit.databinding.ActivityMainBinding
+import com.android.blendit.ui.CameraActivity
 import com.android.blendit.ui.fragments.AccountFragment
 import com.android.blendit.ui.fragments.CategoryFragment
 import com.android.blendit.ui.fragments.HistoryFragment
@@ -18,6 +25,15 @@ import com.android.blendit.ui.fragments.HomeFragment
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val cameraPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            openCameraActivity()
+        } else {
+            Toast.makeText(this, "Camera permission is required to use this feature", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         switchFragment(HomeFragment())
         setupBottomNavigation()
         setupOnBackPressedCallback()
+        setupFabClick()
     }
 
     private fun setupBottomNavigation() {
@@ -70,5 +87,20 @@ class MainActivity : AppCompatActivity() {
 //            binding.bottomAppBar.setPadding(0, 0, 0, systemBars.bottom)
             insets
         }
+    }
+
+    private fun setupFabClick() {
+        binding.fabScan.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                openCameraActivity()
+            } else {
+                cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+        }
+    }
+
+    private fun openCameraActivity() {
+        val intent = Intent(this, CameraActivity::class.java)
+        startActivity(intent)
     }
 }
