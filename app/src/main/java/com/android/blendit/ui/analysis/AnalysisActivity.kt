@@ -18,6 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AnalysisActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityAnalysisBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,7 @@ class AnalysisActivity : AppCompatActivity() {
         binding = ActivityAnalysisBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val pictureUriString = intent.getStringExtra("pictureUri")
