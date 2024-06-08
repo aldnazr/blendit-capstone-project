@@ -7,8 +7,8 @@
             android:title="Beranda" />
         <item
             android:id="@+id/wishlist"
-            android:icon="@drawable/bottom_navigation_wishlist"
-            android:title="Wishlist" />
+            android:icon="@drawable/bottom_navigation_favorite"
+            android:title="Favorite" />
         <item
             android:id="@+id/scan"
             android:enabled="false"
