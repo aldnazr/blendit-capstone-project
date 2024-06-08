@@ -42,8 +42,8 @@ class AccountFragment : Fragment() {
 
     private fun setView() {
         viewModel.loadLoginInfo.observe(viewLifecycleOwner) {
-            binding.emailEditText.setText(it.email)
             binding.nameTextView.text = it.username
+            binding.emailTextView.text = it.email
         }
         binding.logoutButton.setOnClickListener {
             accountPreference.removeLoginUser()

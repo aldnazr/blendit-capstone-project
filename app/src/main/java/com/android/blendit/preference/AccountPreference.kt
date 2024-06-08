@@ -23,7 +23,7 @@ class AccountPreference(context: Context) {
         val token = preferences.getString(TOKEN, null)
         val email = preferences.getString(EMAIL, null)
         val profilePic = preferences.getString(PROFILEPIC, null)
-        return LoginResult(userId, userName, token, email, profilePic)
+        return LoginResult(userId, email, userName, token, profilePic)
     }
 
     fun removeLoginUser() {
