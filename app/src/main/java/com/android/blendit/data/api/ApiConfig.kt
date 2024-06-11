@@ -13,7 +13,7 @@ class ApiConfig {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://127.0.0.1:3658/m1/559679-522757-default/")
+            .baseUrl("https://api.github.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

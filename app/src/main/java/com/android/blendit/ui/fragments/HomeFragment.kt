@@ -1,5 +1,6 @@
 package com.android.blendit.ui.fragments
 
+import android.content.Intent
 import com.android.blendit.adapter.CarouselAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android.blendit.databinding.FragmentHomeBinding
+import com.android.blendit.ui.recommendation.RecommendationActivity
 import kotlin.random.Random
 
 class HomeFragment : Fragment() {
@@ -34,6 +36,11 @@ class HomeFragment : Fragment() {
             val randomNumber = Random.nextInt(100)
             val imageRandom = "https://picsum.photos/id/$randomNumber/600/400"
             adapter.list.add(imageRandom)
+        }
+
+        binding.tvProductRecommendation.setOnClickListener {
+            val intent = Intent(context, RecommendationActivity::class.java)
+            startActivity(intent)
         }
     }
 
