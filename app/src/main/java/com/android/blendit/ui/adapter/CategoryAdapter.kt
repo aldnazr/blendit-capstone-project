@@ -26,7 +26,7 @@ class CategoryAdapter(private val users: List<User>) : RecyclerView.Adapter<Cate
         val user = users[position]
         holder.name.text = user.login
         Glide.with(holder.itemView.context)
-            .load(user.avatar_url)
+            .load(user.avatarUrl)
             .into(holder.photo)
     }
 

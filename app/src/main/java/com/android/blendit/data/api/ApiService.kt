@@ -24,13 +24,13 @@ interface ApiService {
     ): Call<ImageAnalysisResponse>
 
     @GET("users/{username}/followers")
-    @Headers("Authorization: ${BuildConfig.TOKEN}")
+//    @Headers("Authorization: ${BuildConfig.TOKEN}")
     fun getUserFollowers(
         @Path("username") username: String
     ): Call<ArrayList<User>>
 
     @GET("users/{username}/followers")
-    @Headers("Authorization: ${BuildConfig.TOKEN}")
+//    @Headers("Authorization: ${BuildConfig.TOKEN}")
     fun recommendation(
         @Path("username") username: String
     ): Call<ArrayList<User>>

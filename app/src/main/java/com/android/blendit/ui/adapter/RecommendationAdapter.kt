@@ -21,7 +21,7 @@ class RecommendationAdapter(private val users: ArrayList<User>) : RecyclerView.A
         val user = users[position]
         holder.userName.text = user.login
         Glide.with(holder.itemView.context)
-            .load(user.avatar_url)
+            .load(user.avatarUrl)
             .into(holder.userAvatar)
     }
 

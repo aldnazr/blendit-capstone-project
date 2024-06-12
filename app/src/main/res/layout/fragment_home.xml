@@ -21,22 +21,25 @@
             app:title="Home" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/image_slider"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="16dp"
-        app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
-        tools:listitem="@layout/carousel_item" />
+        app:iss_auto_cycle="true"
+        app:iss_delay="1000"
+        app:iss_period="2000"
+        app:iss_placeholder="@android:color/transparent"
+        app:iss_error_image="@android:color/transparent" />
 
     <TextView
         android:id="@+id/tv_product_recommendation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Product Recommendation"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="Product Recommendation"/>
+        android:textStyle="bold" />
 
 </LinearLayout>
