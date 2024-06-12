@@ -40,6 +40,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/login_register_background"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -66,13 +67,14 @@
                     android:layout_gravity="start"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
-                    android:text="Email/Username" />
+                    android:text="Email"
+                    android:textSize="18sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
-                    android:layout_marginTop="3dp">
+                    android:layout_marginTop="5dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/emailEditText"
@@ -83,12 +85,24 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/emailErrorTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginStart="40dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Kata sandi" />
+                    android:layout_marginTop="8dp"
+                    android:text="Email tidak valid"
+                    android:textColor="@android:color/holo_red_light"
+                    android:visibility="gone" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="14dp"
+                    android:text="Kata sandi"
+                    android:textSize="18sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -104,6 +118,17 @@
                         android:background="@drawable/login_register_textfield_background"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/passwordErrorTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Sandi minimal 6 karakter"
+                    android:textColor="@android:color/holo_red_light"
+                    android:visibility="gone" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/loginBtn"

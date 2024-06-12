@@ -4,13 +4,12 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.android.blendit.R
+import androidx.core.widget.doAfterTextChanged
 import com.android.blendit.databinding.ActivityRegisterBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
@@ -48,40 +47,43 @@ class RegisterActivity : AppCompatActivity() {
         with(binding) {
             registerButton.setOnClickListener { checkForm() }
             toLoginPage.setOnClickListener { finish() }
+
+            emailEditText.doAfterTextChanged {
+                if (it != null) {
+                    emailErrorTextView.visibility =
+                        if (Patterns.EMAIL_ADDRESS.matcher(it)
+                                .matches() || it.isEmpty()
+                        ) View.GONE else View.VISIBLE
+                }
+            }
+            passwordEditText.doAfterTextChanged {
+                if (it != null) {
+                    passwordErrorTextView.visibility =
+                        if (it.length > 6 || it.isEmpty()) View.GONE else View.VISIBLE
+                }
+            }
+            retypePasswordEditText.doAfterTextChanged {
+                if (it != null) {
+                    retypePasswordErrorTextView.visibility =
+                        if (it.toString() == passwordEditText.text.toString() || it.isEmpty()) View.GONE else View.VISIBLE
+                }
+            }
         }
     }
 
     private fun checkForm() {
-        val username = binding.usernameEditText.text.toString()
+        val name = binding.nameEditText.text.toString()
         val email = binding.emailEditText.text.toString()
         val password = binding.passwordEditText.text.toString()
         val retypePassword = binding.retypePasswordEditText.text.toString()
 
-        if (username.isEmpty()) {
-            Toast.makeText(this, "Masukkan nama", Toast.LENGTH_SHORT).show()
-            return
+        if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && retypePassword.isNotEmpty()) {
+            registeringAccount(name, email, password)
         }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Email tidak valid", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (password.length < 6) {
-            Toast.makeText(this, "Sandi kurang dari 8", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (password != retypePassword) {
-            Toast.makeText(this, "Sandi tidak sama", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        registeringAccount(username, email, password)
     }
 
-    private fun registeringAccount(userName: String, email: String, password: String) {
-        registerViewModel.userRegister(userName, email, password)
+    private fun registeringAccount(name: String, email: String, password: String) {
+        registerViewModel.userRegister(name, email, password)
             .observe(this@RegisterActivity) { result ->
                 if (result != null) {
                     when (result) {
@@ -124,7 +126,7 @@ class RegisterActivity : AppCompatActivity() {
         showDialog(
             "Sukses", "Pendaftaran berhasil, silahkan login"
         ) { finish() }
-        binding.usernameEditText.text?.clear()
+        binding.nameEditText.text?.clear()
         binding.emailEditText.text?.clear()
         binding.passwordEditText.text?.clear()
         binding.retypePasswordEditText.text?.clear()

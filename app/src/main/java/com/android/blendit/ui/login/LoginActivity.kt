@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.doAfterTextChanged
 import com.android.blendit.databinding.ActivityLoginBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
@@ -22,11 +23,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LoginActivity : AppCompatActivity() {
 
-    private val loginPreferences by lazy { AccountPreference(this) }
+    private val accountPreference by lazy { AccountPreference(this) }
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private val loginViewModel by viewModels<LoginViewModel> {
         ViewModelFactory.getInstance(
-            loginPreferences
+            accountPreference
         )
     }
 
@@ -40,12 +41,23 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setView() {
         with(binding) {
+            emailEditText.doAfterTextChanged {
+                if (it != null) {
+                    emailErrorTextView.visibility =
+                        if (Patterns.EMAIL_ADDRESS.matcher(it).matches() || it.isEmpty()) View.GONE else View.VISIBLE
+                }
+            }
+            passEditText.doAfterTextChanged {
+                if (it != null) {
+                    passwordErrorTextView.visibility =
+                        if (it.length > 6 || it.isEmpty()) View.GONE else View.VISIBLE
+                }
+            }
             loginBtn.setOnClickListener { processLogin() }
             textCreateAccount.setOnClickListener {
                 startActivity(
                     Intent(
-                        this@LoginActivity,
-                        RegisterActivity::class.java
+                        this@LoginActivity, RegisterActivity::class.java
                     )
                 )
             }
@@ -61,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
         } else {
             showAlert(
                 "Login gagal", "Harap masukkan email dan sandi dengan benar"
-            ) { }
+            ) { it.dismiss() }
         }
     }
 
