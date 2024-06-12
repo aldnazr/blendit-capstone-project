@@ -28,4 +28,15 @@
         android:layout_margin="16dp"
         app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
         tools:listitem="@layout/carousel_item" />
+
+    <TextView
+        android:id="@+id/tv_product_recommendation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Product Recommendation"/>
+
 </LinearLayout>
