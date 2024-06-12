@@ -3,11 +3,11 @@
     <group android:id="@+id/group1">
         <item
             android:id="@+id/home"
-            android:icon="@drawable/bottom_navigation_home"
+            android:icon="@drawable/bottom_nav_home"
             android:title="Beranda" />
         <item
             android:id="@+id/wishlist"
-            android:icon="@drawable/bottom_navigation_favorite"
+            android:icon="@drawable/bottom_nav_favorite"
             android:title="Favorite" />
         <item
             android:id="@+id/scan"
@@ -15,11 +15,11 @@
             android:title="" />
         <item
             android:id="@+id/category"
-            android:icon="@drawable/bottom_navigation_category"
+            android:icon="@drawable/bottom_nav_category"
             android:title="Kategori" />
         <item
             android:id="@+id/account"
-            android:icon="@drawable/bottom_navigation_account"
+            android:icon="@drawable/bottom_nav_account"
             android:title="Akun" />
     </group>
 
