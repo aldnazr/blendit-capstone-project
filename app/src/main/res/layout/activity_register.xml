@@ -59,8 +59,8 @@
                     android:layout_gravity="start"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
-                    android:text="Nama"
-                    android:textSize="18sp" />
+                    android:textSize="16sp"
+                    android:text="Nama" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -80,10 +80,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
+                    android:textSize="16sp"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="10dp"
-                    android:text="Email"
-                    android:textSize="18sp" />
+                    android:text="Email" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -108,6 +108,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Email tidak valid"
                     android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp"
                     android:visibility="gone" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -116,8 +117,8 @@
                     android:layout_gravity="start"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="10dp"
-                    android:text="Kata sandi"
-                    android:textSize="18sp" />
+                    android:textSize="16sp"
+                    android:text="Kata sandi" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -143,6 +144,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Sandi minimal 6 karakter"
                     android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp"
                     android:visibility="gone" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -151,8 +153,8 @@
                     android:layout_gravity="start"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="10dp"
-                    android:text="Konfirmasi kata sandi"
-                    android:textSize="18sp" />
+                    android:textSize="16sp"
+                    android:text="Konfirmasi kata sandi" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -178,6 +180,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Sandi tidak cocok"
                     android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp"
                     android:visibility="gone" />
 
                 <com.google.android.material.button.MaterialButton
@@ -191,7 +194,6 @@
                     app:cornerRadius="20dp" />
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"

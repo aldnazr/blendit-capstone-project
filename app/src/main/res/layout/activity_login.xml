@@ -68,13 +68,13 @@
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
                     android:text="Email"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="3dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/emailEditText"
@@ -93,6 +93,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Email tidak valid"
                     android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp"
                     android:visibility="gone" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -102,7 +103,7 @@
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="14dp"
                     android:text="Kata sandi"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -128,6 +129,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Sandi minimal 6 karakter"
                     android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp"
                     android:visibility="gone" />
 
                 <com.google.android.material.button.MaterialButton

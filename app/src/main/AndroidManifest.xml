@@ -36,6 +36,7 @@
         <activity
             android:name=".ui.register.RegisterActivity"
             android:exported="false"
+            android:theme="@style/LoginRegisterTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.CameraActivity"
@@ -43,6 +44,7 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false"
+            android:theme="@style/LoginRegisterTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.splash.SplashActivity"
@@ -56,8 +58,8 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false"
-            android:theme="@style/MainActivityTheme"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/MainActivityTheme" />
     </application>
 
 </manifest>
