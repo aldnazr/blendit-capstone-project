@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar">?isLightTheme</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="MainActivityTheme" parent="Theme.Blendit">

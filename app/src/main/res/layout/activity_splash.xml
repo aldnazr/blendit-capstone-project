@@ -26,7 +26,7 @@
         android:text="Blendit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="40sp"
+        android:textSize="36sp"
         android:textColor="#2E2D2D"
         android:fontFamily="sans-serif-black"
         app:layout_constraintStart_toStartOf="parent"
