@@ -1,25 +1,22 @@
 package com.android.blendit.ui.analysis
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
 import com.android.blendit.R
-import com.android.blendit.data.api.ApiConfig
-import com.android.blendit.data.api.ImageAnalysisRequest
-import com.android.blendit.data.api.ImageAnalysisResponse
 import com.android.blendit.databinding.ActivityAnalysisBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class AnalysisActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAnalysisBinding
+    private val analysisViewModel: AnalysisViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,34 +30,78 @@ class AnalysisActivity : AppCompatActivity() {
         val pictureUri = Uri.parse(pictureUriString)
         binding.previewImageView.setImageURI(pictureUri)
 
-        binding.buttonAnalys.setOnClickListener { analyzeImage(pictureUriString) }
+        binding.buttonAnalys.setOnClickListener { showInputDialog(pictureUriString) }
 
+        analysisViewModel.analysisResult.observe(this, Observer { result ->
+            result?.let {
+                val intent = Intent(this, ResultActivity::class.java).apply {
+                    putExtra(ResultActivity.EXTRA_FACE_TYPE, it.face_type)
+                    putExtra(ResultActivity.EXTRA_SKIN_TONE, it.skintone)
+                    putExtra(ResultActivity.EXTRA_UNDERTONE, it.undertone)
+                    putExtra(ResultActivity.EXTRA_SKIN_TYPE, it.skin_type)
+                    putExtra(ResultActivity.EXTRA_DESCRIPTION, it.description)
+                }
+                startActivity(intent)
+            }
+        })
+
+        analysisViewModel.errorMessage.observe(this, Observer { message ->
+            message?.let {
+                showToast(it)
+            }
+        })
 
     }
 
-    private fun analyzeImage(imageUri: String?) {
-        if (imageUri != null) {
-            val request = ImageAnalysisRequest(imageUri)
-            val apiService = ApiConfig().getApiService()
-            apiService.analyzeImage(request).enqueue(object : Callback<ImageAnalysisResponse> {
-                override fun onResponse(call: Call<ImageAnalysisResponse>, response: Response<ImageAnalysisResponse>) {
-                    if (response.isSuccessful) {
-                        val analysisResult = response.body()
-                        val intent = Intent(this@AnalysisActivity, ResultActivity::class.java).apply {
-                            putExtra(ResultActivity.EXTRA_FACE_TYPE, analysisResult?.faceType)
-                            putExtra(ResultActivity.EXTRA_SKIN_TONE, analysisResult?.skinTone)
-                            putExtra(ResultActivity.EXTRA_DESCRIPTION, analysisResult?.description)
-                        }
-                        startActivity(intent)
-                    } else {
-                        showToast("Analysis failed. Please try again.")
-                    }
-                }
+    private fun showInputDialog(imageUri: String?) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_input_analysis, null)
+        val skinToneSpinner = dialogView.findViewById<Spinner>(R.id.spinner_skin_tone)
+        val undertoneSpinner = dialogView.findViewById<Spinner>(R.id.spinner_undertone)
+        val skinTypeSpinner = dialogView.findViewById<Spinner>(R.id.spinner_skin_type)
 
-                override fun onFailure(call: Call<ImageAnalysisResponse>, t: Throwable) {
-                    showToast("Failed to connect to the server.")
-                }
-            })
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.skin_tone_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            skinToneSpinner.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.undertone_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            undertoneSpinner.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.skin_type_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            skinTypeSpinner.adapter = adapter
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Enter Details")
+            .setView(dialogView)
+            .setPositiveButton("OK") { _, _ ->
+                val skinTone = skinToneSpinner.selectedItem.toString()
+                val undertone = undertoneSpinner.selectedItem.toString()
+                val skinType = skinTypeSpinner.selectedItem.toString()
+                analyzeImage(imageUri, skinTone, undertone, skinType)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun analyzeImage(imageUri: String?, skinTone: String, undertone: String, skinType: String) {
+        if (imageUri != null) {
+            analysisViewModel.analyzeImage(imageUri, skinTone, undertone, skinType)
         } else {
             showToast("No image selected")
         }
@@ -69,5 +110,4 @@ class AnalysisActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
 }
