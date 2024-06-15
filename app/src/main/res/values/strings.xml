@@ -23,4 +23,6 @@
         <item>combination</item>
     </string-array>
 
+    <string name="rekomendasi_produk">Rekomendasi Produk</string>
+    <string name="makeup_category">Makeup\nCategory</string>
 </resources>

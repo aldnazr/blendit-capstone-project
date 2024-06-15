@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".ui.fragments.HomeFragment">
 
@@ -21,22 +22,32 @@
             app:title="Home" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="16dp"
-        app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
-        tools:listitem="@layout/carousel_item" />
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/image_slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:iss_auto_cycle="true"
+            app:iss_delay="1000"
+            app:iss_error_image="@android:color/transparent"
+            app:iss_period="2000"
+            app:iss_placeholder="@android:color/transparent" />
+    </com.google.android.material.card.MaterialCardView>
+
 
     <TextView
         android:id="@+id/tv_product_recommendation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Product Recommendation"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/rekomendasi_produk"
+        android:textStyle="bold" />
 
 </LinearLayout>

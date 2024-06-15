@@ -18,8 +18,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "BASE_URL", "\"https://vps.danar.site/\"")
-        buildConfigField("String", "TOKEN", "${TOKEN}")
-
+//        buildConfigField("String", "TOKEN", "")
     }
 
     buildTypes {
@@ -82,4 +81,6 @@ dependencies {
     // Livedata
     implementation(libs.lifecycle.livedata)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
 }
