@@ -6,8 +6,15 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-data class ImageAnalysisRequest(val imageUri: String)
-data class ImageAnalysisResponse(val faceType: String, val skinTone: String, val description: String)
+data class ImageAnalysisRequest(
+    val imageUri: String
+)
+
+data class ImageAnalysisResponse(
+    val faceType: String,
+    val skinTone: String,
+    val description: String
+)
 
 data class User(
     val login: String,
