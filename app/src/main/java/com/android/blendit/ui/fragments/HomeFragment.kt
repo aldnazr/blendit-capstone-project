@@ -34,10 +34,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun setView() {
-        for (i in 1..5) {
-            val randomNumber = Random.nextInt(100)
-            val imageRandom = "https://picsum.photos/id/$randomNumber/600/400"
-            imageList.add(SlideModel(imageRandom,ScaleTypes.CENTER_CROP))
+        if (imageList.size == 0) {
+            for (i in 1..5) {
+                val randomNumber = Random.nextInt(100)
+                val imageRandom = "https://picsum.photos/id/$randomNumber/600/400"
+                imageList.add(SlideModel(imageRandom, ScaleTypes.CENTER_CROP))
+            }
         }
         binding.imageSlider.setImageList(imageList)
 

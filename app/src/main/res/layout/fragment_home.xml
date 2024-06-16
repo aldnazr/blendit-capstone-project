@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,6 +12,7 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,23 +24,26 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="16dp"
         app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
         app:strokeWidth="0dp">
 
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/image_slider"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             app:iss_auto_cycle="true"
             app:iss_delay="1000"
             app:iss_error_image="@android:color/transparent"
             app:iss_period="2000"
             app:iss_placeholder="@android:color/transparent" />
     </com.google.android.material.card.MaterialCardView>
-
 
     <TextView
         android:id="@+id/tv_product_recommendation"
@@ -48,6 +52,19 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/rekomendasi_produk"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView" />
 
-</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_recommendation"
+        app:spanCount="2"
+        tools:listitem="@layout/product_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
