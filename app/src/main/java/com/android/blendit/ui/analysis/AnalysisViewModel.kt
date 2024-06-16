@@ -1,6 +1,7 @@
 package com.android.blendit.ui.analysis
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +22,7 @@ class AnalysisViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun analyzeImage(imageUri: String, skinTone: String, undertone: String, skinType: String) {
+    fun analyzeImage(token: String, imageUri: String, skinTone: String, undertone: String, skinType: String) {
         viewModelScope.launch {
             try {
                 val apiService = ApiConfig.getApiService()
@@ -32,7 +33,8 @@ class AnalysisViewModel : ViewModel() {
                 val undertonePart = RequestBody.create("text/plain".toMediaTypeOrNull(), undertone)
                 val skinTypePart = RequestBody.create("text/plain".toMediaTypeOrNull(), skinType)
 
-                val response = apiService.analyst(body, skintonePart, undertonePart, skinTypePart)
+                Log.d("AnalysisViewModel", "Request Token: $token") // Logging token
+                val response = apiService.predict("Bearer $token", body, skintonePart, undertonePart, skinTypePart)
                 if (!response.error) {
                     _analysisResult.postValue(response.analystResult)
                 } else {
@@ -43,4 +45,5 @@ class AnalysisViewModel : ViewModel() {
             }
         }
     }
+
 }

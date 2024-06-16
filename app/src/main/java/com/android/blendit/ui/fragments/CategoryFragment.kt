@@ -8,9 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.blendit.R
-import com.android.blendit.data.api.ApiConfig
-import com.android.blendit.data.api.User
-import com.android.blendit.ui.adapter.CategoryAdapter
 import com.android.blendit.ui.adapter.SpacingItemDecoration
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,25 +34,7 @@ class CategoryFragment : Fragment() {
         val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing)
         recyclerView.addItemDecoration(SpacingItemDecoration(spacingInPixels))
 
-        fetchCategories()
     }
 
-    private fun fetchCategories() {
-        val client = ApiConfig().getApiService().getUserFollowers("mona")
-        client.enqueue(object : Callback<ArrayList<User>> {
-            override fun onResponse(
-                call: Call<ArrayList<User>>,
-                response: Response<ArrayList<User>>
-            ) {
-                if (response.isSuccessful) {
-                    val users = response.body() ?: emptyList()
-                    recyclerView.adapter = CategoryAdapter(users)
-                }
-            }
 
-            override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
-                // Handle error
-            }
-        })
-    }
 }

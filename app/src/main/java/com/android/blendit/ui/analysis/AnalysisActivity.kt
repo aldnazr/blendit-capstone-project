@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -12,11 +13,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.android.blendit.R
 import com.android.blendit.databinding.ActivityAnalysisBinding
+import com.android.blendit.preference.AccountPreference
 
 class AnalysisActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAnalysisBinding
     private val analysisViewModel: AnalysisViewModel by viewModels()
+    private lateinit var accountPreference: AccountPreference
+
+    private val predefinedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItRXBPY0hNbTFtSTQ9IiwiaWF0IjoxNzE4NTQxNjc5fQ.7y5qO635p8HObHbWE1HleWxhrfaX_vrq8OY2k5QT_Ks"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,8 @@ class AnalysisActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        accountPreference = AccountPreference(this)
 
         val pictureUriString = intent.getStringExtra("pictureUri")
         val pictureUri = Uri.parse(pictureUriString)
@@ -101,11 +109,19 @@ class AnalysisActivity : AppCompatActivity() {
 
     private fun analyzeImage(imageUri: String?, skinTone: String, undertone: String, skinType: String) {
         if (imageUri != null) {
-            analysisViewModel.analyzeImage(imageUri, skinTone, undertone, skinType)
+            val loginResult = accountPreference.getLoginInfo()
+            val token = loginResult.token
+            if (token != null) {
+                Log.d("AnalysisActivity", "Token: $token") // Logging token
+                analysisViewModel.analyzeImage(token, imageUri, skinTone, undertone, skinType)
+            } else {
+                showToast("Token not found")
+            }
         } else {
             showToast("No image selected")
         }
     }
+
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

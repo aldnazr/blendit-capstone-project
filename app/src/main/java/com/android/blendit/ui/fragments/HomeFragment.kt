@@ -9,7 +9,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android.blendit.databinding.FragmentHomeBinding
-import com.android.blendit.ui.recommendation.RecommendationActivity
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import kotlin.random.Random
@@ -42,10 +41,10 @@ class HomeFragment : Fragment() {
         }
         binding.imageSlider.setImageList(imageList)
 
-        binding.tvProductRecommendation.setOnClickListener {
-            val intent = Intent(context, RecommendationActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.tvProductRecommendation.setOnClickListener {
+//            val intent = Intent(context, RecommendationActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun setFullscreen() {

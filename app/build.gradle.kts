@@ -17,7 +17,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL", "\"https://vps.danar.site/\"")
+        buildConfigField("String", "BASE_URL", "\"https://capstone-blendit.et.r.appspot.com/\"")
 //        buildConfigField("String", "TOKEN", "")
     }
 
