@@ -28,6 +28,7 @@
             android:textStyle="bold" />
 
         <ImageButton
+            android:id="@+id/back"
             android:layout_width="72dp"
             android:layout_height="match_parent"
             android:backgroundTint="@color/primaryColor"
@@ -81,6 +82,44 @@
 
             <TextView
                 android:id="@+id/tv_skin_tone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif-light"
+                android:text="lorem ipsum"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/title_undertone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="Undertone :  "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_undertone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif-light"
+                android:text="lorem ipsum"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/title_skin_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="Skin Type :  "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_skin_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

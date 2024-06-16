@@ -1,4 +1,4 @@
-package com.android.blendit.adapter.data
+package com.android.blendit.data
 
 import android.graphics.drawable.Drawable
 

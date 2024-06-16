@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android.blendit.R
 import com.android.blendit.adapter.FavoriteListAdapter
-import com.android.blendit.adapter.data.ProductItem
+import com.android.blendit.data.ProductItem
 import com.android.blendit.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {

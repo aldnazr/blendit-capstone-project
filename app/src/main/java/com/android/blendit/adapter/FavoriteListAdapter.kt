@@ -3,7 +3,7 @@ package com.android.blendit.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.blendit.adapter.data.ProductItem
+import com.android.blendit.data.ProductItem
 import com.android.blendit.databinding.ProductItemBinding
 
 class FavoriteListAdapter(private val list: MutableList<ProductItem>) :
