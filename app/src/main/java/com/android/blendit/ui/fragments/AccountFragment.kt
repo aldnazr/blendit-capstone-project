@@ -45,7 +45,7 @@ class AccountFragment : Fragment() {
             binding.nameTextView.text = it.username
             binding.emailTextView.text = it.email
         }
-        binding.logoutButton.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             accountPreference.removeLoginUser()
             startActivity(
                 Intent(

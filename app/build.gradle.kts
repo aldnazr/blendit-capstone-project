@@ -31,7 +31,6 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
 
-
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -85,4 +84,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
+
+    // Paging 3
+    implementation(libs.androidx.paging.runtime.ktx)
 }
