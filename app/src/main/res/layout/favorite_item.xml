@@ -6,12 +6,13 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginTop="10dp"
+    app:cardElevation="0dp"
+    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
     app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="4dp"
         android:paddingEnd="14dp"
         tools:ignore="RtlSymmetry">
 
@@ -32,12 +33,12 @@
             android:id="@+id/productName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="Shade Natural Beige 220"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="5dp"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/brand" />
 
@@ -45,10 +46,12 @@
             android:id="@+id/imageView"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="10dp"
             android:scaleType="centerInside"
             android:src="@drawable/douyin"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
