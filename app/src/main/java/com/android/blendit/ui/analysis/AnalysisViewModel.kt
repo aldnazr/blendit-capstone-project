@@ -33,7 +33,7 @@ class AnalysisViewModel : ViewModel() {
                 val undertonePart = RequestBody.create("text/plain".toMediaTypeOrNull(), undertone)
                 val skinTypePart = RequestBody.create("text/plain".toMediaTypeOrNull(), skinType)
 
-                Log.d("AnalysisViewModel", "Request Token: $token") // Logging token
+                Log.d("AnalysisViewModel", "Request Token: $token")
                 val response = apiService.predict("Bearer $token", body, skintonePart, undertonePart, skinTypePart)
                 if (!response.error) {
                     _analysisResult.postValue(response.analystResult)

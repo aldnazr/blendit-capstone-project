@@ -112,7 +112,6 @@ class AnalysisActivity : AppCompatActivity() {
             val loginResult = accountPreference.getLoginInfo()
             val token = loginResult.token
             if (token != null) {
-                Log.d("AnalysisActivity", "Token: $token") // Logging token
                 analysisViewModel.analyzeImage(token, imageUri, skinTone, undertone, skinType)
             } else {
                 showToast("Token not found")

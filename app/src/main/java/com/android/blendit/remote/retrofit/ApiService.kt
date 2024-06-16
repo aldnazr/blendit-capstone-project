@@ -53,6 +53,8 @@ interface ApiService {
         @Part image: MultipartBody.Part,
         @Part("skintone") skintone: RequestBody,
         @Part("undertone") undertone: RequestBody,
-        @Part("skin_type") skin_type: RequestBody
+        @Part("skin_type") skin_type: RequestBody,
     ): AnalystResponse
+
+
 }
