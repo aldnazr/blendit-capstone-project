@@ -4,18 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.android.blendit.R
-import com.android.blendit.adapter.FavoriteListAdapter
-import com.android.blendit.data.ProductItem
+import androidx.fragment.app.activityViewModels
+import com.android.blendit.adapter.AdapterListFavorite
 import com.android.blendit.databinding.FragmentFavoriteBinding
+import com.android.blendit.preference.AccountPreference
+import com.android.blendit.remote.Result
+import com.android.blendit.remote.response.ItemsFavorite
+import com.android.blendit.ui.ViewModelFactory
+import com.android.blendit.ui.main.MainViewModel
 
 class FavoriteFragment : Fragment() {
 
     private lateinit var binding: FragmentFavoriteBinding
+    private val accountPreference by lazy { AccountPreference(requireActivity()) }
+    private val adapter = AdapterListFavorite()
+    private val mainViewModel by activityViewModels<MainViewModel> {
+        ViewModelFactory(
+            accountPreference
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,20 +42,28 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun setView() {
+        mainViewModel.getListFavorite().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    showLoading(true)
+                }
 
-        val list = mutableListOf<ProductItem>()
+                is Result.Error -> {
+                    showLoading(false)
+                }
 
-        for (i in 1..5) {
-            list.add(
-                ProductItem(
-                    i.toString(),
-                    i.toString(),
-                    ContextCompat.getDrawable(requireContext(), R.drawable.douyin)
-                )
-            )
+                is Result.Success -> {
+                    adapter.setList(result.data)
+                    showLoading(false)
+                }
+            }
         }
 
-        binding.recyclerView.adapter = FavoriteListAdapter(list)
+        binding.recyclerView.adapter = adapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setFullscreen() {
