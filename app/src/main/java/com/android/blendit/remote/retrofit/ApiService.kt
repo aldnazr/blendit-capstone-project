@@ -5,9 +5,11 @@ import com.android.blendit.remote.response.ResponseListFavorite
 import com.android.blendit.remote.response.ResponseListProduct
 import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
+import com.android.blendit.remote.response.ResponseUploadProfilePicture
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -44,6 +46,18 @@ interface ApiService {
     suspend fun listFavorite(
         @Header("Authorization") token: String,
         @Query("userId") userId: String
+    ): Response<ResponseListFavorite>
+
+    @Multipart
+    @POST("upload-profile-picture")
+    suspend fun uploadProfilePicture(
+        @Header("Authorization") token: String,
+        @Part profile_picture: MultipartBody.Part
+    ): Response<ResponseUploadProfilePicture>
+
+    @DELETE("delete-profile-picture")
+    suspend fun deleteProfilePict(
+        @Header("Authorization") token: String
     ): Response<ResponseListFavorite>
 
     @Multipart
