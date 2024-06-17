@@ -1,9 +1,11 @@
 package com.android.blendit.ui.analysis
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.android.blendit.databinding.ActivityResultBinding
+import com.android.blendit.ui.tutorial.TutorialActivity
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
@@ -41,7 +43,13 @@ class ResultActivity : AppCompatActivity() {
         binding.tvDescription.text = description
 
         binding.buttonResult.setOnClickListener {
-            // Navigate to tutorial or any other activity
+            val tutorialIntent = Intent(this, TutorialActivity::class.java).apply {
+                putExtra(TutorialActivity.EXTRA_FACE_TYPE, faceType)
+                putExtra(TutorialActivity.EXTRA_SKIN_TONE, skinTone)
+                putExtra(TutorialActivity.EXTRA_UNDERTONE, undertone)
+                putExtra(TutorialActivity.EXTRA_SKIN_TYPE, skinType)
+            }
+            startActivity(tutorialIntent)
         }
         binding.back.setOnClickListener {
             onBackPressed()

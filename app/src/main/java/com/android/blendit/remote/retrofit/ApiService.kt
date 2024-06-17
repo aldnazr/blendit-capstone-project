@@ -1,10 +1,13 @@
 package com.android.blendit.remote.retrofit
 
 import com.android.blendit.remote.response.AnalystResponse
+import com.android.blendit.remote.response.FavoriteResponse
+import com.android.blendit.remote.response.RecommendationResponse
 import com.android.blendit.remote.response.ResponseListFavorite
 import com.android.blendit.remote.response.ResponseListProduct
 import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
+import com.android.blendit.remote.response.TutorialResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -53,8 +56,37 @@ interface ApiService {
         @Part image: MultipartBody.Part,
         @Part("skintone") skintone: RequestBody,
         @Part("undertone") undertone: RequestBody,
-        @Part("skin_type") skin_type: RequestBody,
+        @Part("skin_type") skinType: RequestBody
     ): AnalystResponse
+
+    @GET("tutorial")
+    suspend fun getTutorial(
+        @Header("Authorization") token: String,
+        @Query("shape") shape: String,
+        @Query("skintone") skintone: String,
+        @Query("undertone") undertone: String,
+        @Query("skin_type") skinType: String
+    ): TutorialResponse
+
+    @GET("recommendation")
+    suspend fun getRecommendation(
+        @Header("Authorization") token: String,
+        @Query("skintone") skintone: String,
+        @Query("undertone") undertone: String,
+        @Query("skin_type") skinType: String
+    ): RecommendationResponse
+
+    @FormUrlEncoded
+    @POST("addfavorite")
+    suspend fun addFavorite(
+        @Header("Authorization") token: String,
+        @Field("userId") userId: String,
+        @Field("productId") productId: String
+    ): FavoriteResponse
+
+
+
+
 
 
 }
