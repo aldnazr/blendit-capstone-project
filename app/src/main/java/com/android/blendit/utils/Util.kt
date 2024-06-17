@@ -1,11 +1,11 @@
-package com.android.blendit.ui.utils
+package com.android.blendit.utils
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
 import com.android.blendit.R
@@ -17,29 +17,9 @@ import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-private const val FILENAME_FORMAT = "dd-MMM-yyyy"
-
-val timeStamp: String = SimpleDateFormat(
-    FILENAME_FORMAT,
-    Locale.US
-).format(System.currentTimeMillis())
-
-fun createFile(application: Application): File {
-    val mediaDir = application.externalMediaDirs.firstOrNull()?.let {
-        File(it, application.resources.getString(R.string.app_name)).apply { mkdirs() }
-    }
-
-    val outputDirectory = if (
-        mediaDir != null && mediaDir.exists()
-    ) mediaDir else application.filesDir
-
-    return File(outputDirectory, "$timeStamp.jpg")
-}
-
 fun uriToFile(selectedImg: Uri, context: Context): File {
     val contentResolver: ContentResolver = context.contentResolver
-    val myFile = createTempFile(context)
-
+    val myFile = createCustomTempFile(context)
     val inputStream = contentResolver.openInputStream(selectedImg) as InputStream
     val outputStream: OutputStream = FileOutputStream(myFile)
     val buf = ByteArray(1024)
@@ -51,9 +31,26 @@ fun uriToFile(selectedImg: Uri, context: Context): File {
     return myFile
 }
 
-fun createTempFile(context: Context): File {
+@SuppressLint("ConstantLocale")
+val timeStamp: String = SimpleDateFormat(
+    "dd-MM-yyyy", Locale.getDefault()
+).format(System.currentTimeMillis())
+
+fun createCustomTempFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(timeStamp, ".jpg", storageDir)
+}
+
+fun createFile(application: Application): File {
+    val mediaDir = application.externalMediaDirs.firstOrNull()?.let {
+        File(it, application.resources.getString(R.string.app_name)).apply { mkdirs() }
+    }
+
+    val outputDirectory = if (
+        mediaDir != null && mediaDir.exists()
+    ) mediaDir else application.filesDir
+
+    return File(outputDirectory, "$timeStamp.jpg")
 }
 
 fun reduceFileImage(file: File): File {
