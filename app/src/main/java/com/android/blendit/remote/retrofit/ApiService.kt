@@ -13,6 +13,7 @@ import com.android.blendit.remote.response.ResponseUploadProfilePicture
 import com.android.blendit.remote.response.TutorialResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -94,7 +95,23 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("addfavorite")
-    suspend fun addFavorite(
+    fun addFavorite(
+        @Header("Authorization") token: String,
+        @Field("userId") userId: String,
+        @Field("productId") productId: String
+    ): Call<FavoriteResponse>
+
+    @FormUrlEncoded
+    @DELETE("removefavorite")
+    fun removeFavorite(
+        @Header("Authorization") token: String,
+        @Field("userId") userId: String,
+        @Field("productId") productId: String
+    ): Call<FavoriteResponse>
+
+    @FormUrlEncoded
+    @POST("addfavorite")
+    suspend fun addFavoriteMona(
         @Header("Authorization") token: String,
         @Field("userId") userId: String,
         @Field("productId") productId: String

@@ -1,4 +1,4 @@
-package com.android.blendit.ui.recommendation
+package com.android.blendit.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

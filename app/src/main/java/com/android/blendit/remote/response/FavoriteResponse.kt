@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class FavoriteResponse (
     @field:SerializedName("error")
-    val status: String,
+    val error: Boolean,
 
     @field:SerializedName("message")
     val message: String
