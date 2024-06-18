@@ -10,6 +10,7 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.blendit.R
+import com.android.blendit.adapter.RecommendationAdapter
 import com.android.blendit.databinding.ActivityRecommendationBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.RecommendationResult

@@ -17,6 +17,7 @@ import com.android.blendit.remote.response.FavoriteResponse
 import com.android.blendit.remote.response.ItemsFavorite
 import com.android.blendit.remote.response.ItemsProduct
 import com.android.blendit.remote.response.LoginResult
+import com.android.blendit.remote.response.ResponseDeleteProfilePicture
 import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
 import com.android.blendit.remote.response.ResponseUploadProfilePicture
@@ -37,13 +38,9 @@ class Repository(private val accountPreference: AccountPreference) {
         loadLoginInfo()
     }
 
-    fun loadLoginInfo() {
+    private fun loadLoginInfo() {
         val loginResult = accountPreference.getLoginInfo()
         _loginInfo.value = loginResult
-    }
-
-    fun fetchLoginInfo(): LiveData<LoginResult> {
-        return _loginInfo
     }
 
     fun register(
@@ -107,10 +104,14 @@ class Repository(private val accountPreference: AccountPreference) {
             }
         }
 
-    suspend fun addFavorite(token: String, userId: String, productId: String): Result<FavoriteResponse> {
+    suspend fun addFavorite(productId: String): Result<FavoriteResponse> {
         return try {
-            val response = apiService.addFavorite(token, userId, productId)
-            if (response.status == "error") {
+            val response = apiService.addFavorite(
+                accountPreference.getLoginInfo().token.toString(),
+                accountPreference.getLoginInfo().userId.toString(),
+                productId
+            )
+            if (response.error) {
                 Result.Error(response.message)
             } else {
                 // Re-fetch favorite list
@@ -137,10 +138,13 @@ class Repository(private val accountPreference: AccountPreference) {
         }
     }
 
-    fun getCategoryTutorial(token: String, categoryId: String ): LiveData<Result<CategoryTutorialResponse>> = liveData {
+    fun getCategoryTutorial(
+        token: String,
+        categoryId: String
+    ): LiveData<Result<CategoryTutorialResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.getCategoryTutoril(token, categoryId)
+            val response = apiService.getCategoryTutorial(token, categoryId)
             if (response.status == "error") {
                 emit(Result.Error(response.message))
             } else {
@@ -151,14 +155,20 @@ class Repository(private val accountPreference: AccountPreference) {
         }
     }
 
-    suspend fun uploadProfilePicture(token: String, profilePicture: MultipartBody.Part): Result<ResponseUploadProfilePicture> {
-        return try {
-            val response = apiService.uploadProfilePicture(token, profilePicture)
+    fun uploadProfilePicture(
+        profilePicture: MultipartBody.Part
+    ): LiveData<Result<ResponseUploadProfilePicture>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.uploadProfilePicture(
+                accountPreference.getLoginInfo().token.toString(),
+                profilePicture
+            )
             if (response.error) {
-                Result.Error(response.message)
+                emit(Result.Error(response.message))
             } else {
                 accountPreference.setProfilePict(response.photoUrl)
-                _loginInfo.postValue(accountPreference.getLoginInfo())
+                loadLoginInfo()
                 Result.Success(response)
             }
         } catch (e: Exception) {
@@ -166,7 +176,21 @@ class Repository(private val accountPreference: AccountPreference) {
         }
     }
 
-
-
-
+    fun deleteProfilePicture(
+    ): LiveData<Result<ResponseDeleteProfilePicture>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.deleteProfilePict(
+                accountPreference.getLoginInfo().token.toString()
+            )
+            if (response.error) {
+                emit(Result.Error(response.message))
+            } else {
+                accountPreference.setProfilePict(null)
+                Result.Success(response)
+            }
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Unknown error")
+        }
+    }
 }

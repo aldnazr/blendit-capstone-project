@@ -58,7 +58,7 @@ interface ApiService {
     @POST("upload-profile-picture")
     suspend fun uploadProfilePicture(
         @Header("Authorization") token: String,
-        @Part profile_picture: MultipartBody.Part
+        @Part profilePicture: MultipartBody.Part
     ): ResponseUploadProfilePicture
 
     @DELETE("delete-profile-picture")
@@ -95,15 +95,15 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("addfavorite")
-    fun addFavorite(
+    suspend fun addFavorite(
         @Header("Authorization") token: String,
         @Field("userId") userId: String,
         @Field("productId") productId: String
-    ): Call<FavoriteResponse>
+    ): FavoriteResponse
 
     @FormUrlEncoded
     @DELETE("removefavorite")
-    fun removeFavorite(
+    suspend fun removeFavorite(
         @Header("Authorization") token: String,
         @Field("userId") userId: String,
         @Field("productId") productId: String
@@ -123,7 +123,7 @@ interface ApiService {
     ): CategoryResponse
 
     @GET("categorytutorial")
-    suspend fun getCategoryTutoril(
+    suspend fun getCategoryTutorial(
         @Header("Authorization") token: String,
         @Query("id") id: String
     ): CategoryTutorialResponse
