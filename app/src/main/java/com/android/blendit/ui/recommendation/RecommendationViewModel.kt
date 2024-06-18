@@ -45,39 +45,13 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
         }
     }
 
-    fun addFavorite(userId: String, productId: String) {
+    fun addFavorite(token: String, userId: String, productId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _favoriteResponse.postValue(com.android.blendit.remote.Result.Loading)
-            val result = repository.addFavorite(userId, productId)
+            val result = repository.addFavorite(token, userId, productId)
             _favoriteResponse.postValue(result)
         }
     }
 
 }
 
-
-//class RecommendationViewModel : ViewModel() {
-//
-//    private val _recommendationResult = MutableLiveData<List<RecommendationResult>>()
-//    val recommendationResult: LiveData<List<RecommendationResult>> = _recommendationResult
-//
-//    private val _errorMessage = MutableLiveData<String>()
-//    val errorMessage: LiveData<String> = _errorMessage
-//
-//    fun getRecommendations(token: String, skintone: String, undertone: String, skinType: String) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            try {
-//                val apiService = ApiConfig.getApiService()
-//                val response = apiService.getRecommendation(token, skintone, undertone, skinType)
-//                if (response.status == "error") {
-//                    _errorMessage.postValue("Failed to get recommendations: ${response.message}")
-//                } else {
-//                    _recommendationResult.postValue(response.recommendationResult)
-//                }
-//            } catch (e: Exception) {
-//                Log.e("RecommendationViewModel", "Exception during API call: ${e.message}", e)
-//                _errorMessage.postValue("Failed to get recommendations: ${e.message}")
-//            }
-//        }
-//    }
-//}

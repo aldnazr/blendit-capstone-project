@@ -24,6 +24,7 @@ class RecommendationAdapter(
 
     inner class ViewHolder(private val binding: RecommendationItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(recommendation: RecommendationResult) {
+            binding.brand.text = recommendation.brand
             binding.productName.text = recommendation.productName
             binding.shade.text = recommendation.shade
             Glide.with(itemView.context)

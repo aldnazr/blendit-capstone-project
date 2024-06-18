@@ -7,28 +7,38 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.blendit.R
+import com.android.blendit.databinding.CategoryItemBinding
+import com.android.blendit.remote.response.ListCategory
 
 import com.bumptech.glide.Glide
+class CategoryAdapter(
+    private val categories: List<ListCategory>,
+    private val onItemClick: (ListCategory) -> Unit
+) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-//class CategoryAdapter(private val users: List<User>) : RecyclerView.Adapter<CategoryAdapter.UserViewHolder>() {
-//
-//    class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//        val name: TextView = view.findViewById(R.id.tv_category)
-//        val photo: ImageView = view.findViewById(R.id.iv_category)
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
-//        return UserViewHolder(view)
-//    }
-//
-//    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-//        val user = users[position]
-//        holder.name.text = user.login
-//        Glide.with(holder.itemView.context)
-//            .load(user.avatarUrl)
-//            .into(holder.photo)
-//    }
-//
-//    override fun getItemCount(): Int = users.size
-//}
+    inner class ViewHolder(private val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(category: ListCategory) {
+            binding.tvCategory.text = category.category
+            Glide.with(binding.root.context)
+                .load(category.thumbnail)
+                .into(binding.ivCategory)
+
+            binding.root.setOnClickListener {
+                onItemClick(category)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(categories[position])
+    }
+
+    override fun getItemCount(): Int {
+        return categories.size
+    }
+}
