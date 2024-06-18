@@ -16,6 +16,22 @@
         tools:ignore="RtlSymmetry">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/brand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="60dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:text="Maybelline"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@id/product_name"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageView" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/product_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -24,28 +40,27 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:maxLines="2"
-            android:text="Maybelline Fit Me Foundation"
-            android:textSize="22sp"
+            android:text="Fit Me Foundation"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/shade"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageView" />
+            app:layout_constraintTop_toTopOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/product_name"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/shade"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="60dp"
-            android:ellipsize="end"
+            android:layout_marginEnd="36dp"
             android:maxLines="2"
             android:text="Shade Natural Beige 220"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/favoriteButton"
+            app:layout_constraintBottom_toTopOf="@id/shade"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/product_name" />
+            app:layout_constraintStart_toStartOf="@+id/product_name"
+            app:layout_constraintTop_toBottomOf="@id/product_name"
+            app:layout_constraintTop_toTopOf="@id/product_name" />
 
         <ImageView
             android:id="@+id/imageView"

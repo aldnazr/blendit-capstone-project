@@ -1,6 +1,8 @@
 package com.android.blendit.remote.retrofit
 
 import com.android.blendit.remote.response.AnalystResponse
+import com.android.blendit.remote.response.CategoryResponse
+import com.android.blendit.remote.response.CategoryTutorialResponse
 import com.android.blendit.remote.response.FavoriteResponse
 import com.android.blendit.remote.response.RecommendationResponse
 import com.android.blendit.remote.response.ResponseListFavorite
@@ -97,4 +99,21 @@ interface ApiService {
         @Field("userId") userId: String,
         @Field("productId") productId: String
     ): FavoriteResponse
+
+    @GET("category")
+    suspend fun getCategory(
+        @Header("Authorization") token: String
+    ): CategoryResponse
+
+    @GET("categorytutorial")
+    suspend fun getCategoryTutoril(
+        @Header("Authorization") token: String,
+        @Query("id") id: String
+    ): CategoryTutorialResponse
+
+
+
+
+
+
 }

@@ -1,14 +1,15 @@
 package com.android.blendit.ui.recommendation
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.blendit.R
 import com.android.blendit.databinding.ActivityRecommendationBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.RecommendationResult
@@ -72,8 +73,7 @@ class RecommendationActivity : AppCompatActivity() {
         })
 
         binding.buttonRecommendation.setOnClickListener {
-            val favoriteIntent = Intent(this, FavoriteFragment::class.java)
-            startActivity(favoriteIntent)
+            openFavoriteFragment()
         }
 
         // Get data from intent and call getRecommendations function
@@ -94,6 +94,13 @@ class RecommendationActivity : AppCompatActivity() {
             }.setNegativeButton("No", null).show()
     }
 
+    private fun openFavoriteFragment() {
+        supportFragmentManager.commit {
+            replace(R.id.fragment_container, FavoriteFragment())
+            addToBackStack(null)
+        }
+    }
+
     private fun addFavorite(recommendation: RecommendationResult) {
         val loginResult = accountPreference.getLoginInfo()
         val token = loginResult.token
@@ -101,7 +108,7 @@ class RecommendationActivity : AppCompatActivity() {
         val productId = recommendation.id
 
         if (token != null && userId != null && productId != null) {
-            recommendationViewModel.addFavorite(userId, productId)
+            recommendationViewModel.addFavorite(token, userId, productId)
         }
     }
 

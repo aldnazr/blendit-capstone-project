@@ -23,7 +23,13 @@
             android:name=".ui.detailitem.DetailActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.category.CategoryTutorialActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.recommendation.RecommendationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.fragments.FavoriteFragment"
             android:exported="false" />
         <activity
             android:name=".ui.tutorial.TutorialActivity"
