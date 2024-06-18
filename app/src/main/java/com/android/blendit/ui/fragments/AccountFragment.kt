@@ -121,7 +121,7 @@ class AccountFragment : Fragment() {
         if (result.resultCode == RESULT_OK) {
             val selectedImg: Uri = result.data?.data as Uri
             val photoFile = uriToFile(selectedImg, requireContext())
-            uploadProfilePict(photoFile)
+//            uploadProfilePict(photoFile)
         }
     }
 
@@ -157,55 +157,55 @@ class AccountFragment : Fragment() {
     }
     */
 
-    private fun uploadProfilePict(photoFile: File?) {
-        val image = convertImage(photoFile)
-        if (image != null) {
-            viewModel.uploadProfilePict(image).observe(viewLifecycleOwner) { result ->
-                when (result) {
-                    is Result.Loading -> {
-                        showLoading(true)
-                    }
-
-                    is Result.Error -> {
-                        showLoading(false)
-                        showAlert(
-                            "Gagal mengirim", "Harap coba kembali"
-                        ) { }
-                    }
-
-                    is Result.Success -> {
-                        accountPreference.setProfilePict(result.data.photoUrl)
-                        viewModel.loadLoginInfo()
-                        showLoading(false)
-                        showToast(result.data.message)
-                    }
-                }
-            }
-        }
-    }
+//    private fun uploadProfilePict(photoFile: File?) {
+//        val image = convertImage(photoFile)
+//        if (image != null) {
+//            viewModel.uploadProfilePict(image).observe(viewLifecycleOwner) { result ->
+//                when (result) {
+//                    is Result.Loading -> {
+//                        showLoading(true)
+//                    }
+//
+//                    is Result.Error -> {
+//                        showLoading(false)
+//                        showAlert(
+//                            "Gagal mengirim", "Harap coba kembali"
+//                        ) { }
+//                    }
+//
+//                    is Result.Success -> {
+//                        accountPreference.setProfilePict(result.data.photoUrl)
+//                        viewModel.loadLoginInfo()
+//                        showLoading(false)
+//                        showToast(result.data.message)
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun deleteProfilePict() {
-        viewModel.deleteProfilePict().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Loading -> {
-                    showLoading(true)
-                }
-
-                is Result.Error -> {
-                    showLoading(false)
-                    showAlert(
-                        "Gagal menghapus", "Harap coba kembali"
-                    ) { }
-                }
-
-                is Result.Success -> {
-                    accountPreference.setProfilePict(null)
-                    viewModel.loadLoginInfo()
-                    showLoading(false)
-                    showToast(result.data.message)
-                }
-            }
-        }
+//        viewModel.deleteProfilePict().observe(viewLifecycleOwner) { result ->
+//            when (result) {
+//                is Result.Loading -> {
+//                    showLoading(true)
+//                }
+//
+//                is Result.Error -> {
+//                    showLoading(false)
+//                    showAlert(
+//                        "Gagal menghapus", "Harap coba kembali"
+//                    ) { }
+//                }
+//
+//                is Result.Success -> {
+//                    accountPreference.setProfilePict(null)
+//                    viewModel.loadLoginInfo()
+//                    showLoading(false)
+//                    showToast(result.data.message)
+//                }
+//            }
+//        }
     }
 
     private fun showLoading(isLoading: Boolean) {

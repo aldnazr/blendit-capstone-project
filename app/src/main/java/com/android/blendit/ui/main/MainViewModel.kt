@@ -13,10 +13,11 @@ class MainViewModel(accountPreference: AccountPreference) : ViewModel() {
 
     private val repository = Repository(accountPreference)
 
-    val loadLoginInfo = repository.loginInfo
+    val loadLoginInfo = repository.loadLoginInfo()
+
+    fun loginInfo() = repository.loginInfo
 
     val favoriteList: LiveData<List<ItemsFavorite>> = repository.favoriteList
-
 
     fun getListProduct(): LiveData<PagingData<ItemsProduct>> = repository.getListProduct()
 
@@ -24,7 +25,7 @@ class MainViewModel(accountPreference: AccountPreference) : ViewModel() {
 
     fun addFavorite(token: String, userId: String, productId: String) = liveData {
 //        emit(Result.Loading)
-        val result = repository.addFavorite(token, userId, productId)
+        val result = repository.addFavorite(userId, productId)
         emit(result)
     }
 

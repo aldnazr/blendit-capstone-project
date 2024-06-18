@@ -19,8 +19,6 @@ import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
 import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.remote.retrofit.ApiService
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
 
 class Repository(private val accountPreference: AccountPreference) {
 
@@ -28,7 +26,6 @@ class Repository(private val accountPreference: AccountPreference) {
     private val _loginInfo = MutableLiveData<LoginResult>()
     val loginInfo: LiveData<LoginResult> = _loginInfo
 
-    // LiveData for updating favorites
     private val _favoriteList = MutableLiveData<List<ItemsFavorite>>()
     val favoriteList: LiveData<List<ItemsFavorite>> = _favoriteList
 
@@ -36,7 +33,7 @@ class Repository(private val accountPreference: AccountPreference) {
         loadLoginInfo()
     }
 
-    private fun loadLoginInfo() {
+    fun loadLoginInfo() {
         val loginResult = accountPreference.getLoginInfo()
         _loginInfo.value = loginResult
     }
@@ -102,9 +99,13 @@ class Repository(private val accountPreference: AccountPreference) {
             }
         }
 
-    suspend fun addFavorite(token: String, userId: String, productId: String): Result<FavoriteResponse> {
+    suspend fun addFavorite(userId: String, productId: String): Result<FavoriteResponse> {
         return try {
-            val response = apiService.addFavorite(token, userId, productId)
+            val response = apiService.addFavorite(
+                accountPreference.getLoginInfo().token.toString(),
+                userId,
+                productId
+            )
             if (response.status == "error") {
                 Result.Error(response.message)
             } else {
@@ -117,6 +118,4 @@ class Repository(private val accountPreference: AccountPreference) {
             Result.Error(e.message ?: "Unknown error")
         }
     }
-
-
 }

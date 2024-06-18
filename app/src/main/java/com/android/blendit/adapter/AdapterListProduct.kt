@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.blendit.databinding.ProductItemBinding
 import com.android.blendit.remote.response.ItemsProduct
+import com.android.blendit.ui.detailitem.DetailActivity
 import com.bumptech.glide.Glide
 
-class AdapterListProduct : PagingDataAdapter<ItemsProduct, AdapterListProduct.StoryViewHolder>(DIFF_CALLBACK) {
+class AdapterListProduct :
+    PagingDataAdapter<ItemsProduct, AdapterListProduct.StoryViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsProduct>() {
@@ -32,16 +34,14 @@ class AdapterListProduct : PagingDataAdapter<ItemsProduct, AdapterListProduct.St
                 brand.text = product.brand
                 productName.text = product.productName
 
-//                itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, DetailStoryActivity::class.java).apply {
-//                        putExtra(DetailStoryActivity.USERNAME, story.name)
-//                        putExtra(DetailStoryActivity.DESCRIPTION, story.description)
-//                        putExtra(DetailStoryActivity.PHOTO, story.photoUrl)
-//                        putExtra(DetailStoryActivity.LAT, story.lat)
-//                        putExtra(DetailStoryActivity.LON, story.lon)
-//                    }
-//                    it.context.startActivity(intent)
-//                }
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DetailActivity::class.java).apply {
+                        putExtra(DetailActivity.BRAND, product.brand)
+                        putExtra(DetailActivity.PRODUCT_NAME, product.productName)
+                        putExtra(DetailActivity.PICTURE, product.picture)
+                    }
+                    it.context.startActivity(intent)
+                }
             }
         }
     }
