@@ -3,6 +3,7 @@ package com.android.blendit.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.blendit.preference.AccountPreference
+import com.android.blendit.ui.detailitem.DetailItemViewModel
 import com.android.blendit.ui.login.LoginViewModel
 import com.android.blendit.ui.main.MainViewModel
 import com.android.blendit.ui.recommendation.RecommendationViewModel
@@ -28,6 +29,10 @@ class ViewModelFactory(
             ) as T
 
             modelClass.isAssignableFrom(RecommendationViewModel::class.java) -> RecommendationViewModel(
+                accountPreference
+            ) as T
+
+            modelClass.isAssignableFrom(DetailItemViewModel::class.java) -> DetailItemViewModel(
                 accountPreference
             ) as T
 

@@ -2,7 +2,6 @@ package com.android.blendit.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.paging.PagingData
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.ItemsFavorite
@@ -22,12 +21,4 @@ class MainViewModel(accountPreference: AccountPreference) : ViewModel() {
     fun getListProduct(): LiveData<PagingData<ItemsProduct>> = repository.getListProduct()
 
     fun getListFavorite() = repository.getListFavorite()
-
-    fun addFavorite(token: String, userId: String, productId: String) = liveData {
-//        emit(Result.Loading)
-        val result = repository.addFavorite(userId, productId)
-        emit(result)
-    }
-
-
 }

@@ -19,6 +19,9 @@ import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
 import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.remote.retrofit.ApiService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Repository(private val accountPreference: AccountPreference) {
 
@@ -99,14 +102,58 @@ class Repository(private val accountPreference: AccountPreference) {
             }
         }
 
-    suspend fun addFavorite(userId: String, productId: String): Result<FavoriteResponse> {
+    fun addFavorite(productId: String) {
+        val response = apiService.addFavorite(
+            accountPreference.getLoginInfo().token.toString(),
+            accountPreference.getLoginInfo().userId.toString(),
+            productId
+        )
+        response.enqueue(object : Callback<FavoriteResponse> {
+            override fun onResponse(
+                call: Call<FavoriteResponse>,
+                response: Response<FavoriteResponse>
+            ) {
+                if (!response.isSuccessful) {
+                    Log.e("Add Favorite", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<FavoriteResponse>, t: Throwable) {
+                Log.e("Add Favorite", t.message.toString())
+            }
+        })
+    }
+
+    fun removeFavorite(productId: String) {
+        val response = apiService.removeFavorite(
+            accountPreference.getLoginInfo().token.toString(),
+            accountPreference.getLoginInfo().userId.toString(),
+            productId
+        )
+        response.enqueue(object : Callback<FavoriteResponse> {
+            override fun onResponse(
+                call: Call<FavoriteResponse>,
+                response: Response<FavoriteResponse>
+            ) {
+                if (!response.isSuccessful) {
+                    Log.e("Remove Favorite", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<FavoriteResponse>, t: Throwable) {
+                Log.e("Remove Favorite", t.message.toString())
+            }
+        })
+    }
+
+    suspend fun addFavoriteMona(productId: String): Result<FavoriteResponse> {
         return try {
-            val response = apiService.addFavorite(
+            val response = apiService.addFavoriteMona(
                 accountPreference.getLoginInfo().token.toString(),
-                userId,
+                accountPreference.getLoginInfo().userId.toString(),
                 productId
             )
-            if (response.status == "error") {
+            if (response.error) {
                 Result.Error(response.message)
             } else {
                 // Re-fetch favorite list

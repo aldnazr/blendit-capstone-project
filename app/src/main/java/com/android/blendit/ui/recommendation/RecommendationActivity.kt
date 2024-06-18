@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.blendit.adapter.RecommendationAdapter
 import com.android.blendit.databinding.ActivityRecommendationBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.RecommendationResult
@@ -101,7 +102,7 @@ class RecommendationActivity : AppCompatActivity() {
         val productId = recommendation.id
 
         if (token != null && userId != null && productId != null) {
-            recommendationViewModel.addFavorite(userId, productId)
+            recommendationViewModel.addFavorite(productId)
         }
     }
 

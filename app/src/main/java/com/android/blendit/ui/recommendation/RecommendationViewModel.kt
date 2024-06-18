@@ -12,6 +12,7 @@ import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.viewmodel.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import com.android.blendit.remote.Result
 
 class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel() {
 
@@ -24,8 +25,8 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
     val errorMessage: LiveData<String> = _errorMessage
 
     private val _favoriteResponse =
-        MutableLiveData<com.android.blendit.remote.Result<FavoriteResponse>>()
-    val favoriteResponse: LiveData<com.android.blendit.remote.Result<FavoriteResponse>> =
+        MutableLiveData<Result<FavoriteResponse>>()
+    val favoriteResponse: LiveData<Result<FavoriteResponse>> =
         _favoriteResponse
 
     fun getRecommendations(token: String, skintone: String, undertone: String, skinType: String) {
@@ -45,10 +46,10 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
         }
     }
 
-    fun addFavorite(userId: String, productId: String) {
+    fun addFavorite(productId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _favoriteResponse.postValue(com.android.blendit.remote.Result.Loading)
-            val result = repository.addFavorite(userId, productId)
+            _favoriteResponse.postValue(Result.Loading)
+            val result = repository.addFavoriteMona(productId)
             _favoriteResponse.postValue(result)
         }
     }
