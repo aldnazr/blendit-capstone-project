@@ -1,4 +1,4 @@
-package com.android.blendit.ui
+package com.android.blendit.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
