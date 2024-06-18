@@ -1,4 +1,4 @@
-package com.android.blendit.ui
+package com.android.blendit.ui.camera
 
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -15,27 +14,22 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.android.blendit.R
 import com.android.blendit.databinding.ActivityCameraBinding
 import com.android.blendit.ui.analysis.AnalysisActivity
-import com.android.blendit.ui.utils.createFile
+import com.android.blendit.utils.createFile
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 
 class CameraActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCameraBinding
-    private lateinit var cameraExecutor: ExecutorService
 
+    private val binding by lazy { ActivityCameraBinding.inflate(layoutInflater) }
+    private lateinit var cameraExecutor: ExecutorService
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
@@ -82,7 +76,10 @@ class CameraActivity : AppCompatActivity() {
                     val savedUri = Uri.fromFile(photoFile)
                     val intent = Intent(this@CameraActivity, AnalysisActivity::class.java).apply {
                         putExtra("pictureUri", savedUri.toString())
-                        putExtra("isBackCamera", cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+                        putExtra(
+                            "isBackCamera",
+                            cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
+                        )
                     }
                     startActivity(intent)
                     finish()

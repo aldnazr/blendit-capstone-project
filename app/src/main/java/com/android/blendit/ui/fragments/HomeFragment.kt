@@ -12,7 +12,7 @@ import com.android.blendit.adapter.AdapterListProduct
 import com.android.blendit.adapter.LoadingStateAdapter
 import com.android.blendit.databinding.FragmentHomeBinding
 import com.android.blendit.preference.AccountPreference
-import com.android.blendit.ui.ViewModelFactory
+import com.android.blendit.viewmodel.ViewModelFactory
 import com.android.blendit.ui.main.MainViewModel
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel

@@ -17,6 +17,12 @@ class AccountPreference(context: Context) {
         editor.apply()
     }
 
+    fun setProfilePict(profilePicUrl: String?) {
+        val editor = preferences.edit()
+        editor.putString(PROFILEPIC, profilePicUrl)
+        editor.apply()
+    }
+
     fun getLoginInfo(): LoginResult {
         val userId = preferences.getString(USER_ID, null)
         val userName = preferences.getString(USERNAME, null)
