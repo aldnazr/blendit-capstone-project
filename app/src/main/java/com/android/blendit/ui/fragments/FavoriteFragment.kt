@@ -12,8 +12,7 @@ import com.android.blendit.adapter.AdapterListFavorite
 import com.android.blendit.databinding.FragmentFavoriteBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
-import com.android.blendit.remote.response.ItemsFavorite
-import com.android.blendit.ui.ViewModelFactory
+import com.android.blendit.viewmodel.ViewModelFactory
 import com.android.blendit.ui.main.MainViewModel
 
 class FavoriteFragment : Fragment() {

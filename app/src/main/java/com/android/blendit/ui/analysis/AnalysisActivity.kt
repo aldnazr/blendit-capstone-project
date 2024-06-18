@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -17,22 +16,16 @@ import com.android.blendit.preference.AccountPreference
 
 class AnalysisActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAnalysisBinding
+    private val binding by lazy { ActivityAnalysisBinding.inflate(layoutInflater) }
     private val analysisViewModel: AnalysisViewModel by viewModels()
-    private lateinit var accountPreference: AccountPreference
-
-    private val predefinedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItRXBPY0hNbTFtSTQ9IiwiaWF0IjoxNzE4NTQxNjc5fQ.7y5qO635p8HObHbWE1HleWxhrfaX_vrq8OY2k5QT_Ks"
-
+    private val accountPreference by lazy { AccountPreference(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAnalysisBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        accountPreference = AccountPreference(this)
 
         val pictureUriString = intent.getStringExtra("pictureUri")
         val pictureUri = Uri.parse(pictureUriString)

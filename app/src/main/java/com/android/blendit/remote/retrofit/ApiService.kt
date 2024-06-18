@@ -1,6 +1,7 @@
 package com.android.blendit.remote.retrofit
 
 import com.android.blendit.remote.response.AnalystResponse
+import com.android.blendit.remote.response.ResponseDeleteProfilePicture
 import com.android.blendit.remote.response.ResponseListFavorite
 import com.android.blendit.remote.response.ResponseListProduct
 import com.android.blendit.remote.response.ResponseLogin
@@ -58,7 +59,7 @@ interface ApiService {
     @DELETE("delete-profile-picture")
     suspend fun deleteProfilePict(
         @Header("Authorization") token: String
-    ): Response<ResponseListFavorite>
+    ): Response<ResponseDeleteProfilePicture>
 
     @Multipart
     @POST("predict")

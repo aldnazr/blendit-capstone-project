@@ -8,7 +8,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import com.android.blendit.R
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -53,17 +58,45 @@ fun createFile(application: Application): File {
     return File(outputDirectory, "$timeStamp.jpg")
 }
 
-fun reduceFileImage(file: File): File {
-    val bitmap = BitmapFactory.decodeFile(file.path)
-    var compressQuality = 100
-    var streamLength: Int
-    do {
-        val bmpStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
-        val bmpPicByteArray = bmpStream.toByteArray()
-        streamLength = bmpPicByteArray.size
-        compressQuality -= 5
-    } while (streamLength > 1000000)
-    bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
-    return file
+fun reduceFileImage(file: File?): File? {
+    val bitmap = try {
+        BitmapFactory.decodeFile(file?.path)
+    } catch (e: Exception) {
+        if (file != null) {
+            Log.e("Utils", "Failed to decode file: ${file.path}", e)
+        }
+        return null
+    }
+
+    bitmap?.let {
+        var compressQuality = 100
+        var streamLength: Int
+        do {
+            val baosPic = ByteArrayOutputStream()
+            it.compress(Bitmap.CompressFormat.JPEG, compressQuality, baosPic)
+            val bitmapData = baosPic.toByteArray()
+            streamLength = bitmapData.size
+            compressQuality -= 5
+        } while (streamLength > 1000000)
+        it.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
+        return file
+    }
+    return null
+}
+
+fun convertImage(photoFile: File?): MultipartBody.Part? {
+    val reducedFile = reduceFileImage(photoFile)
+    return reducedFile?.let { file ->
+        val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        requestImageFile.let {
+            MultipartBody.Part.createFormData(
+                "photo", file.name, it
+            )
+        }
+    }
+}
+
+fun convertImageReqBody(photoFile: File?): RequestBody? {
+    val reducedFile = reduceFileImage(photoFile)
+    return reducedFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
 }

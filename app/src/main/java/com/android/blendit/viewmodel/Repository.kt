@@ -13,10 +13,13 @@ import com.android.blendit.remote.Result
 import com.android.blendit.remote.response.ItemsFavorite
 import com.android.blendit.remote.response.ItemsProduct
 import com.android.blendit.remote.response.LoginResult
+import com.android.blendit.remote.response.ResponseDeleteProfilePicture
 import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
+import com.android.blendit.remote.response.ResponseUploadProfilePicture
 import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.remote.retrofit.ApiService
+import okhttp3.MultipartBody
 
 class Repository(private val accountPreference: AccountPreference) {
 
@@ -28,7 +31,7 @@ class Repository(private val accountPreference: AccountPreference) {
         loadLoginInfo()
     }
 
-    private fun loadLoginInfo() {
+    fun loadLoginInfo() {
         val loginResult = accountPreference.getLoginInfo()
         _loginInfo.value = loginResult
     }
@@ -91,4 +94,39 @@ class Repository(private val accountPreference: AccountPreference) {
                 emit(Result.Error(e.message ?: "Unknown error"))
             }
         }
+
+    fun uploadProfilePict(
+        imageFile: MultipartBody.Part
+    ): LiveData<Result<ResponseUploadProfilePicture>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.uploadProfilePicture(
+                accountPreference.getLoginInfo().token!!,
+                imageFile
+            )
+            response.body()?.let {
+                if (response.isSuccessful) {
+                    emit(Result.Success(it))
+                } else {
+                    Result.Error(it.message)
+                }
+            }
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun deleteProfilePict(): LiveData<Result<ResponseDeleteProfilePicture>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.deleteProfilePict(
+                accountPreference.getLoginInfo().token.toString()
+            )
+            if (response.isSuccessful) {
+                response.body()?.let { emit(Result.Success(it)) }
+            }
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
 }

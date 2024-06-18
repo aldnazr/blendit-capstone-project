@@ -79,5 +79,6 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:spanCount="2"
+        android:paddingHorizontal="10dp"
         tools:listitem="@layout/product_item" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

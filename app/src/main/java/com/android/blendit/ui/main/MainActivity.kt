@@ -14,7 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.android.blendit.R
 import com.android.blendit.databinding.ActivityMainBinding
-import com.android.blendit.ui.CameraActivity
+import com.android.blendit.ui.camera.CameraActivity
 
 class MainActivity : AppCompatActivity() {
 

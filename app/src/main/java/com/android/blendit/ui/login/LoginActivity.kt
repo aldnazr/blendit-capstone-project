@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,7 +15,7 @@ import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
 import com.android.blendit.remote.response.LoginResult
 import com.android.blendit.remote.response.ResponseLogin
-import com.android.blendit.ui.ViewModelFactory
+import com.android.blendit.viewmodel.ViewModelFactory
 import com.android.blendit.ui.main.MainActivity
 import com.android.blendit.ui.register.RegisterActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
