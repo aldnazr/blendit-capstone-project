@@ -3,19 +3,22 @@ package com.android.blendit.remote.response
 import com.google.gson.annotations.SerializedName
 
 data class AnalystResponse (
-    @field:SerializedName("analystResult")
-    val analystResult: AnalystResult,
-
-    @field:SerializedName("error")
-    val error: Boolean,
+    @field:SerializedName("status")
+    val status: String,
 
     @field:SerializedName("message")
-    val message: String
+    val message: String,
+
+    @field:SerializedName("data")
+    val analystResult: AnalystResult
 )
 
 data class AnalystResult (
-    @field:SerializedName("face_type")
-    val face_type: String? = null,
+    @field:SerializedName("id")
+    val id: String? = null,
+
+    @field:SerializedName("shape")
+    val shape: String? = null,
 
     @field:SerializedName("skintone")
     val skintone: String? = null,
@@ -24,8 +27,16 @@ data class AnalystResult (
     val undertone: String? = null,
 
     @field:SerializedName("skin_type")
-    val skin_type: String? = null,
+    val skinType: String? = null,
 
     @field:SerializedName("description")
-    val description: String? = null
+    val description: String? = null,
+
+    @field:SerializedName("confidenceScore")
+    val confidenceScore: Double? = null,
+
+    @field:SerializedName("createdAt")
+    val createdAt: String? = null
+
+
 )

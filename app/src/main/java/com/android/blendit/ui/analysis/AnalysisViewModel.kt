@@ -33,17 +33,18 @@ class AnalysisViewModel : ViewModel() {
                 val undertonePart = RequestBody.create("text/plain".toMediaTypeOrNull(), undertone)
                 val skinTypePart = RequestBody.create("text/plain".toMediaTypeOrNull(), skinType)
 
-                Log.d("AnalysisViewModel", "Request Token: $token")
-                val response = apiService.predict("Bearer $token", body, skintonePart, undertonePart, skinTypePart)
-                if (!response.error) {
+                val response = apiService.predict(token, body, skintonePart, undertonePart, skinTypePart)
+                if (response.status == "success") {
+                    Log.d("AnalysisViewModel", "Analysis successful: ${response.analystResult}")
                     _analysisResult.postValue(response.analystResult)
                 } else {
+                    Log.e("AnalysisViewModel", "Analysis error: ${response.message}")
                     _errorMessage.postValue(response.message)
                 }
             } catch (e: Exception) {
+                Log.e("AnalysisViewModel", "Failed to connect to the server: ${e.message}")
                 _errorMessage.postValue("Failed to connect to the server.")
             }
         }
     }
-
 }

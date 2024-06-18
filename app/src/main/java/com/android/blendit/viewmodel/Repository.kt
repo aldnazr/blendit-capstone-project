@@ -1,5 +1,6 @@
 package com.android.blendit.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
@@ -10,6 +11,7 @@ import androidx.paging.liveData
 import com.android.blendit.data.ProductPagingSource
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
+import com.android.blendit.remote.response.FavoriteResponse
 import com.android.blendit.remote.response.ItemsFavorite
 import com.android.blendit.remote.response.ItemsProduct
 import com.android.blendit.remote.response.LoginResult
@@ -17,12 +19,18 @@ import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
 import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.remote.retrofit.ApiService
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class Repository(private val accountPreference: AccountPreference) {
 
     private val apiService: ApiService = ApiConfig.getApiService()
     private val _loginInfo = MutableLiveData<LoginResult>()
     val loginInfo: LiveData<LoginResult> = _loginInfo
+
+    // LiveData for updating favorites
+    private val _favoriteList = MutableLiveData<List<ItemsFavorite>>()
+    val favoriteList: LiveData<List<ItemsFavorite>> = _favoriteList
 
     init {
         loadLoginInfo()
@@ -63,6 +71,8 @@ class Repository(private val accountPreference: AccountPreference) {
                 emit(Result.Error(response.message))
             } else {
                 emit(Result.Success(response))
+                // Logging token here
+                Log.d("Repository", "Login success. Token: ${response.loginResult.token}")
             }
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
@@ -91,4 +101,22 @@ class Repository(private val accountPreference: AccountPreference) {
                 emit(Result.Error(e.message ?: "Unknown error"))
             }
         }
+
+    suspend fun addFavorite(token: String, userId: String, productId: String): Result<FavoriteResponse> {
+        return try {
+            val response = apiService.addFavorite(token, userId, productId)
+            if (response.status == "error") {
+                Result.Error(response.message)
+            } else {
+                // Re-fetch favorite list
+                getListFavorite()
+                Result.Success(response)
+            }
+        } catch (e: Exception) {
+            Log.e("Repository", "Error adding favorite: ${e.message}", e)
+            Result.Error(e.message ?: "Unknown error")
+        }
+    }
+
+
 }

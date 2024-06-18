@@ -3,6 +3,7 @@ package com.android.blendit.ui.login
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -132,6 +133,9 @@ class LoginActivity : AppCompatActivity() {
             profilePic = loginResult.profilePic
         )
         accountPreference.setLoginInfo(accountLogin)
+
+        // Logging token here
+        Log.d("LoginActivity", "Saved login data. Token: ${loginResult.token}")
     }
 
     private fun navigateToMain() {
