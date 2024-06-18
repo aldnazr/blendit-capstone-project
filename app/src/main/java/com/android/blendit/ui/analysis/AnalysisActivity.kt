@@ -15,8 +15,6 @@ import com.android.blendit.R
 import com.android.blendit.databinding.ActivityAnalysisBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.AnalystResult
-import com.android.blendit.ui.tutorial.TutorialActivity
-
 
 class AnalysisActivity : AppCompatActivity() {
 

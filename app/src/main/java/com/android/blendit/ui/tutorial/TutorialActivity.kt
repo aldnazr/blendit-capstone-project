@@ -27,7 +27,6 @@ class TutorialActivity : AppCompatActivity() {
 
         accountPreference = AccountPreference(this)
 
-        // Observe tutorial result
         tutorialViewModel.tutorialResult.observe(this, Observer { tutorial ->
             tutorial?.let {
                 Log.d("TutorialActivity", "Tutorial received: $tutorial")
@@ -35,7 +34,6 @@ class TutorialActivity : AppCompatActivity() {
             }
         })
 
-        // Observe error messages
         tutorialViewModel.errorMessage.observe(this, Observer { message ->
             message?.let {
                 showToast(it)
@@ -43,7 +41,6 @@ class TutorialActivity : AppCompatActivity() {
             }
         })
 
-        // Get data from intent and call getTutorials function
         val loginResult = accountPreference.getLoginInfo()
         val token = loginResult.token
         val shape = intent.getStringExtra(EXTRA_FACE_TYPE) ?: ""
@@ -53,20 +50,17 @@ class TutorialActivity : AppCompatActivity() {
 
         tutorialViewModel.getTutorials(token.toString(), shape, skinTone, undertone, skinType)
 
-        // Set OnClickListener for button_tutorial
         binding.buttonTutorial.setOnClickListener {
             navigateToRecommendationActivity(skinTone, undertone, skinType)
         }
     }
 
     private fun updateUIWithTutorial(tutorial: TutorialResult) {
-        // Update UI elements with tutorial data
         binding.tvSkinPreparation.text = tutorial.skinPreparation ?: ""
         binding.tvBaseMakeup.text = tutorial.baseMakeup ?: ""
         binding.tvEyeMakeup.text = tutorial.eyeMakeup ?: ""
         binding.tvLipstik.text = tutorial.shadeLipstik ?: ""
 
-        // Example of loading images using Glide library
         tutorial.imageBase?.let { imageUrl ->
             loadImage(imageUrl, binding.ivBaseMakeup)
         }

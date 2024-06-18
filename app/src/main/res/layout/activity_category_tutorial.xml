@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tutorial.TutorialActivity">
+    tools:context=".ui.category.CategoryTutorialActivity">
 
     <FrameLayout
         android:id="@+id/header_title"
@@ -60,6 +60,12 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
+            <ImageView
+                android:id="@+id/iv_skin_preparation"
+                android:layout_width="219dp"
+                android:layout_height="183dp"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/douyin" />
 
             <TextView
                 android:id="@+id/tv_skin_preparation"
@@ -82,8 +88,8 @@
 
             <ImageView
                 android:id="@+id/iv_base_makeup"
-                android:layout_width="164dp"
-                android:layout_height="124dp"
+                android:layout_width="219dp"
+                android:layout_height="183dp"
                 android:layout_marginLeft="30dp"
                 android:src="@drawable/douyin" />
 
@@ -108,10 +114,11 @@
 
             <ImageView
                 android:id="@+id/iv_eye_makeup"
-                android:layout_width="164dp"
-                android:layout_height="124dp"
                 android:layout_marginLeft="30dp"
-                android:src="@drawable/douyin" />
+                android:layout_width="219dp"
+                android:layout_height="183dp"
+                android:src="@drawable/douyin"
+                />
 
             <TextView
                 android:id="@+id/tv_eye_makeup"
@@ -134,10 +141,11 @@
 
             <ImageView
                 android:id="@+id/iv_lipstik"
-                android:layout_width="164dp"
-                android:layout_height="124dp"
                 android:layout_marginLeft="30dp"
-                android:src="@drawable/douyin" />
+                android:layout_width="219dp"
+                android:layout_height="183dp"
+                android:src="@drawable/douyin"
+                />
 
             <TextView
                 android:id="@+id/tv_lipstik"
@@ -148,16 +156,6 @@
                 android:text="lorem ipsum"
                 android:textSize="20dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_tutorial"
-                android:layout_width="383dp"
-                android:layout_height="62dp"
-                android:fontFamily="sans-serif"
-                android:text="Product Recommendation For You"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp"
-                app:srcCompat="@drawable/baseline_arrow_back_24" />
 
         </LinearLayout>
 

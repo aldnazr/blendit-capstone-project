@@ -12,7 +12,6 @@ import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.viewmodel.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import com.android.blendit.remote.Result
 
 class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel() {
 
@@ -25,8 +24,8 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
     val errorMessage: LiveData<String> = _errorMessage
 
     private val _favoriteResponse =
-        MutableLiveData<Result<FavoriteResponse>>()
-    val favoriteResponse: LiveData<Result<FavoriteResponse>> =
+        MutableLiveData<com.android.blendit.remote.Result<FavoriteResponse>>()
+    val favoriteResponse: LiveData<com.android.blendit.remote.Result<FavoriteResponse>> =
         _favoriteResponse
 
     fun getRecommendations(token: String, skintone: String, undertone: String, skinType: String) {
@@ -46,39 +45,13 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
         }
     }
 
-    fun addFavorite(productId: String) {
+    fun addFavorite(token: String, userId: String, productId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _favoriteResponse.postValue(Result.Loading)
-            val result = repository.addFavoriteMona(productId)
+            _favoriteResponse.postValue(com.android.blendit.remote.Result.Loading)
+            val result = repository.addFavorite(token, userId, productId)
             _favoriteResponse.postValue(result)
         }
     }
 
 }
 
-
-//class RecommendationViewModel : ViewModel() {
-//
-//    private val _recommendationResult = MutableLiveData<List<RecommendationResult>>()
-//    val recommendationResult: LiveData<List<RecommendationResult>> = _recommendationResult
-//
-//    private val _errorMessage = MutableLiveData<String>()
-//    val errorMessage: LiveData<String> = _errorMessage
-//
-//    fun getRecommendations(token: String, skintone: String, undertone: String, skinType: String) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            try {
-//                val apiService = ApiConfig.getApiService()
-//                val response = apiService.getRecommendation(token, skintone, undertone, skinType)
-//                if (response.status == "error") {
-//                    _errorMessage.postValue("Failed to get recommendations: ${response.message}")
-//                } else {
-//                    _recommendationResult.postValue(response.recommendationResult)
-//                }
-//            } catch (e: Exception) {
-//                Log.e("RecommendationViewModel", "Exception during API call: ${e.message}", e)
-//                _errorMessage.postValue("Failed to get recommendations: ${e.message}")
-//            }
-//        }
-//    }
-//}
