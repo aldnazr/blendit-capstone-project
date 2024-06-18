@@ -56,12 +56,12 @@ interface ApiService {
     suspend fun uploadProfilePicture(
         @Header("Authorization") token: String,
         @Part profile_picture: MultipartBody.Part
-    ): Response<ResponseUploadProfilePicture>
+    ): ResponseUploadProfilePicture
 
     @DELETE("delete-profile-picture")
     suspend fun deleteProfilePict(
         @Header("Authorization") token: String
-    ): Response<ResponseListFavorite>
+    ): ResponseListFavorite
 
     @Multipart
     @POST("predict")

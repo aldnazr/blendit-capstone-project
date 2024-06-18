@@ -12,7 +12,7 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white">
+        android:background="@color/white">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="?attr/actionBarSize"
+                android:layout_marginTop="80dp"
                 android:layout_marginBottom="10dp">
 
                 <com.google.android.material.card.MaterialCardView
@@ -65,9 +65,16 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                app:layout_collapseMode="pin"
-                app:title="Home" />
+                android:background="@color/white"
+                app:layout_collapseMode="pin">
+
+                <com.google.android.material.search.SearchBar
+                    style="@style/CustomSearchBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cari produk"
+                    app:elevation="0dp" />
+            </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -76,9 +83,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:paddingHorizontal="10dp"
+        android:paddingBottom="100dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:spanCount="2"
-        android:paddingHorizontal="10dp"
         tools:listitem="@layout/product_item" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

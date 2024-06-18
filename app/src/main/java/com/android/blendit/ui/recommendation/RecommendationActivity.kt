@@ -5,29 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.android.blendit.remote.Result
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.blendit.R
 import com.android.blendit.databinding.ActivityRecommendationBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.RecommendationResult
-import com.android.blendit.remote.retrofit.ApiConfig
-import com.android.blendit.ui.ViewModelFactory
 import com.android.blendit.ui.fragments.FavoriteFragment
-import com.android.blendit.ui.login.LoginViewModel
-import com.android.blendit.ui.tutorial.TutorialActivity
-import com.android.blendit.viewmodel.Repository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Callback
-import retrofit2.Response
+import com.android.blendit.viewmodel.ViewModelFactory
+
 class RecommendationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecommendationBinding
@@ -73,9 +60,11 @@ class RecommendationActivity : AppCompatActivity() {
                 is com.android.blendit.remote.Result.Loading -> {
                     // Show loading if needed
                 }
+
                 is com.android.blendit.remote.Result.Success -> {
                     showToast("Added to favorite")
                 }
+
                 is com.android.blendit.remote.Result.Error -> {
                     showToast("Failed to add to favorite: ")
                 }
@@ -98,14 +87,11 @@ class RecommendationActivity : AppCompatActivity() {
     }
 
     private fun showFavoriteDialog(recommendation: RecommendationResult) {
-        AlertDialog.Builder(this)
-            .setTitle("Add to Favorite")
+        AlertDialog.Builder(this).setTitle("Add to Favorite")
             .setMessage("Do you want to add ${recommendation.productName} to your favorite?")
             .setPositiveButton("Yes") { _, _ ->
                 addFavorite(recommendation)
-            }
-            .setNegativeButton("No", null)
-            .show()
+            }.setNegativeButton("No", null).show()
     }
 
     private fun addFavorite(recommendation: RecommendationResult) {
@@ -115,7 +101,7 @@ class RecommendationActivity : AppCompatActivity() {
         val productId = recommendation.id
 
         if (token != null && userId != null && productId != null) {
-            recommendationViewModel.addFavorite(token, userId, productId)
+            recommendationViewModel.addFavorite(userId, productId)
         }
     }
 
