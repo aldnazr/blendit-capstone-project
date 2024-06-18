@@ -38,9 +38,14 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setFullscreen()
         setView()
+//        mainViewModel.fetchFavorites()
     }
 
     private fun setView() {
+        mainViewModel.favoriteList.observe(viewLifecycleOwner) { favorites ->
+            adapter.setList(favorites)
+            showLoading(false)
+        }
         mainViewModel.getListFavorite().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {

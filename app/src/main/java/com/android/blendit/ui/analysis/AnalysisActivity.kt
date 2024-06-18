@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -13,19 +14,26 @@ import androidx.lifecycle.Observer
 import com.android.blendit.R
 import com.android.blendit.databinding.ActivityAnalysisBinding
 import com.android.blendit.preference.AccountPreference
+import com.android.blendit.remote.response.AnalystResult
+import com.android.blendit.ui.tutorial.TutorialActivity
+
 
 class AnalysisActivity : AppCompatActivity() {
 
-    private val binding by lazy { ActivityAnalysisBinding.inflate(layoutInflater) }
+    private lateinit var binding: ActivityAnalysisBinding
     private val analysisViewModel: AnalysisViewModel by viewModels()
-    private val accountPreference by lazy { AccountPreference(this) }
+    private lateinit var accountPreference: AccountPreference
+    private var loadingDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityAnalysisBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        accountPreference = AccountPreference(this)
 
         val pictureUriString = intent.getStringExtra("pictureUri")
         val pictureUri = Uri.parse(pictureUriString)
@@ -33,25 +41,23 @@ class AnalysisActivity : AppCompatActivity() {
 
         binding.buttonAnalys.setOnClickListener { showInputDialog(pictureUriString) }
 
+
+        // Observe analysis result from ViewModel
         analysisViewModel.analysisResult.observe(this, Observer { result ->
             result?.let {
-                val intent = Intent(this, ResultActivity::class.java).apply {
-                    putExtra(ResultActivity.EXTRA_FACE_TYPE, it.face_type)
-                    putExtra(ResultActivity.EXTRA_SKIN_TONE, it.skintone)
-                    putExtra(ResultActivity.EXTRA_UNDERTONE, it.undertone)
-                    putExtra(ResultActivity.EXTRA_SKIN_TYPE, it.skin_type)
-                    putExtra(ResultActivity.EXTRA_DESCRIPTION, it.description)
-                }
-                startActivity(intent)
+                Log.d("AnalysisActivity", "Analysis result observed: $it")
+                hideLoading()
+                navigateToResultActivity(it)
             }
         })
 
+        // Observe error message from ViewModel
         analysisViewModel.errorMessage.observe(this, Observer { message ->
             message?.let {
+                hideLoading()
                 showToast(it)
             }
         })
-
     }
 
     private fun showInputDialog(imageUri: String?) {
@@ -94,6 +100,7 @@ class AnalysisActivity : AppCompatActivity() {
                 val skinTone = skinToneSpinner.selectedItem.toString()
                 val undertone = undertoneSpinner.selectedItem.toString()
                 val skinType = skinTypeSpinner.selectedItem.toString()
+                showLoading()
                 analyzeImage(imageUri, skinTone, undertone, skinType)
             }
             .setNegativeButton("Cancel", null)
@@ -107,13 +114,39 @@ class AnalysisActivity : AppCompatActivity() {
             if (token != null) {
                 analysisViewModel.analyzeImage(token, imageUri, skinTone, undertone, skinType)
             } else {
+                hideLoading()
                 showToast("Token not found")
             }
         } else {
+            hideLoading()
             showToast("No image selected")
         }
     }
 
+    private fun showLoading() {
+        val builder = AlertDialog.Builder(this)
+        builder.setView(layoutInflater.inflate(R.layout.dialog_loading, null))
+        builder.setCancelable(false)
+        loadingDialog = builder.create()
+        loadingDialog?.show()
+    }
+
+    private fun hideLoading() {
+        loadingDialog?.dismiss()
+    }
+
+    private fun navigateToResultActivity(result: AnalystResult) {
+        Log.d("AnalysisActivity", "Navigating to ResultActivity")
+        val intent = Intent(this, ResultActivity::class.java).apply {
+            putExtra(ResultActivity.EXTRA_FACE_TYPE, result.shape)
+            putExtra(ResultActivity.EXTRA_SKIN_TONE, result.skintone)
+            putExtra(ResultActivity.EXTRA_UNDERTONE, result.undertone)
+            putExtra(ResultActivity.EXTRA_SKIN_TYPE, result.skinType)
+            putExtra(ResultActivity.EXTRA_DESCRIPTION, result.description)
+        }
+        startActivity(intent)
+
+    }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

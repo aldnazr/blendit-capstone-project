@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setFullscreen()
         setView()
         setupNavHost()
+
     }
 
     private fun setupNavHost() {

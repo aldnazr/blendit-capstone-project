@@ -35,14 +35,138 @@
 
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_tutorial"
+    <ScrollView
+        android:id="@+id/sc_tutorial"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="600dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_title" />
+        app:layout_constraintTop_toBottomOf="@+id/header_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_skin_preparation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="1. Skin Preparation"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_skin_preparation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif-light"
+                android:text="lorem ipsum"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/title_base_makeup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="2. Base Makeup :  "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_base_makeup"
+                android:layout_width="164dp"
+                android:layout_height="124dp"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/douyin" />
+
+            <TextView
+                android:id="@+id/tv_base_makeup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif-light"
+                android:text="lorem ipsum"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/title_eye_makeup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="3. Eye Makeup :  "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_eye_makeup"
+                android:layout_marginLeft="30dp"
+                android:layout_width="164dp"
+                android:layout_height="124dp"
+                android:src="@drawable/douyin"
+                />
+
+            <TextView
+                android:id="@+id/tv_eye_makeup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif-light"
+                android:text="lorem ipsum"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/title_lipstik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="4. Lipstick  :  "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_lipstik"
+                android:layout_marginLeft="30dp"
+                android:layout_width="164dp"
+                android:layout_height="124dp"
+                android:src="@drawable/douyin"
+                />
+
+            <TextView
+                android:id="@+id/tv_lipstik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif-light"
+                android:text="lorem ipsum"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_tutorial"
+        android:layout_width="383dp"
+        android:layout_height="62dp"
+        android:layout_marginHorizontal="40dp"
+        android:fontFamily="sans-serif"
+        android:text="Product Recommendation For You"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sc_tutorial"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
 
 
