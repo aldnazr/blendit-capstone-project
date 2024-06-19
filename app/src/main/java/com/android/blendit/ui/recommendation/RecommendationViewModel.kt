@@ -45,10 +45,10 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
         }
     }
 
-    fun addFavorite(token: String, userId: String, productId: String) {
+    fun addFavorite(productId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _favoriteResponse.postValue(com.android.blendit.remote.Result.Loading)
-            val result = repository.addFavorite(token, userId, productId)
+            val result = repository.addFavorite(productId)
             _favoriteResponse.postValue(result)
         }
     }

@@ -45,7 +45,7 @@ class DetailActivity : AppCompatActivity() {
 //                detailViewModel.addFavorite(intentId.toString())
 //            }
 //        }
-        binding.btnFavorite.setOnClickListener { detailViewModel.addFavorite(intentId.toString()) }
+//        binding.btnFavorite.setOnClickListener { detailViewModel.addFavorite(intentId.toString()) }
     }
 
     private fun setFullScreen() {
