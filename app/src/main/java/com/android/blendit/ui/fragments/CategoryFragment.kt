@@ -11,10 +11,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.blendit.databinding.FragmentCategoryBinding
 import com.android.blendit.preference.AccountPreference
-import com.android.blendit.ui.adapter.CategoryAdapter
-import com.android.blendit.ui.category.CategoryViewModel
+import com.android.blendit.ui.activity.adapter.CategoryAdapter
+import com.android.blendit.ui.activity.category.CategoryViewModel
 import com.android.blendit.remote.Result
-import com.android.blendit.ui.category.CategoryTutorialActivity
+import com.android.blendit.ui.activity.category.CategoryTutorialActivity
 import com.android.blendit.viewmodel.ViewModelFactory
 
 class CategoryFragment : Fragment() {

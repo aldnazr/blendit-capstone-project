@@ -3,12 +3,13 @@ package com.android.blendit.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.blendit.preference.AccountPreference
-import com.android.blendit.ui.category.CategoryTutorialViewModel
-import com.android.blendit.ui.category.CategoryViewModel
-import com.android.blendit.ui.login.LoginViewModel
-import com.android.blendit.ui.main.MainViewModel
-import com.android.blendit.ui.recommendation.RecommendationViewModel
-import com.android.blendit.ui.register.RegisterViewModel
+import com.android.blendit.ui.activity.category.CategoryTutorialViewModel
+import com.android.blendit.ui.activity.category.CategoryViewModel
+import com.android.blendit.ui.activity.detailitem.DetailItemViewModel
+import com.android.blendit.ui.activity.login.LoginViewModel
+import com.android.blendit.ui.activity.main.MainViewModel
+import com.android.blendit.ui.activity.recommendation.RecommendationViewModel
+import com.android.blendit.ui.activity.register.RegisterViewModel
 
 class ViewModelFactory(
     private val accountPreference: AccountPreference
@@ -32,10 +33,16 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(RecommendationViewModel::class.java) -> RecommendationViewModel(
                 accountPreference
             ) as T
+
             modelClass.isAssignableFrom(CategoryTutorialViewModel::class.java) -> CategoryTutorialViewModel(
                 accountPreference
             ) as T
+
             modelClass.isAssignableFrom(CategoryViewModel::class.java) -> CategoryViewModel(
+                accountPreference
+            ) as T
+
+            modelClass.isAssignableFrom(DetailItemViewModel::class.java) -> DetailItemViewModel(
                 accountPreference
             ) as T
 

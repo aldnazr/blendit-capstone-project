@@ -102,12 +102,11 @@ interface ApiService {
         @Field("productId") productId: String
     ): Call<FavoriteResponse>
 
-    @FormUrlEncoded
     @DELETE("removefavorite")
     fun removeFavorite(
         @Header("Authorization") token: String,
-        @Field("userId") userId: String,
-        @Field("productId") productId: String
+        @Query("userId") userId: String,
+        @Query("productId") productId: String
     ): Call<FavoriteResponse>
 
     @GET("category")

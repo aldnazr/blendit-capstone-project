@@ -12,8 +12,8 @@ import com.android.blendit.adapter.AdapterListFavorite
 import com.android.blendit.databinding.FragmentFavoriteBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
+import com.android.blendit.ui.activity.main.MainViewModel
 import com.android.blendit.viewmodel.ViewModelFactory
-import com.android.blendit.ui.main.MainViewModel
 
 class FavoriteFragment : Fragment() {
 
@@ -38,14 +38,22 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setFullscreen()
         setView()
-//        mainViewModel.fetchFavorites()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setListFavoriteProduct()
     }
 
     private fun setView() {
-        mainViewModel.favoriteList.observe(viewLifecycleOwner) { favorites ->
-            adapter.setList(favorites)
-            showLoading(false)
+        with(binding) {
+            recyclerView.adapter = adapter
+            swipeRefresh.setOnRefreshListener { setListFavoriteProduct() }
         }
+
+    }
+
+    private fun setListFavoriteProduct() {
         mainViewModel.getListFavorite().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
@@ -57,17 +65,18 @@ class FavoriteFragment : Fragment() {
                 }
 
                 is Result.Success -> {
+                    if (result.data.isEmpty()) {
+                        binding.tvEmpty.visibility = View.VISIBLE
+                    }
                     adapter.setList(result.data)
                     showLoading(false)
                 }
             }
         }
-
-        binding.recyclerView.adapter = adapter
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.swipeRefresh.isRefreshing = isLoading
     }
 
     private fun setFullscreen() {

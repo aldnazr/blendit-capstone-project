@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.detailitem.DetailActivity">
+    tools:context=".ui.activity.detailitem.DetailActivity">
 
     <ImageView
         android:id="@+id/ivPicture"
@@ -58,13 +58,14 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvBrand"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif"
         android:text="Wardah"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvProductName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvProductName" />
 
@@ -73,6 +74,7 @@
         style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:checkable="true"
         app:icon="@drawable/bottom_nav_favorite"
         app:layout_constraintBottom_toBottomOf="@id/tvProductName"

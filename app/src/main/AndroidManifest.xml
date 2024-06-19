@@ -20,41 +20,41 @@
         android:theme="@style/Theme.Blendit"
         tools:targetApi="31">
         <activity
-            android:name=".ui.detailitem.DetailActivity"
+            android:name=".ui.activity.detailitem.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.category.CategoryTutorialActivity"
+            android:name=".ui.activity.category.CategoryTutorialActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.recommendation.RecommendationActivity"
+            android:name=".ui.activity.recommendation.RecommendationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.fragments.FavoriteFragment"
             android:exported="false" />
         <activity
-            android:name=".ui.tutorial.TutorialActivity"
+            android:name=".ui.activity.tutorial.TutorialActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.analysis.ResultActivity"
+            android:name=".ui.activity.analysis.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.analysis.AnalysisActivity"
+            android:name=".ui.activity.analysis.AnalysisActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.RegisterActivity"
+            android:name=".ui.activity.register.RegisterActivity"
             android:exported="false"
             android:theme="@style/LoginRegisterTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.camera.CameraActivity"
+            android:name=".ui.activity.camera.CameraActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.activity.login.LoginActivity"
             android:exported="false"
             android:theme="@style/LoginRegisterTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".ui.activity.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,7 +63,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.activity.main.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/MainActivityTheme" />
