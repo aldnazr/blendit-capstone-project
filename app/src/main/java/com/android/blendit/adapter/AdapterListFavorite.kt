@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.blendit.databinding.FavoriteItemBinding
+import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.ItemsFavorite
-import com.android.blendit.ui.activity.detailitem.DetailActivity
+import com.android.blendit.ui.activity.detail.DetailActivity
+import com.android.blendit.viewmodel.Repository
 import com.bumptech.glide.Glide
 
-class AdapterListFavorite() : RecyclerView.Adapter<AdapterListFavorite.ViewHolder>() {
+class AdapterListFavorite : RecyclerView.Adapter<AdapterListFavorite.ViewHolder>() {
 
     private val list = mutableListOf<ItemsFavorite>()
 
@@ -23,10 +25,23 @@ class AdapterListFavorite() : RecyclerView.Adapter<AdapterListFavorite.ViewHolde
 
     inner class ViewHolder(val binding: FavoriteItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        private val accountPreference = AccountPreference(itemView.context)
+        private val repository = Repository(accountPreference)
+
         fun setView(itemsFavorite: ItemsFavorite) {
             binding.productName.text = itemsFavorite.productName
             binding.brand.text = itemsFavorite.brand
             Glide.with(binding.root).load(itemsFavorite.picture).into(binding.imageView)
+            binding.btnFavorite.isChecked = true
+
+            binding.btnFavorite.addOnCheckedChangeListener { button, isChecked ->
+                if (isChecked) {
+                    repository.addFavorite(itemsFavorite.productId)
+                } else {
+                    repository.removeFavorite(itemsFavorite.productId)
+                }
+            }
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailActivity::class.java).apply {

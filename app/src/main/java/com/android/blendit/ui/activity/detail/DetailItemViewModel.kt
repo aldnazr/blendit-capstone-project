@@ -1,4 +1,4 @@
-package com.android.blendit.ui.activity.detailitem
+package com.android.blendit.ui.activity.detail
 
 import androidx.lifecycle.ViewModel
 import com.android.blendit.preference.AccountPreference

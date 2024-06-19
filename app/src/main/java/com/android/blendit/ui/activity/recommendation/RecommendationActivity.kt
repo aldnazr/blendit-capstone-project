@@ -15,6 +15,7 @@ import com.android.blendit.databinding.ActivityRecommendationBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.RecommendationResult
 import com.android.blendit.ui.fragments.FavoriteFragment
+import com.android.blendit.ui.recommendation.RecommendationViewModel
 import com.android.blendit.viewmodel.ViewModelFactory
 
 class RecommendationActivity : AppCompatActivity() {

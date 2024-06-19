@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.blendit.databinding.ProductItemBinding
 import com.android.blendit.remote.response.ItemsFavorite
 import com.android.blendit.remote.response.ItemsProduct
-import com.android.blendit.ui.activity.detailitem.DetailActivity
+import com.android.blendit.ui.activity.detail.DetailActivity
 import com.bumptech.glide.Glide
 
 class AdapterListProduct :

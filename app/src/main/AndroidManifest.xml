@@ -20,7 +20,7 @@
         android:theme="@style/Theme.Blendit"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity.detailitem.DetailActivity"
+            android:name=".ui.activity.detail.DetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.category.CategoryTutorialActivity"

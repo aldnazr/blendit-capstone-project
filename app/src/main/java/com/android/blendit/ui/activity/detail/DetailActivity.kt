@@ -1,4 +1,4 @@
-package com.android.blendit.ui.activity.detailitem
+package com.android.blendit.ui.activity.detail
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
