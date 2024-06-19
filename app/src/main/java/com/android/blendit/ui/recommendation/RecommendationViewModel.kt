@@ -12,6 +12,7 @@ import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.viewmodel.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import com.android.blendit.remote.Result
 
 class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel() {
 
@@ -24,7 +25,7 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
     val errorMessage: LiveData<String> = _errorMessage
 
     private val _favoriteResponse =
-        MutableLiveData<com.android.blendit.remote.Result<FavoriteResponse>>()
+        MutableLiveData<Result<FavoriteResponse>>()
     val favoriteResponse: LiveData<com.android.blendit.remote.Result<FavoriteResponse>> =
         _favoriteResponse
 
@@ -46,10 +47,26 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
     }
 
     fun addFavorite(productId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _favoriteResponse.postValue(com.android.blendit.remote.Result.Loading)
-            val result = repository.addFavorite(productId)
-            _favoriteResponse.postValue(result)
+        viewModelScope.launch {
+            _favoriteResponse.postValue(Result.Loading)
+            try {
+                repository.addFavorite(productId)
+                _favoriteResponse.postValue(Result.Success(FavoriteResponse(true, "Favorite added")))
+            } catch (e: Exception) {
+                _favoriteResponse.postValue(Result.Error(e.message ?: "Unknown error"))
+            }
+        }
+    }
+
+    fun removeFavorite(productId: String) {
+        viewModelScope.launch {
+            _favoriteResponse.postValue(Result.Loading)
+            try {
+                repository.removeFavorite(productId)
+                _favoriteResponse.postValue(Result.Success(FavoriteResponse(true, "Favorite removed")))
+            } catch (e: Exception) {
+                _favoriteResponse.postValue(Result.Error(e.message ?: "Unknown error"))
+            }
         }
     }
 

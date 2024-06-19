@@ -54,11 +54,20 @@ class CategoryTutorialActivity : AppCompatActivity() {
                 }
             }
         })
+
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
     }
     private fun loadImage(imageUrl: String, imageView: ImageView) {
         Glide.with(this)
             .load(imageUrl)
             .into(imageView)
+    }
+
+    override fun onBackPressed() {
+        // You can add any additional logic here before finishing the activity
+        super.onBackPressed()
     }
 
 }
