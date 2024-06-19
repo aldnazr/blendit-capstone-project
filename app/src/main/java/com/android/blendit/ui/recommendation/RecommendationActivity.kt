@@ -109,7 +109,7 @@ class RecommendationActivity : AppCompatActivity() {
         val productId = recommendation.id
 
         if (token != null && userId != null && productId != null) {
-            recommendationViewModel.addFavorite(token, userId, productId)
+            recommendationViewModel.addFavorite(productId)
         }
     }
 

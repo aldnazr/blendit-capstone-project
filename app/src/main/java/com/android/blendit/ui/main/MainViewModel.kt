@@ -9,7 +9,7 @@ class MainViewModel(accountPreference: AccountPreference) : ViewModel() {
 
     private val repository = Repository(accountPreference)
 
-    fun loginInfo() = repository.loginInfo
+    val loginInfo = repository.loginInfo
 
     val favoriteList = repository.favoriteList
 
@@ -22,11 +22,8 @@ class MainViewModel(accountPreference: AccountPreference) : ViewModel() {
 
     fun deleteProfilePicture() = repository.deleteProfilePicture()
 
-//    fun addFavorite(token: String, userId: String, productId: String) = liveData {
-////        emit(Result.Loading)
-//        val result = repository.addFavorite(userId, productId)
-//        emit(result)
-//    }
+    fun addFavorite(productId: String) = repository.addFavorite(productId)
 
+    fun removeFavorite(productId: String) = repository.removeFavorite(productId)
 
 }

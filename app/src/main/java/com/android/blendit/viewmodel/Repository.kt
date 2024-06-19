@@ -24,6 +24,9 @@ import com.android.blendit.remote.response.ResponseUploadProfilePicture
 import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.remote.retrofit.ApiService
 import okhttp3.MultipartBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Repository(private val accountPreference: AccountPreference) {
 
@@ -44,9 +47,7 @@ class Repository(private val accountPreference: AccountPreference) {
     }
 
     fun register(
-        name: String,
-        email: String,
-        password: String
+        name: String, email: String, password: String
     ): LiveData<Result<ResponseRegister>> = liveData {
         emit(Result.Loading)
         try {
@@ -87,41 +88,59 @@ class Repository(private val accountPreference: AccountPreference) {
         ) { ProductPagingSource(accountPreference, apiService) }.liveData
     }
 
-    fun getListFavorite(): LiveData<Result<List<ItemsFavorite>>> =
-        liveData {
-            emit(Result.Loading)
-            try {
-                val response =
-                    apiService.listFavorite(
-                        accountPreference.getLoginInfo().token.toString(),
-                        accountPreference.getLoginInfo().userId.toString()
-                    )
-                if (response.isSuccessful) {
-                    response.body()?.let { Result.Success(it.items) }?.let { emit(it) }
-                }
-            } catch (e: Exception) {
-                emit(Result.Error(e.message ?: "Unknown error"))
-            }
-        }
-
-    suspend fun addFavorite(productId: String): Result<FavoriteResponse> {
-        return try {
-            val response = apiService.addFavorite(
+    fun getListFavorite(): LiveData<Result<List<ItemsFavorite>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.listFavorite(
                 accountPreference.getLoginInfo().token.toString(),
-                accountPreference.getLoginInfo().userId.toString(),
-                productId
+                accountPreference.getLoginInfo().userId.toString()
             )
-            if (response.error) {
-                Result.Error(response.message)
-            } else {
-                // Re-fetch favorite list
-                getListFavorite()
-                Result.Success(response)
+            if (response.isSuccessful) {
+                response.body()?.let { Result.Success(it.items) }?.let { emit(it) }
             }
         } catch (e: Exception) {
-            Log.e("Repository", "Error adding favorite: ${e.message}", e)
-            Result.Error(e.message ?: "Unknown error")
+            emit(Result.Error(e.message ?: "Unknown error"))
         }
+    }
+
+    fun addFavorite(productId: String) {
+        val client = apiService.addFavorite(
+            accountPreference.getLoginInfo().token.toString(),
+            accountPreference.getLoginInfo().userId.toString(),
+            productId
+        )
+        client.enqueue(object : Callback<FavoriteResponse> {
+            override fun onResponse(p0: Call<FavoriteResponse>, p1: Response<FavoriteResponse>) {
+                if (!p1.isSuccessful) {
+                    Log.d("addFavorite", p1.message())
+                }
+            }
+
+            override fun onFailure(p0: Call<FavoriteResponse>, p1: Throwable) {
+                Log.d("addFavorite", p1.message.toString())
+            }
+
+        })
+    }
+
+    fun removeFavorite(productId: String) {
+        val client = apiService.removeFavorite(
+            accountPreference.getLoginInfo().token.toString(),
+            accountPreference.getLoginInfo().userId.toString(),
+            productId
+        )
+        client.enqueue(object : Callback<FavoriteResponse> {
+            override fun onResponse(p0: Call<FavoriteResponse>, p1: Response<FavoriteResponse>) {
+                if (!p1.isSuccessful) {
+                    Log.d("addFavorite", p1.message())
+                }
+            }
+
+            override fun onFailure(p0: Call<FavoriteResponse>, p1: Throwable) {
+                Log.d("addFavorite", p1.message.toString())
+            }
+
+        })
     }
 
     fun getCategory(token: String): LiveData<Result<CategoryResponse>> = liveData {
@@ -139,8 +158,7 @@ class Repository(private val accountPreference: AccountPreference) {
     }
 
     fun getCategoryTutorial(
-        token: String,
-        categoryId: String
+        token: String, categoryId: String
     ): LiveData<Result<CategoryTutorialResponse>> = liveData {
         emit(Result.Loading)
         try {
@@ -157,40 +175,45 @@ class Repository(private val accountPreference: AccountPreference) {
 
     fun uploadProfilePicture(
         profilePicture: MultipartBody.Part
-    ): LiveData<Result<ResponseUploadProfilePicture>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.uploadProfilePicture(
-                accountPreference.getLoginInfo().token.toString(),
-                profilePicture
-            )
-            if (response.error) {
-                emit(Result.Error(response.message))
-            } else {
-                accountPreference.setProfilePict(response.photoUrl)
-                loadLoginInfo()
-                Result.Success(response)
+    ) {
+        val client = apiService.uploadProfilePicture(
+            accountPreference.getLoginInfo().token.toString(), profilePicture
+        )
+        client.enqueue(object : Callback<ResponseUploadProfilePicture> {
+            override fun onResponse(
+                p0: Call<ResponseUploadProfilePicture>,
+                response: Response<ResponseUploadProfilePicture>
+            ) {
+                if (response.isSuccessful) {
+                    accountPreference.setProfilePict(response.body()?.photoUrl)
+                    loadLoginInfo()
+                }
             }
-        } catch (e: Exception) {
-            Result.Error(e.message ?: "Unknown error")
-        }
+
+            override fun onFailure(p0: Call<ResponseUploadProfilePicture>, p1: Throwable) {
+                Log.d("uploadProfilePicture", p1.message.toString())
+            }
+        })
     }
 
-    fun deleteProfilePicture(
-    ): LiveData<Result<ResponseDeleteProfilePicture>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.deleteProfilePict(
-                accountPreference.getLoginInfo().token.toString()
-            )
-            if (response.error) {
-                emit(Result.Error(response.message))
-            } else {
-                accountPreference.setProfilePict(null)
-                Result.Success(response)
+    fun deleteProfilePicture() {
+        val client = apiService.deleteProfilePict(
+            accountPreference.getLoginInfo().token.toString()
+        )
+        client.enqueue(object : Callback<ResponseDeleteProfilePicture> {
+            override fun onResponse(
+                p0: Call<ResponseDeleteProfilePicture>,
+                response: Response<ResponseDeleteProfilePicture>
+            ) {
+                if (response.isSuccessful) {
+                    accountPreference.setProfilePict(null)
+                    loadLoginInfo()
+                }
             }
-        } catch (e: Exception) {
-            Result.Error(e.message ?: "Unknown error")
-        }
+
+            override fun onFailure(p0: Call<ResponseDeleteProfilePicture>, p1: Throwable) {
+                Log.d("deleteProfilePicture", p1.message.toString())
+            }
+        })
     }
 }

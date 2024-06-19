@@ -5,6 +5,7 @@ import com.android.blendit.remote.response.CategoryResponse
 import com.android.blendit.remote.response.CategoryTutorialResponse
 import com.android.blendit.remote.response.FavoriteResponse
 import com.android.blendit.remote.response.RecommendationResponse
+import com.android.blendit.remote.response.ResponseDeleteProfilePicture
 import com.android.blendit.remote.response.ResponseListFavorite
 import com.android.blendit.remote.response.ResponseListProduct
 import com.android.blendit.remote.response.ResponseLogin
@@ -56,15 +57,15 @@ interface ApiService {
 
     @Multipart
     @POST("upload-profile-picture")
-    suspend fun uploadProfilePicture(
+    fun uploadProfilePicture(
         @Header("Authorization") token: String,
         @Part profilePicture: MultipartBody.Part
-    ): ResponseUploadProfilePicture
+    ): Call<ResponseUploadProfilePicture>
 
     @DELETE("delete-profile-picture")
-    suspend fun deleteProfilePict(
+    fun deleteProfilePict(
         @Header("Authorization") token: String
-    ): ResponseListFavorite
+    ): Call<ResponseDeleteProfilePicture>
 
     @Multipart
     @POST("predict")
@@ -95,27 +96,19 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("addfavorite")
-    suspend fun addFavorite(
-        @Header("Authorization") token: String,
-        @Field("userId") userId: String,
-        @Field("productId") productId: String
-    ): FavoriteResponse
-
-    @FormUrlEncoded
-    @DELETE("removefavorite")
-    suspend fun removeFavorite(
+    fun addFavorite(
         @Header("Authorization") token: String,
         @Field("userId") userId: String,
         @Field("productId") productId: String
     ): Call<FavoriteResponse>
 
     @FormUrlEncoded
-    @POST("addfavorite")
-    suspend fun addFavoriteMona(
+    @DELETE("removefavorite")
+    fun removeFavorite(
         @Header("Authorization") token: String,
         @Field("userId") userId: String,
         @Field("productId") productId: String
-    ): FavoriteResponse
+    ): Call<FavoriteResponse>
 
     @GET("category")
     suspend fun getCategory(
@@ -127,10 +120,4 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("id") id: String
     ): CategoryTutorialResponse
-
-
-
-
-
-
 }

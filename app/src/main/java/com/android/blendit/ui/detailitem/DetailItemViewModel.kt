@@ -8,7 +8,7 @@ class DetailItemViewModel(accountPreference: AccountPreference) : ViewModel() {
 
     private val repository = Repository(accountPreference)
 
-    fun addFavorite(productId: String) = repository.addFavorite(productId)
+//    fun addFavorite(productId: String) = repository.addFavorite(productId)
 
-    fun removeFavorite(productId: String) = repository.removeFavorite(productId)
+//    fun removeFavorite(productId: String) = repository.removeFavorite(productId)
 }
