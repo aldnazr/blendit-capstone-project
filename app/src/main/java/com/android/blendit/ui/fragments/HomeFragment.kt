@@ -12,8 +12,9 @@ import com.android.blendit.adapter.AdapterListProduct
 import com.android.blendit.adapter.LoadingStateAdapter
 import com.android.blendit.databinding.FragmentHomeBinding
 import com.android.blendit.preference.AccountPreference
+import com.android.blendit.remote.Result
+import com.android.blendit.ui.activity.main.MainViewModel
 import com.android.blendit.viewmodel.ViewModelFactory
-import com.android.blendit.ui.main.MainViewModel
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import kotlin.random.Random
@@ -22,7 +23,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val imageList = mutableListOf<SlideModel>()
-    val adapter = AdapterListProduct()
+    private val adapter = AdapterListProduct()
     private val accountPreference by lazy { AccountPreference(requireActivity()) }
     private val mainViewModel by activityViewModels<MainViewModel> {
         ViewModelFactory(
@@ -42,7 +43,24 @@ class HomeFragment : Fragment() {
 
         setFullscreen()
         setView()
+        fetchListFavorite()
         setAdapter()
+    }
+
+    private fun fetchListFavorite() {
+        mainViewModel.getListFavorite().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                }
+
+                is Result.Error -> {
+                }
+
+                is Result.Success -> {
+                    adapter.setList(result.data)
+                }
+            }
+        }
     }
 
     private fun setView() {
@@ -54,11 +72,6 @@ class HomeFragment : Fragment() {
             }
         }
         binding.imageSlider.setImageList(imageList)
-
-//        binding.tvProductRecommendation.setOnClickListener {
-//            val intent = Intent(context, RecommendationActivity::class.java)
-//            startActivity(intent)
-//        }
     }
 
     private fun setFullscreen() {
@@ -72,7 +85,7 @@ class HomeFragment : Fragment() {
     private fun setAdapter() {
         binding.recyclerView.adapter =
             adapter.withLoadStateFooter(LoadingStateAdapter { adapter.retry() })
-        mainViewModel.getListProduct().observe(this) {
+        mainViewModel.getListProduct().observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
         }
     }

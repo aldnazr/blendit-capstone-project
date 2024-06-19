@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.analysis.ResultActivity">
+    tools:context=".ui.activity.analysis.ResultActivity">
 
     <FrameLayout
         android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="82dp"
         android:background="@color/primaryColor"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="-4dp"
-        tools:ignore="MissingConstraints" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Analysis Result"
-            android:layout_marginLeft="150dp"
+            android:layout_marginStart="150dp"
             android:layout_marginTop="30dp"
             android:textColor="@color/white"
             android:fontFamily="sans-serif"
@@ -38,18 +39,18 @@
 
     <ScrollView
         android:id="@+id/sc_analysis"
-        android:layout_width="408dp"
-        android:layout_height="652dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/header_title"
+        app:layout_constraintBottom_toTopOf="@+id/button_result"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_title">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fillViewport="true">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/title_face_type"
@@ -59,7 +60,10 @@
                 android:fontFamily="sans-serif"
                 android:text="Face Type : "
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tv_face_type"
@@ -68,7 +72,10 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="sans-serif-light"
                 android:text="lorem ipsum"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                app:layout_constraintTop_toBottomOf="@id/title_face_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/title_skin_tone"
@@ -78,7 +85,10 @@
                 android:fontFamily="sans-serif"
                 android:text="Skin Tone :  "
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tv_face_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tv_skin_tone"
@@ -87,7 +97,10 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="sans-serif-light"
                 android:text="lorem ipsum"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                app:layout_constraintTop_toBottomOf="@id/title_skin_tone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/title_undertone"
@@ -97,7 +110,10 @@
                 android:fontFamily="sans-serif"
                 android:text="Undertone :  "
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tv_skin_tone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tv_undertone"
@@ -106,7 +122,10 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="sans-serif-light"
                 android:text="lorem ipsum"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                app:layout_constraintTop_toBottomOf="@id/title_undertone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/title_skin_type"
@@ -116,7 +135,10 @@
                 android:fontFamily="sans-serif"
                 android:text="Skin Type :  "
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tv_undertone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tv_skin_type"
@@ -125,7 +147,10 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="sans-serif-light"
                 android:text="lorem ipsum"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                app:layout_constraintTop_toBottomOf="@id/title_skin_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/title_description"
@@ -135,7 +160,10 @@
                 android:fontFamily="sans-serif"
                 android:text="Description :  "
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tv_skin_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tv_description"
@@ -144,26 +172,28 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="sans-serif-light"
                 android:text="lorem ipsum"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                app:layout_constraintTop_toBottomOf="@id/title_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_result"
-                android:layout_width="383dp"
-                android:layout_height="62dp"
-                android:fontFamily="sans-serif"
-                android:text="Go To Tutorial"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp"
-                />
-
-        </LinearLayout>
-
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_result"
+        android:layout_width="383dp"
+        android:layout_height="62dp"
+        android:fontFamily="sans-serif"
+        android:layout_marginBottom="20dp"
+        android:text="Go To Tutorial"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sc_analysis" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

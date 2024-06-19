@@ -31,11 +31,9 @@ import retrofit2.Response
 class Repository(private val accountPreference: AccountPreference) {
 
     private val apiService: ApiService = ApiConfig.getApiService()
+
     private val _loginInfo = MutableLiveData<LoginResult>()
     val loginInfo: LiveData<LoginResult> = _loginInfo
-
-    private val _favoriteList = MutableLiveData<List<ItemsFavorite>>()
-    val favoriteList: LiveData<List<ItemsFavorite>> = _favoriteList
 
     init {
         loadLoginInfo()
@@ -74,8 +72,6 @@ class Repository(private val accountPreference: AccountPreference) {
                 emit(Result.Error(response.message))
             } else {
                 emit(Result.Success(response))
-                // Logging token here
-                Log.d("Repository", "Login success. Token: ${response.loginResult.token}")
             }
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))

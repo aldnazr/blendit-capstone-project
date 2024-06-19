@@ -5,29 +5,29 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.recommendation.RecommendationActivity">
+    tools:context=".ui.activity.recommendation.RecommendationActivity">
 
     <FrameLayout
         android:id="@+id/header_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="82dp"
         android:background="@color/primaryColor"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="-4dp"
-        tools:ignore="MissingConstraints" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Recommendation"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
             android:textColor="@color/white"
             android:fontFamily="sans-serif"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <ImageButton
+            android:id="@+id/btnBack"
             android:layout_width="72dp"
             android:layout_height="match_parent"
             android:backgroundTint="@color/primaryColor"
@@ -37,9 +37,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recommendation"
-        android:layout_width="411dp"
-        android:layout_height="645dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_recommendation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_title" />
@@ -48,7 +48,7 @@
         android:id="@+id/button_recommendation"
         android:layout_width="383dp"
         android:layout_height="62dp"
-        android:layout_marginTop="584dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:text="Go To Favorite"
         android:textSize="18sp"
@@ -57,22 +57,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_title"/>
-
+        app:layout_constraintTop_toBottomOf="@id/rv_recommendation"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-    </FrameLayout>
-
-
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

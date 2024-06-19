@@ -15,8 +15,8 @@ import androidx.fragment.app.activityViewModels
 import com.android.blendit.R
 import com.android.blendit.databinding.FragmentAccountBinding
 import com.android.blendit.preference.AccountPreference
-import com.android.blendit.ui.login.LoginActivity
-import com.android.blendit.ui.main.MainViewModel
+import com.android.blendit.ui.activity.login.LoginActivity
+import com.android.blendit.ui.activity.main.MainViewModel
 import com.android.blendit.utils.convertImage
 import com.android.blendit.utils.uriToFile
 import com.android.blendit.viewmodel.ViewModelFactory

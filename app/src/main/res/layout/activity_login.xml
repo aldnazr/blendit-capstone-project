@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
     android:orientation="vertical"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.activity.login.LoginActivity">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressIndicator"
