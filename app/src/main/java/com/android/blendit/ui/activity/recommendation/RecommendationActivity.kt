@@ -85,6 +85,8 @@ class RecommendationActivity : AppCompatActivity() {
         val skinType = intent.getStringExtra(EXTRA_SKIN_TYPE) ?: ""
 
         recommendationViewModel.getRecommendations(token.toString(), skintone, undertone, skinType)
+
+        binding.btnBack.setOnClickListener { finish() }
     }
 
     private fun showFavoriteDialog(recommendation: RecommendationResult) {

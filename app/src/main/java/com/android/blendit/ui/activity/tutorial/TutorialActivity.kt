@@ -53,6 +53,8 @@ class TutorialActivity : AppCompatActivity() {
         binding.buttonTutorial.setOnClickListener {
             navigateToRecommendationActivity(skinTone, undertone, skinType)
         }
+
+        binding.btnBack.setOnClickListener { finish() }
     }
 
     private fun updateUIWithTutorial(tutorial: TutorialResult) {
