@@ -1,14 +1,12 @@
 package com.android.blendit.ui.activity.recommendation
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.blendit.remote.Result
 import com.android.blendit.R
 import com.android.blendit.adapter.RecommendationAdapter
 import com.android.blendit.databinding.ActivityRecommendationBinding
@@ -17,62 +15,59 @@ import com.android.blendit.remote.response.RecommendationResult
 import com.android.blendit.ui.fragments.FavoriteFragment
 import com.android.blendit.ui.recommendation.RecommendationViewModel
 import com.android.blendit.viewmodel.ViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class RecommendationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecommendationBinding
+    private val accountPreference by lazy { AccountPreference(this) }
     private val recommendationViewModel: RecommendationViewModel by viewModels {
         ViewModelFactory.getInstance(accountPreference)
     }
-
-    private lateinit var accountPreference: AccountPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecommendationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        accountPreference = AccountPreference(this)
-
         // Setup RecyclerView
-        binding.rvRecommendation.layoutManager = LinearLayoutManager(this)
         val adapter = RecommendationAdapter { recommendation ->
             showFavoriteDialog(recommendation)
         }
         binding.rvRecommendation.adapter = adapter
 
         // Observe recommendation results
-        recommendationViewModel.recommendationResult.observe(this, Observer { recommendations ->
+        recommendationViewModel.recommendationResult.observe(this) { recommendations ->
             recommendations?.let {
                 Log.d("RecommendationActivity", "Recommendations received: $recommendations")
                 adapter.submitList(recommendations)
             }
-        })
+        }
 
         // Observe error messages
-        recommendationViewModel.errorMessage.observe(this, Observer { message ->
+        recommendationViewModel.errorMessage.observe(this) { message ->
             message?.let {
                 showToast(it)
                 Log.e("RecommendationActivity", "Error message: $it")
             }
-        })
+        }
 
         // Observe favorite response
-        recommendationViewModel.favoriteResponse.observe(this, Observer { result ->
+        recommendationViewModel.favoriteResponse.observe(this) { result ->
             when (result) {
-                is com.android.blendit.remote.Result.Loading -> {
+                is Result.Loading -> {
                     // Show loading if needed
                 }
 
-                is com.android.blendit.remote.Result.Success -> {
+                is Result.Success -> {
                     showToast("Added to favorite")
                 }
 
-                is com.android.blendit.remote.Result.Error -> {
+                is Result.Error -> {
                     showToast("Failed to add to favorite: ")
                 }
             }
-        })
+        }
 
         binding.buttonRecommendation.setOnClickListener {
             openFavoriteFragment()
@@ -86,12 +81,11 @@ class RecommendationActivity : AppCompatActivity() {
         val skinType = intent.getStringExtra(EXTRA_SKIN_TYPE) ?: ""
 
         recommendationViewModel.getRecommendations(token.toString(), skintone, undertone, skinType)
-
-        binding.btnBack.setOnClickListener { finish() }
+        binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
     private fun showFavoriteDialog(recommendation: RecommendationResult) {
-        AlertDialog.Builder(this).setTitle("Add to Favorite")
+        MaterialAlertDialogBuilder(this).setTitle("Add to Favorite")
             .setMessage("Do you want to add ${recommendation.productName} to your favorite?")
             .setPositiveButton("Yes") { _, _ ->
                 addFavorite(recommendation)
@@ -115,7 +109,6 @@ class RecommendationActivity : AppCompatActivity() {
             recommendationViewModel.addFavorite(productId)
         }
     }
-
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
