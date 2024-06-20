@@ -8,8 +8,11 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import com.android.blendit.R
 import com.android.blendit.databinding.ActivityAnalysisBinding
@@ -31,10 +34,13 @@ class AnalysisActivity : AppCompatActivity() {
         val pictureUriString = intent.getStringExtra("pictureUri")
         val pictureUri = Uri.parse(pictureUriString)
         binding.previewImageView.setImageURI(pictureUri)
+        binding.buttonAnalysis.setOnClickListener { showInputDialog(pictureUriString) }
 
-        binding.buttonAnalys.setOnClickListener { showInputDialog(pictureUriString) }
+        observeAnalysis()
+        setFullscreen()
+    }
 
-
+    private fun observeAnalysis() {
         // Observe analysis result from ViewModel
         analysisViewModel.analysisResult.observe(this, Observer { result ->
             result?.let {
@@ -51,6 +57,15 @@ class AnalysisActivity : AppCompatActivity() {
                 showToast(it)
             }
         })
+    }
+
+    private fun setFullscreen() {
+        enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
+            insets
+        }
     }
 
     private fun showInputDialog(imageUri: String?) {
@@ -142,7 +157,6 @@ class AnalysisActivity : AppCompatActivity() {
             putExtra(ResultActivity.EXTRA_DESCRIPTION, result.description)
         }
         startActivity(intent)
-
     }
 
     private fun showToast(message: String) {

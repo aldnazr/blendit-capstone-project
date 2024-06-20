@@ -40,18 +40,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        app:layout_constraintBottom_toTopOf="@+id/button_recommendation"
+        app:layout_constraintBottom_toTopOf="@+id/btnHome"
         app:layout_constraintTop_toBottomOf="@id/appBar"
+        app:spanCount="2"
         tools:listitem="@layout/product_item" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_recommendation"
-        android:layout_width="383dp"
+        android:id="@+id/btnHome"
+        android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="sans-serif"
-        android:text="Go To Favorite"
+        android:text="Go To Home"
         android:textSize="18sp"
         android:textStyle="bold"
         app:cornerRadius="20dp"
@@ -59,14 +60,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_recommendation" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

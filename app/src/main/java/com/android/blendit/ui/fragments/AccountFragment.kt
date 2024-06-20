@@ -17,7 +17,7 @@ import com.android.blendit.databinding.FragmentAccountBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.ui.activity.login.LoginActivity
 import com.android.blendit.ui.activity.main.MainViewModel
-import com.android.blendit.utils.convertImage
+import com.android.blendit.utils.convertImageToMultipart
 import com.android.blendit.utils.uriToFile
 import com.android.blendit.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
@@ -108,7 +108,7 @@ class AccountFragment : Fragment() {
     }
 
     private fun uploadProfilePict(photoFile: File) {
-        val imageFile = convertImage(photoFile, "profile_picture") ?: return
+        val imageFile = convertImageToMultipart(photoFile, "profile_picture") ?: return
         viewModel.uploadProfilePicture(imageFile)
     }
 

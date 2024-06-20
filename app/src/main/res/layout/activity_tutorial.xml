@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -9,44 +8,42 @@
     android:background="@color/white"
     tools:context=".ui.activity.tutorial.TutorialActivity">
 
-    <FrameLayout
-        android:id="@+id/header_title"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="82dp"
+        android:layout_height="wrap_content"
         android:background="@color/primaryColor"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Makeup Tutorial"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="30dp"
-            android:textColor="@color/white"
-            android:fontFamily="sans-serif"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/white">
 
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="72dp"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/primaryColor"
-            app:srcCompat="@drawable/baseline_arrow_back_24" />
-
-    </FrameLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="sans-serif-black"
+                android:text="Makeup Tutorial"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:id="@+id/sc_tutorial"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/header_title"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/button_tutorial"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fillViewport="true">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -61,9 +58,9 @@
                 android:text="1. Skin Preparation"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_skin_preparation"
@@ -73,9 +70,9 @@
                 android:fontFamily="sans-serif-light"
                 android:text="lorem ipsum"
                 android:textSize="20dp"
-                app:layout_constraintTop_toBottomOf="@id/title_skin_preparation"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/title_skin_preparation" />
 
             <TextView
                 android:id="@+id/title_base_makeup"
@@ -86,9 +83,9 @@
                 android:text="2. Base Makeup :  "
                 android:textSize="20dp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_skin_preparation"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/tv_skin_preparation" />
 
             <ImageView
                 android:id="@+id/iv_base_makeup"
@@ -96,9 +93,9 @@
                 android:layout_height="124dp"
                 android:layout_marginStart="30dp"
                 android:src="@drawable/douyin"
-                app:layout_constraintTop_toBottomOf="@id/title_base_makeup"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/title_base_makeup" />
 
             <TextView
                 android:id="@+id/tv_base_makeup"
@@ -108,9 +105,9 @@
                 android:fontFamily="sans-serif-light"
                 android:text="lorem ipsum"
                 android:textSize="20dp"
-                app:layout_constraintTop_toBottomOf="@id/iv_base_makeup"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/iv_base_makeup" />
 
             <TextView
                 android:id="@+id/title_eye_makeup"
@@ -121,9 +118,9 @@
                 android:text="3. Eye Makeup :  "
                 android:textSize="20dp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_base_makeup"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/tv_base_makeup" />
 
             <ImageView
                 android:id="@+id/iv_eye_makeup"
@@ -131,9 +128,9 @@
                 android:layout_height="124dp"
                 android:layout_marginStart="30dp"
                 android:src="@drawable/douyin"
-                app:layout_constraintTop_toBottomOf="@id/title_eye_makeup"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/title_eye_makeup" />
 
             <TextView
                 android:id="@+id/tv_eye_makeup"
@@ -143,9 +140,9 @@
                 android:fontFamily="sans-serif-light"
                 android:text="lorem ipsum"
                 android:textSize="20dp"
-                app:layout_constraintTop_toBottomOf="@id/iv_eye_makeup"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/iv_eye_makeup" />
 
             <TextView
                 android:id="@+id/title_lipstik"
@@ -156,9 +153,9 @@
                 android:text="4. Lipstick  :  "
                 android:textSize="20dp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_eye_makeup"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/tv_eye_makeup" />
 
             <ImageView
                 android:id="@+id/iv_lipstik"
@@ -166,9 +163,9 @@
                 android:layout_height="124dp"
                 android:layout_marginStart="30dp"
                 android:src="@drawable/douyin"
-                app:layout_constraintTop_toBottomOf="@id/title_lipstik"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/title_lipstik" />
 
             <TextView
                 android:id="@+id/tv_lipstik"
@@ -178,9 +175,9 @@
                 android:fontFamily="sans-serif-light"
                 android:text="lorem ipsum"
                 android:textSize="20dp"
-                app:layout_constraintTop_toBottomOf="@id/iv_lipstik"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/iv_lipstik" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -188,9 +185,9 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_tutorial"
-        android:layout_width="383dp"
+        android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="15dp"
         android:fontFamily="sans-serif"
         android:text="Product Recommendation For You"
@@ -198,7 +195,6 @@
         android:textStyle="bold"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
