@@ -36,7 +36,7 @@ class AdapterListFavorite : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             Glide.with(binding.root).load(itemsFavorite.picture).into(binding.imageView)
             binding.btnFavorite.isChecked = true
 
-            binding.btnFavorite.addOnCheckedChangeListener { button, isChecked ->
+            binding.btnFavorite.addOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     repository.addFavorite(itemsFavorite.productId)
                 } else {
