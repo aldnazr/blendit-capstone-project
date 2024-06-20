@@ -49,7 +49,7 @@ class AdapterListFavorite : RecyclerView.Adapter<AdapterListFavorite.ViewHolder>
                     putExtra(DetailActivity.BRAND, itemsFavorite.brand)
                     putExtra(DetailActivity.PRODUCT_NAME, itemsFavorite.productName)
                     putExtra(DetailActivity.PICTURE, itemsFavorite.picture)
-                    putExtra(DetailActivity.IS_FAVORITE, true)
+                    putExtra(DetailActivity.IS_FAVORITE, binding.btnFavorite.isChecked)
                 }
                 it.context.startActivity(intent)
             }

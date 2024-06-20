@@ -18,7 +18,7 @@ data class RecommendationResponse (
 
 data class RecommendationResult (
     @field:SerializedName("id")
-    val id: String? = null,
+    val id: String,
 
     @field:SerializedName("brand")
     val brand: String? = null,

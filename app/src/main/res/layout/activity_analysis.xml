@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pink"
+    android:background="@color/black"
     tools:context=".ui.activity.analysis.AnalysisActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:title="Analysis"
-        app:titleTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Analysis"
+        app:titleTextColor="@color/black" />
 
     <ImageView
         android:id="@+id/previewImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@id/buttonAnalys"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:srcCompat="@drawable/baseline_add_photo_alternate_24"
         tools:ignore="ContentDescription" />
@@ -45,7 +40,6 @@
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/previewImageView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

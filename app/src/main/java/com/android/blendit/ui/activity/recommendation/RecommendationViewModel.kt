@@ -1,4 +1,4 @@
-package com.android.blendit.ui.recommendation
+package com.android.blendit.ui.activity.recommendation
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,17 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.blendit.preference.AccountPreference
+import com.android.blendit.remote.Result
 import com.android.blendit.remote.response.FavoriteResponse
 import com.android.blendit.remote.response.RecommendationResult
 import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.viewmodel.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import com.android.blendit.remote.Result
 
 class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel() {
 
     private val repository = Repository(accountPreference)
+
+    fun getListFavorite() = repository.getListFavorite()
 
     private val _recommendationResult = MutableLiveData<List<RecommendationResult>>()
     val recommendationResult: LiveData<List<RecommendationResult>> = _recommendationResult
@@ -24,12 +26,7 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    private val _favoriteResponse =
-        MutableLiveData<Result<FavoriteResponse>>()
-    val favoriteResponse: LiveData<com.android.blendit.remote.Result<FavoriteResponse>> =
-        _favoriteResponse
-
-    fun getRecommendations(token: String, skintone: String, undertone: String, skinType: String) {
+    fun setRecommendations(token: String, skintone: String, undertone: String, skinType: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val apiService = ApiConfig.getApiService()
@@ -45,30 +42,5 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
             }
         }
     }
-
-    fun addFavorite(productId: String) {
-        viewModelScope.launch {
-            _favoriteResponse.postValue(Result.Loading)
-            try {
-                repository.addFavorite(productId)
-                _favoriteResponse.postValue(Result.Success(FavoriteResponse(true, "Favorite added")))
-            } catch (e: Exception) {
-                _favoriteResponse.postValue(Result.Error(e.message ?: "Unknown error"))
-            }
-        }
-    }
-
-    fun removeFavorite(productId: String) {
-        viewModelScope.launch {
-            _favoriteResponse.postValue(Result.Loading)
-            try {
-                repository.removeFavorite(productId)
-                _favoriteResponse.postValue(Result.Success(FavoriteResponse(true, "Favorite removed")))
-            } catch (e: Exception) {
-                _favoriteResponse.postValue(Result.Error(e.message ?: "Unknown error"))
-            }
-        }
-    }
-
 }
 

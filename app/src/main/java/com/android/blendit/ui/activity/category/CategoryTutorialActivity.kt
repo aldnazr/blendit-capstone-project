@@ -13,28 +13,29 @@ import com.bumptech.glide.Glide
 
 class CategoryTutorialActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCategoryTutorialBinding
-    private lateinit var accountPreference: AccountPreference
+    private val binding by lazy { ActivityCategoryTutorialBinding.inflate(layoutInflater) }
+    private val accountPreference by lazy { AccountPreference(this) }
     private val tutorialViewModel: CategoryTutorialViewModel by viewModels {
         ViewModelFactory.getInstance(accountPreference)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCategoryTutorialBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        accountPreference = AccountPreference(this)
-        val loginResult = accountPreference.getLoginInfo()
-        val token = loginResult.token
-        val categoryId = intent.getStringExtra("CATEGORY_ID") ?: return
+        setTutorial()
+        binding.toolbar.setNavigationOnClickListener { finish() }
+    }
 
-        tutorialViewModel.getTutorial(token.toString(), categoryId).observe(this, { result ->
+    private fun setTutorial() {
+        val token = accountPreference.getLoginInfo().token
+        val categoryId = intent.getStringExtra("CATEGORY_ID") ?: return
+        tutorialViewModel.getTutorial(token.toString(), categoryId).observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
                     // Show loading indicator if needed
                 }
+
                 is Result.Success -> {
                     val tutorial = result.data.categoryTutorialResult
                     // Bind the data to the UI
@@ -49,25 +50,17 @@ class CategoryTutorialActivity : AppCompatActivity() {
                     loadImage(tutorial.eyeMakeupPic.toString(), binding.ivEyeMakeup)
                     loadImage(tutorial.lipsMakeupPic.toString(), binding.ivLipstik)
                 }
+
                 is Result.Error -> {
                     Toast.makeText(this, result.data, Toast.LENGTH_SHORT).show()
                 }
             }
-        })
-
-        binding.back.setOnClickListener {
-            onBackPressed()
         }
     }
+
     private fun loadImage(imageUrl: String, imageView: ImageView) {
         Glide.with(this)
             .load(imageUrl)
             .into(imageView)
     }
-
-    override fun onBackPressed() {
-        // You can add any additional logic here before finishing the activity
-        super.onBackPressed()
-    }
-
 }

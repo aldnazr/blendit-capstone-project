@@ -15,23 +15,18 @@ import com.android.blendit.R
 import com.android.blendit.databinding.ActivityAnalysisBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.AnalystResult
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AnalysisActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAnalysisBinding
+    private val binding by lazy { ActivityAnalysisBinding.inflate(layoutInflater) }
     private val analysisViewModel: AnalysisViewModel by viewModels()
-    private lateinit var accountPreference: AccountPreference
+    private val accountPreference by lazy { AccountPreference(this) }
     private var loadingDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAnalysisBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        accountPreference = AccountPreference(this)
 
         val pictureUriString = intent.getStringExtra("pictureUri")
         val pictureUri = Uri.parse(pictureUriString)
@@ -91,7 +86,7 @@ class AnalysisActivity : AppCompatActivity() {
             skinTypeSpinner.adapter = adapter
         }
 
-        AlertDialog.Builder(this)
+        MaterialAlertDialogBuilder(this)
             .setTitle("Enter Details")
             .setView(dialogView)
             .setPositiveButton("OK") { _, _ ->
@@ -105,7 +100,12 @@ class AnalysisActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun analyzeImage(imageUri: String?, skinTone: String, undertone: String, skinType: String) {
+    private fun analyzeImage(
+        imageUri: String?,
+        skinTone: String,
+        undertone: String,
+        skinType: String
+    ) {
         if (imageUri != null) {
             val loginResult = accountPreference.getLoginInfo()
             val token = loginResult.token
@@ -122,11 +122,10 @@ class AnalysisActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        val builder = AlertDialog.Builder(this)
-        builder.setView(layoutInflater.inflate(R.layout.dialog_loading, null))
-        builder.setCancelable(false)
-        loadingDialog = builder.create()
-        loadingDialog?.show()
+        MaterialAlertDialogBuilder(this).apply {
+            setView(R.layout.dialog_loading)
+            show()
+        }
     }
 
     private fun hideLoading() {
