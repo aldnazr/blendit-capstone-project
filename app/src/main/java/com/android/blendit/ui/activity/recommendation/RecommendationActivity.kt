@@ -11,11 +11,8 @@ import com.android.blendit.adapter.RecommendationAdapter
 import com.android.blendit.databinding.ActivityRecommendationBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
-import com.android.blendit.remote.response.RecommendationResult
 import com.android.blendit.ui.fragments.FavoriteFragment
-import com.android.blendit.ui.recommendation.RecommendationViewModel
 import com.android.blendit.viewmodel.ViewModelFactory
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class RecommendationActivity : AppCompatActivity() {
 
@@ -30,20 +27,22 @@ class RecommendationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // Setup RecyclerView
-        fetchListFavorite()
-        observeRecommendation()
-        getRecommendation()
+        setRecommendation()
         setView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        fetchListFavorite()
+        observeRecommendation()
+    }
     private fun setView() {
         binding.rvRecommendation.adapter = adapter
         binding.buttonRecommendation.setOnClickListener { openFavoriteFragment() }
         binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
-    private fun getRecommendation() {
+    private fun setRecommendation() {
         // Get data from intent and call getRecommendations function
         val loginResult = accountPreference.getLoginInfo()
         val token = loginResult.token
@@ -51,7 +50,7 @@ class RecommendationActivity : AppCompatActivity() {
         val undertone = intent.getStringExtra(EXTRA_UNDERTONE) ?: ""
         val skinType = intent.getStringExtra(EXTRA_SKIN_TYPE) ?: ""
 
-        recommendationViewModel.getRecommendations(token.toString(), skintone, undertone, skinType)
+        recommendationViewModel.setRecommendations(token.toString(), skintone, undertone, skinType)
     }
 
     private fun observeRecommendation() {
@@ -68,23 +67,6 @@ class RecommendationActivity : AppCompatActivity() {
             message?.let {
                 showToast(it)
                 Log.e("RecommendationActivity", "Error message: $it")
-            }
-        }
-
-        // Observe favorite response
-        recommendationViewModel.favoriteResponse.observe(this) { result ->
-            when (result) {
-                is Result.Loading -> {
-                    // Show loading if needed
-                }
-
-                is Result.Success -> {
-                    showToast("Added to favorite")
-                }
-
-                is Result.Error -> {
-                    showToast("Failed to add to favorite: ")
-                }
             }
         }
     }

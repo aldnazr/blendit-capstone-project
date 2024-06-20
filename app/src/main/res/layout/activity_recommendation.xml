@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.activity.recommendation.RecommendationActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -38,10 +39,11 @@
         android:id="@+id/rv_recommendation"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
         app:layout_constraintBottom_toTopOf="@+id/button_recommendation"
         app:layout_constraintTop_toBottomOf="@id/appBar"
-        tools:listitem="@layout/favorite_item" />
+        tools:listitem="@layout/product_item" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_recommendation"

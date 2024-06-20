@@ -9,7 +9,7 @@ import com.android.blendit.ui.activity.detail.DetailItemViewModel
 import com.android.blendit.ui.activity.login.LoginViewModel
 import com.android.blendit.ui.activity.main.MainViewModel
 import com.android.blendit.ui.activity.register.RegisterViewModel
-import com.android.blendit.ui.recommendation.RecommendationViewModel
+import com.android.blendit.ui.activity.recommendation.RecommendationViewModel
 
 class ViewModelFactory(
     private val accountPreference: AccountPreference

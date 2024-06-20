@@ -1,4 +1,4 @@
-package com.android.blendit.ui.recommendation
+package com.android.blendit.ui.activity.recommendation
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -26,12 +26,7 @@ class RecommendationViewModel(accountPreference: AccountPreference) : ViewModel(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    private val _favoriteResponse =
-        MutableLiveData<Result<FavoriteResponse>>()
-    val favoriteResponse: LiveData<Result<FavoriteResponse>> =
-        _favoriteResponse
-
-    fun getRecommendations(token: String, skintone: String, undertone: String, skinType: String) {
+    fun setRecommendations(token: String, skintone: String, undertone: String, skinType: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val apiService = ApiConfig.getApiService()
