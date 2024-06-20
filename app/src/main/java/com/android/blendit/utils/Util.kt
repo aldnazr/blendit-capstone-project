@@ -84,7 +84,7 @@ fun reduceFileImage(file: File?): File? {
     return null
 }
 
-fun convertImage(photoFile: File?, formFieldName: String): MultipartBody.Part? {
+fun convertImageToMultipart(photoFile: File?, formFieldName: String): MultipartBody.Part? {
     val reducedFile = reduceFileImage(photoFile)
     return reducedFile?.let { file ->
         val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())

@@ -16,16 +16,13 @@ import com.bumptech.glide.Glide
 
 class TutorialActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityTutorialBinding
+    private val binding by lazy { ActivityTutorialBinding.inflate(layoutInflater) }
     private val tutorialViewModel: TutorialViewModel by viewModels()
-    private lateinit var accountPreference: AccountPreference
+    private val accountPreference by lazy { AccountPreference(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTutorialBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        accountPreference = AccountPreference(this)
 
         tutorialViewModel.tutorialResult.observe(this, Observer { tutorial ->
             tutorial?.let {
@@ -54,7 +51,7 @@ class TutorialActivity : AppCompatActivity() {
             navigateToRecommendationActivity(skinTone, undertone, skinType)
         }
 
-        binding.btnBack.setOnClickListener { finish() }
+        binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
     private fun updateUIWithTutorial(tutorial: TutorialResult) {
@@ -84,7 +81,11 @@ class TutorialActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun navigateToRecommendationActivity(skinTone: String, undertone: String, skinType: String) {
+    private fun navigateToRecommendationActivity(
+        skinTone: String,
+        undertone: String,
+        skinType: String
+    ) {
         val intent = Intent(this, RecommendationActivity::class.java).apply {
             putExtra(RecommendationActivity.EXTRA_SKIN_TONE, skinTone)
             putExtra(RecommendationActivity.EXTRA_UNDERTONE, undertone)

@@ -1,5 +1,6 @@
 package com.android.blendit.ui.activity.recommendation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.android.blendit.adapter.RecommendationAdapter
 import com.android.blendit.databinding.ActivityRecommendationBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
+import com.android.blendit.ui.activity.main.MainActivity
 import com.android.blendit.ui.fragments.FavoriteFragment
 import com.android.blendit.viewmodel.ViewModelFactory
 
@@ -36,9 +38,16 @@ class RecommendationActivity : AppCompatActivity() {
         fetchListFavorite()
         observeRecommendation()
     }
+
     private fun setView() {
         binding.rvRecommendation.adapter = adapter
-        binding.buttonRecommendation.setOnClickListener { openFavoriteFragment() }
+        binding.btnHome.setOnClickListener { startActivity(
+            Intent(
+                this@RecommendationActivity,
+                MainActivity::class.java
+            )
+        )
+            finishAffinity() }
         binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
@@ -84,13 +93,6 @@ class RecommendationActivity : AppCompatActivity() {
                     adapter.setList(result.data)
                 }
             }
-        }
-    }
-
-    private fun openFavoriteFragment() {
-        supportFragmentManager.commit {
-            replace(R.id.fragment_container, FavoriteFragment())
-            addToBackStack(null)
         }
     }
 

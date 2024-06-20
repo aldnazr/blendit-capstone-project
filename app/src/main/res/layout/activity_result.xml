@@ -182,9 +182,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_result"
-        android:layout_width="383dp"
+        android:layout_width="match_parent"
         android:layout_height="62dp"
         android:fontFamily="sans-serif"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="20dp"
         android:text="Go To Tutorial"
         android:textSize="18sp"
