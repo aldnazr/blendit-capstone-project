@@ -92,7 +92,6 @@ class AdapterListFavorite : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int = list.size + 1
 
-
     abstract inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         abstract fun bindView(itemsFavorite: ItemsFavorite)
     }
