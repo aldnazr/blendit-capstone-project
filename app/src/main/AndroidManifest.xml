@@ -29,9 +29,6 @@
             android:name=".ui.activity.recommendation.RecommendationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.fragments.FavoriteFragment"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.tutorial.TutorialActivity"
             android:exported="false" />
         <activity

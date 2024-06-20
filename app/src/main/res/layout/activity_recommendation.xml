@@ -40,7 +40,8 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/button_recommendation"
-        app:layout_constraintTop_toBottomOf="@id/appBar" />
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        tools:listitem="@layout/favorite_item" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_recommendation"
@@ -57,10 +58,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_recommendation" />
 
-    <FrameLayout
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

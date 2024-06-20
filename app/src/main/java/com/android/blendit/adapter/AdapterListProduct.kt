@@ -27,6 +27,7 @@ class AdapterListProduct :
 
     inner class ViewHolder(private val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(product: ItemsProduct) {
             with(binding) {
                 Glide.with(itemView).load(product.picture).into(imageView)
@@ -39,10 +40,11 @@ class AdapterListProduct :
                         putExtra(DetailActivity.BRAND, product.brand)
                         putExtra(DetailActivity.PRODUCT_NAME, product.productName)
                         putExtra(DetailActivity.PICTURE, product.picture)
-                        for (favorite in listFavorite)
+                        for (favorite in listFavorite) {
                             if (favorite.productId == product.id) {
                                 putExtra(DetailActivity.IS_FAVORITE, true)
                             }
+                        }
                     }
                     it.context.startActivity(intent)
                 }

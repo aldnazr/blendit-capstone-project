@@ -6,11 +6,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import com.android.blendit.remote.Result
 import com.android.blendit.R
 import com.android.blendit.adapter.RecommendationAdapter
 import com.android.blendit.databinding.ActivityRecommendationBinding
 import com.android.blendit.preference.AccountPreference
+import com.android.blendit.remote.Result
 import com.android.blendit.remote.response.RecommendationResult
 import com.android.blendit.ui.fragments.FavoriteFragment
 import com.android.blendit.ui.recommendation.RecommendationViewModel
@@ -19,23 +19,42 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class RecommendationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRecommendationBinding
+    private val binding by lazy { ActivityRecommendationBinding.inflate(layoutInflater) }
     private val accountPreference by lazy { AccountPreference(this) }
+    val adapter = RecommendationAdapter()
     private val recommendationViewModel: RecommendationViewModel by viewModels {
         ViewModelFactory.getInstance(accountPreference)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRecommendationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Setup RecyclerView
-        val adapter = RecommendationAdapter { recommendation ->
-            showFavoriteDialog(recommendation)
-        }
-        binding.rvRecommendation.adapter = adapter
+        fetchListFavorite()
+        observeRecommendation()
+        getRecommendation()
+        setView()
+    }
 
+    private fun setView() {
+        binding.rvRecommendation.adapter = adapter
+        binding.buttonRecommendation.setOnClickListener { openFavoriteFragment() }
+        binding.toolbar.setNavigationOnClickListener { finish() }
+    }
+
+    private fun getRecommendation() {
+        // Get data from intent and call getRecommendations function
+        val loginResult = accountPreference.getLoginInfo()
+        val token = loginResult.token
+        val skintone = intent.getStringExtra(EXTRA_SKIN_TONE) ?: ""
+        val undertone = intent.getStringExtra(EXTRA_UNDERTONE) ?: ""
+        val skinType = intent.getStringExtra(EXTRA_SKIN_TYPE) ?: ""
+
+        recommendationViewModel.getRecommendations(token.toString(), skintone, undertone, skinType)
+    }
+
+    private fun observeRecommendation() {
         // Observe recommendation results
         recommendationViewModel.recommendationResult.observe(this) { recommendations ->
             recommendations?.let {
@@ -68,45 +87,28 @@ class RecommendationActivity : AppCompatActivity() {
                 }
             }
         }
-
-        binding.buttonRecommendation.setOnClickListener {
-            openFavoriteFragment()
-        }
-
-        // Get data from intent and call getRecommendations function
-        val loginResult = accountPreference.getLoginInfo()
-        val token = loginResult.token
-        val skintone = intent.getStringExtra(EXTRA_SKIN_TONE) ?: ""
-        val undertone = intent.getStringExtra(EXTRA_UNDERTONE) ?: ""
-        val skinType = intent.getStringExtra(EXTRA_SKIN_TYPE) ?: ""
-
-        recommendationViewModel.getRecommendations(token.toString(), skintone, undertone, skinType)
-        binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
-    private fun showFavoriteDialog(recommendation: RecommendationResult) {
-        MaterialAlertDialogBuilder(this).setTitle("Add to Favorite")
-            .setMessage("Do you want to add ${recommendation.productName} to your favorite?")
-            .setPositiveButton("Yes") { _, _ ->
-                addFavorite(recommendation)
-            }.setNegativeButton("No", null).show()
+    private fun fetchListFavorite() {
+        recommendationViewModel.getListFavorite().observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                }
+
+                is Result.Error -> {
+                }
+
+                is Result.Success -> {
+                    adapter.setList(result.data)
+                }
+            }
+        }
     }
 
     private fun openFavoriteFragment() {
         supportFragmentManager.commit {
             replace(R.id.fragment_container, FavoriteFragment())
             addToBackStack(null)
-        }
-    }
-
-    private fun addFavorite(recommendation: RecommendationResult) {
-        val loginResult = accountPreference.getLoginInfo()
-        val token = loginResult.token
-        val userId = loginResult.userId
-        val productId = recommendation.id
-
-        if (token != null && userId != null && productId != null) {
-            recommendationViewModel.addFavorite(productId)
         }
     }
 

@@ -8,19 +8,11 @@ import com.android.blendit.databinding.ActivityResultBinding
 import com.android.blendit.ui.activity.tutorial.TutorialActivity
 
 class ResultActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityResultBinding
 
-    companion object {
-        const val EXTRA_FACE_TYPE = "EXTRA_FACE_TYPE"
-        const val EXTRA_SKIN_TONE = "EXTRA_SKIN_TONE"
-        const val EXTRA_UNDERTONE = "EXTRA_UNDERTONE"
-        const val EXTRA_SKIN_TYPE = "EXTRA_SKIN_TYPE"
-        const val EXTRA_DESCRIPTION = "EXTRA_DESCRIPTION"
-    }
+    private val binding by lazy { ActivityResultBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val faceType = intent.getStringExtra(EXTRA_FACE_TYPE)
@@ -51,13 +43,14 @@ class ResultActivity : AppCompatActivity() {
             }
             startActivity(tutorialIntent)
         }
-        binding.back.setOnClickListener {
-            onBackPressed()
-        }
+        binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
-    override fun onBackPressed() {
-        // You can add any additional logic here before finishing the activity
-        super.onBackPressed()
+    companion object {
+        const val EXTRA_FACE_TYPE = "EXTRA_FACE_TYPE"
+        const val EXTRA_SKIN_TONE = "EXTRA_SKIN_TONE"
+        const val EXTRA_UNDERTONE = "EXTRA_UNDERTONE"
+        const val EXTRA_SKIN_TYPE = "EXTRA_SKIN_TYPE"
+        const val EXTRA_DESCRIPTION = "EXTRA_DESCRIPTION"
     }
 }
