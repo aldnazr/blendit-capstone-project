@@ -18,6 +18,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "BASE_URL", "\"https://capstone-blendit.et.r.appspot.com/\"")
+        buildConfigField("String", "UNSPLASH_BASE_URL", "\"https://api.unsplash.com/\"")
+        buildConfigField("String", "UNSPLASH_CLIENT_ID", "\"40UKUXlN8TA1hhnprHta1XAzOMCPlB3snN8f4LQGSC8\"")
     }
 
     buildTypes {

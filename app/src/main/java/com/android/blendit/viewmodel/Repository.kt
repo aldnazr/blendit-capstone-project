@@ -8,6 +8,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.android.blendit.BuildConfig
 import com.android.blendit.data.FindProductPagingSource
 import com.android.blendit.data.ProductPagingSource
 import com.android.blendit.preference.AccountPreference
@@ -24,6 +25,7 @@ import com.android.blendit.remote.response.ResponseFavorite
 import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
 import com.android.blendit.remote.response.ResponseUploadProfilePicture
+import com.android.blendit.remote.response.ResultsItemUnsplash
 import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.remote.retrofit.ApiService
 import okhttp3.MultipartBody
@@ -238,5 +240,19 @@ class Repository(private val accountPreference: AccountPreference) {
         return Pager(
             PagingConfig(20), null
         ) { FindProductPagingSource(query, accountPreference, apiService) }.liveData
+    }
+
+    fun getUnsplashImage(
+    ): LiveData<Result<List<ResultsItemUnsplash>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = ApiConfig.getApiServiceUnsplash()
+                .unsplashImage("make up", 5, BuildConfig.UNSPLASH_CLIENT_ID)
+            if (response.isSuccessful) {
+                emit(Result.Success(response.body()?.results!!))
+            }
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
     }
 }

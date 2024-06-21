@@ -26,4 +26,6 @@ class MainViewModel(accountPreference: AccountPreference) : ViewModel() {
 
     fun changePass(password: String) = repository.changePass(password)
 
+    fun getUnsplashImage() = repository.getUnsplashImage()
+
 }
