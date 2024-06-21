@@ -3,9 +3,11 @@ package com.android.blendit.remote.retrofit
 import com.android.blendit.remote.response.AnalystResponse
 import com.android.blendit.remote.response.CategoryResponse
 import com.android.blendit.remote.response.CategoryTutorialResponse
-import com.android.blendit.remote.response.FavoriteResponse
 import com.android.blendit.remote.response.RecommendationResponse
+import com.android.blendit.remote.response.ResponseChangePassword
 import com.android.blendit.remote.response.ResponseDeleteProfilePicture
+import com.android.blendit.remote.response.ResponseFavorite
+import com.android.blendit.remote.response.ResponseFindProduct
 import com.android.blendit.remote.response.ResponseListFavorite
 import com.android.blendit.remote.response.ResponseListProduct
 import com.android.blendit.remote.response.ResponseLogin
@@ -100,14 +102,14 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Field("userId") userId: String,
         @Field("productId") productId: String
-    ): Call<FavoriteResponse>
+    ): Call<ResponseFavorite>
 
     @DELETE("removefavorite")
     fun removeFavorite(
         @Header("Authorization") token: String,
         @Query("userId") userId: String,
         @Query("productId") productId: String
-    ): Call<FavoriteResponse>
+    ): Call<ResponseFavorite>
 
     @GET("category")
     suspend fun getCategory(
@@ -119,4 +121,20 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("id") id: String
     ): CategoryTutorialResponse
+
+    @FormUrlEncoded
+    @POST("changepassword")
+    suspend fun changePass(
+        @Header("Authorization") token: String,
+        @Field("userId") userId: String,
+        @Field("password") password: String
+    ): Response<ResponseChangePassword>
+
+    @GET("findproduct")
+    suspend fun findProduct(
+        @Header("Authorization") token: String,
+        @Query("find") query: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Response<ResponseFindProduct>
 }

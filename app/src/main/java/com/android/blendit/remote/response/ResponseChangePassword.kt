@@ -2,7 +2,7 @@ package com.android.blendit.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class FavoriteResponse (
+data class ResponseChangePassword (
     @field:SerializedName("error")
     val error: Boolean,
 

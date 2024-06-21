@@ -6,8 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.blendit.preference.AccountPreference
-import com.android.blendit.remote.Result
-import com.android.blendit.remote.response.FavoriteResponse
 import com.android.blendit.remote.response.RecommendationResult
 import com.android.blendit.remote.retrofit.ApiConfig
 import com.android.blendit.viewmodel.Repository

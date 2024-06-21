@@ -8,16 +8,19 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.android.blendit.data.FindProductPagingSource
 import com.android.blendit.data.ProductPagingSource
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
 import com.android.blendit.remote.response.CategoryResponse
 import com.android.blendit.remote.response.CategoryTutorialResponse
-import com.android.blendit.remote.response.FavoriteResponse
+import com.android.blendit.remote.response.FindItems
 import com.android.blendit.remote.response.ItemsFavorite
 import com.android.blendit.remote.response.ItemsProduct
 import com.android.blendit.remote.response.LoginResult
+import com.android.blendit.remote.response.ResponseChangePassword
 import com.android.blendit.remote.response.ResponseDeleteProfilePicture
+import com.android.blendit.remote.response.ResponseFavorite
 import com.android.blendit.remote.response.ResponseLogin
 import com.android.blendit.remote.response.ResponseRegister
 import com.android.blendit.remote.response.ResponseUploadProfilePicture
@@ -80,7 +83,7 @@ class Repository(private val accountPreference: AccountPreference) {
 
     fun getListProduct(): LiveData<PagingData<ItemsProduct>> {
         return Pager(
-            PagingConfig(5), null
+            PagingConfig(20), null
         ) { ProductPagingSource(accountPreference, apiService) }.liveData
     }
 
@@ -105,18 +108,36 @@ class Repository(private val accountPreference: AccountPreference) {
             accountPreference.getLoginInfo().userId.toString(),
             productId
         )
-        client.enqueue(object : Callback<FavoriteResponse> {
-            override fun onResponse(p0: Call<FavoriteResponse>, p1: Response<FavoriteResponse>) {
+        client.enqueue(object : Callback<ResponseFavorite> {
+            override fun onResponse(p0: Call<ResponseFavorite>, p1: Response<ResponseFavorite>) {
                 if (!p1.isSuccessful) {
                     Log.d("addFavorite", p1.message())
                 }
             }
 
-            override fun onFailure(p0: Call<FavoriteResponse>, p1: Throwable) {
+            override fun onFailure(p0: Call<ResponseFavorite>, p1: Throwable) {
                 Log.d("addFavorite", p1.message.toString())
             }
 
         })
+    }
+
+    fun changePass(password: String): LiveData<Result<ResponseChangePassword>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.changePass(
+                accountPreference.getLoginInfo().token.toString(),
+                accountPreference.getLoginInfo().userId.toString(),
+                password
+            )
+            if (response.isSuccessful) {
+                emit(Result.Success(response.body()!!))
+            } else {
+                emit(Result.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Result.Error(e.message ?: "Unknown error"))
+        }
     }
 
     fun removeFavorite(productId: String) {
@@ -125,14 +146,14 @@ class Repository(private val accountPreference: AccountPreference) {
             accountPreference.getLoginInfo().userId.toString(),
             productId
         )
-        client.enqueue(object : Callback<FavoriteResponse> {
-            override fun onResponse(p0: Call<FavoriteResponse>, p1: Response<FavoriteResponse>) {
+        client.enqueue(object : Callback<ResponseFavorite> {
+            override fun onResponse(p0: Call<ResponseFavorite>, p1: Response<ResponseFavorite>) {
                 if (!p1.isSuccessful) {
                     Log.d("addFavorite", p1.message())
                 }
             }
 
-            override fun onFailure(p0: Call<FavoriteResponse>, p1: Throwable) {
+            override fun onFailure(p0: Call<ResponseFavorite>, p1: Throwable) {
                 Log.d("addFavorite", p1.message.toString())
             }
 
@@ -211,5 +232,11 @@ class Repository(private val accountPreference: AccountPreference) {
                 Log.d("deleteProfilePicture", p1.message.toString())
             }
         })
+    }
+
+    fun getListFindProduct(query: String): LiveData<PagingData<FindItems>> {
+        return Pager(
+            PagingConfig(20), null
+        ) { FindProductPagingSource(query, accountPreference, apiService) }.liveData
     }
 }

@@ -95,31 +95,80 @@
                 android:text="Email"
                 android:textSize="18sp" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="18dp"
+                android:text="Kata sandi"
+                android:textSize="16sp" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="40dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="3dp"
+                android:focusedByDefault="false"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/primaryColor">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfPassword"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/login_register_textfield_background"
-                    android:hint="Kata sandi baru" />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="8dp"
+                android:text="Sandi minimal 6 karakter"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Konfirmasi kata sandi"
+                android:textSize="16sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="40dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="3dp"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/primaryColor">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tfRetypePass"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/login_register_textfield_background"
-                    android:hint="Konfirmasi sandi" />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvRetypePass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="8dp"
+                android:text="Sandi tidak sama"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"

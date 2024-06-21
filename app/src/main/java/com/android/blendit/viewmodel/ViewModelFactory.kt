@@ -10,6 +10,7 @@ import com.android.blendit.ui.activity.login.LoginViewModel
 import com.android.blendit.ui.activity.main.MainViewModel
 import com.android.blendit.ui.activity.register.RegisterViewModel
 import com.android.blendit.ui.activity.recommendation.RecommendationViewModel
+import com.android.blendit.ui.activity.search.SearchViewModel
 
 class ViewModelFactory(
     private val accountPreference: AccountPreference
@@ -43,6 +44,10 @@ class ViewModelFactory(
             ) as T
 
             modelClass.isAssignableFrom(DetailItemViewModel::class.java) -> DetailItemViewModel(
+                accountPreference
+            ) as T
+
+            modelClass.isAssignableFrom(SearchViewModel::class.java) -> SearchViewModel(
                 accountPreference
             ) as T
 

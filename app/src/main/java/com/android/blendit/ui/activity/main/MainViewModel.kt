@@ -24,4 +24,6 @@ class MainViewModel(accountPreference: AccountPreference) : ViewModel() {
 
     fun removeFavorite(productId: String) = repository.removeFavorite(productId)
 
+    fun changePass(password: String) = repository.changePass(password)
+
 }

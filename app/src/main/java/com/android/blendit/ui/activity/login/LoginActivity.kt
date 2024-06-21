@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
             passEditText.doAfterTextChanged {
                 if (it != null) {
                     passwordErrorTextView.visibility =
-                        if (it.length > 6 || it.isEmpty()) View.GONE else View.VISIBLE
+                        if (it.length >= 6 || it.isEmpty()) View.GONE else View.VISIBLE
                 }
             }
             loginBtn.setOnClickListener { processLogin() }

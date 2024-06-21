@@ -7,14 +7,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.android.blendit.R
 import com.android.blendit.databinding.FragmentAccountBinding
 import com.android.blendit.preference.AccountPreference
+import com.android.blendit.remote.Result
 import com.android.blendit.ui.activity.login.LoginActivity
 import com.android.blendit.ui.activity.main.MainViewModel
 import com.android.blendit.utils.convertImageToMultipart
@@ -47,22 +50,47 @@ class AccountFragment : Fragment() {
     }
 
     private fun setView() {
-        viewModel.loginInfo.observe(viewLifecycleOwner) { loginInfo ->
-            binding.nameTextView.text = loginInfo.username
-            binding.emailTextView.text = loginInfo.email
-            if (loginInfo.profilePic != null) {
-                Glide.with(requireActivity()).load(loginInfo.profilePic)
-                    .into(binding.shapeableImageView)
-            } else {
-                binding.shapeableImageView.setImageDrawable(requireContext().getDrawable(R.drawable.ic_account_fill))
+        with(binding) {
+            viewModel.loginInfo.observe(viewLifecycleOwner) { loginInfo ->
+                nameTextView.text = loginInfo.username
+                emailTextView.text = loginInfo.email
+                if (loginInfo.profilePic != null) {
+                    Glide.with(requireActivity()).load(loginInfo.profilePic)
+                        .into(shapeableImageView)
+                } else {
+                    shapeableImageView.setImageDrawable(requireContext().getDrawable(R.drawable.ic_account_fill))
+                }
+            }
+            btnLogout.setOnClickListener {
+                accountPreference.removeLoginUser()
+                startActivity(Intent(requireActivity(), LoginActivity::class.java))
+                requireActivity().finishAffinity()
+            }
+            btnEditPicture.setOnClickListener { showBottomSheetDialog() }
+            btnSave.setOnClickListener {
+                if (tvPass.visibility == View.GONE && tvRetypePass.visibility == View.GONE) {
+                    changePass()
+                }
+            }
+            tfPassword.doAfterTextChanged {
+                tvPass.visibility =
+                    if (tfPassword.text.toString().length >= 6) View.GONE else View.VISIBLE
+            }
+            tfRetypePass.doAfterTextChanged {
+                tvRetypePass.visibility =
+                    if (tfPassword.text.toString() == binding.tfRetypePass.text.toString())
+                        View.GONE else View.VISIBLE
             }
         }
-        binding.btnLogout.setOnClickListener {
-            accountPreference.removeLoginUser()
-            startActivity(Intent(requireActivity(), LoginActivity::class.java))
-            requireActivity().finishAffinity()
+    }
+
+    private fun changePass() {
+        val pass = binding.tfPassword.text.toString()
+        viewModel.changePass(pass).observe(viewLifecycleOwner) { result ->
+            if (result is Result.Success) {
+                Toast.makeText(requireActivity(), result.data.message, Toast.LENGTH_SHORT).show()
+            }
         }
-        binding.btnEditPicture.setOnClickListener { showBottomSheetDialog() }
     }
 
     private fun showBottomSheetDialog() {
