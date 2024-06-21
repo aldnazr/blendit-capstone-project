@@ -1,5 +1,6 @@
 package com.android.blendit.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.android.blendit.databinding.FragmentHomeBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
 import com.android.blendit.ui.activity.main.MainViewModel
+import com.android.blendit.ui.activity.search.SearchActivity
 import com.android.blendit.viewmodel.ViewModelFactory
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
@@ -49,16 +51,8 @@ class HomeFragment : Fragment() {
 
     private fun fetchListFavorite() {
         mainViewModel.getListFavorite().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Loading -> {
-                }
-
-                is Result.Error -> {
-                }
-
-                is Result.Success -> {
-                    adapter.setList(result.data)
-                }
+            if (result is Result.Success) {
+                adapter.setList(result.data)
             }
         }
     }
@@ -72,6 +66,14 @@ class HomeFragment : Fragment() {
             }
         }
         binding.imageSlider.setImageList(imageList)
+        binding.searchBar.setOnClickListener {
+            requireActivity().startActivity(
+                Intent(
+                    requireActivity(),
+                    SearchActivity::class.java
+                )
+            )
+        }
     }
 
     private fun setFullscreen() {
