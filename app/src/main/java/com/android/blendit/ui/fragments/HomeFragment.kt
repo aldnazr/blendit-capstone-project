@@ -19,13 +19,12 @@ import com.android.blendit.ui.activity.search.SearchActivity
 import com.android.blendit.viewmodel.ViewModelFactory
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import kotlin.random.Random
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val imageList = mutableListOf<SlideModel>()
     private val adapter = AdapterListProduct()
+    private val imageList = mutableListOf<SlideModel>()
     private val accountPreference by lazy { AccountPreference(requireActivity()) }
     private val mainViewModel by activityViewModels<MainViewModel> {
         ViewModelFactory(
@@ -46,6 +45,7 @@ class HomeFragment : Fragment() {
         setFullscreen()
         setView()
         fetchListFavorite()
+        fetchUnsplashImage()
         setAdapter()
     }
 
@@ -58,14 +58,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setView() {
-        if (imageList.size == 0) {
-            for (i in 1..5) {
-                val randomNumber = Random.nextInt(100)
-                val imageRandom = "https://picsum.photos/id/$randomNumber/600/400"
-                imageList.add(SlideModel(imageRandom, ScaleTypes.CENTER_CROP))
-            }
-        }
-        binding.imageSlider.setImageList(imageList)
         binding.searchBar.setOnClickListener {
             requireActivity().startActivity(
                 Intent(
@@ -73,6 +65,20 @@ class HomeFragment : Fragment() {
                     SearchActivity::class.java
                 )
             )
+        }
+    }
+
+    private fun fetchUnsplashImage() {
+        mainViewModel.getUnsplashImage().observe(viewLifecycleOwner) { result ->
+            if (result is Result.Success) {
+                if (imageList.isEmpty()) {
+                    for (i in 0 until minOf(5, result.data.size)) {
+                        val imageUrl = result.data[i].urls.regular
+                        imageList.add(SlideModel(imageUrl, ScaleTypes.CENTER_CROP))
+                    }
+                    binding.imageSlider.setImageList(imageList)
+                }
+            }
         }
     }
 

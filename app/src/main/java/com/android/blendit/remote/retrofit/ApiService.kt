@@ -8,6 +8,7 @@ import com.android.blendit.remote.response.ResponseChangePassword
 import com.android.blendit.remote.response.ResponseDeleteProfilePicture
 import com.android.blendit.remote.response.ResponseFavorite
 import com.android.blendit.remote.response.ResponseFindProduct
+import com.android.blendit.remote.response.ResponseImageCarousel
 import com.android.blendit.remote.response.ResponseListFavorite
 import com.android.blendit.remote.response.ResponseListProduct
 import com.android.blendit.remote.response.ResponseLogin
@@ -137,4 +138,11 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Response<ResponseFindProduct>
+
+    @GET("search/photos")
+    suspend fun unsplashImage(
+        @Query("query") query: String,
+        @Query("per_page") perPage: Int,
+        @Query("client_id") clientId: String
+    ): Response<ResponseImageCarousel>
 }

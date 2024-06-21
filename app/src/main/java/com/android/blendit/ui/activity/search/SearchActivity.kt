@@ -31,6 +31,8 @@ class SearchActivity : AppCompatActivity() {
 
         setFullscreen()
         setView()
+        fetchListFavorite()
+        setAdapter("")
     }
 
     private fun setView() {
