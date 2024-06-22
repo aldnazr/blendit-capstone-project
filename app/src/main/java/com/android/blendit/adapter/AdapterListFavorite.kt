@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.blendit.R
-import com.android.blendit.databinding.FavoriteItemBinding
+import com.android.blendit.databinding.ItemFavoriteBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.response.ItemsFavorite
 import com.android.blendit.ui.activity.detail.DetailActivity
@@ -25,7 +25,7 @@ class AdapterListFavorite : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class NormalViewHolder(val binding: FavoriteItemBinding) : ViewHolder(binding.root) {
+    inner class NormalViewHolder(val binding: ItemFavoriteBinding) : ViewHolder(binding.root) {
 
         private val accountPreference = AccountPreference(itemView.context)
         private val repository = Repository(accountPreference)
@@ -50,6 +50,12 @@ class AdapterListFavorite : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     putExtra(DetailActivity.BRAND, itemsFavorite.brand)
                     putExtra(DetailActivity.PRODUCT_NAME, itemsFavorite.productName)
                     putExtra(DetailActivity.PICTURE, itemsFavorite.picture)
+                    putExtra(DetailActivity.TYPE, itemsFavorite.type)
+                    putExtra(DetailActivity.SKINTONE, itemsFavorite.skintone)
+                    putExtra(DetailActivity.SKINTYPE, itemsFavorite.skinType)
+                    putExtra(DetailActivity.UNDERTONE, itemsFavorite.undertone)
+                    putExtra(DetailActivity.SHADE, itemsFavorite.shade)
+                    putExtra(DetailActivity.MAKEUPTYPE, itemsFavorite.makeupType)
                     putExtra(DetailActivity.IS_FAVORITE, binding.btnFavorite.isChecked)
                 }
                 it.context.startActivity(intent)
@@ -61,6 +67,14 @@ class AdapterListFavorite : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         override fun bindView(itemsFavorite: ItemsFavorite) {}
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (position == list.size) {
+            FOOTER_VIEW
+        } else {
+            super.getItemViewType(position)
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == FOOTER_VIEW) {
             val view =
@@ -68,7 +82,7 @@ class AdapterListFavorite : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             FooterViewHolder(view)
         } else {
             NormalViewHolder(
-                FavoriteItemBinding.inflate(
+                ItemFavoriteBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
@@ -79,14 +93,6 @@ class AdapterListFavorite : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (holder is NormalViewHolder) {
             val data = list[position]
             holder.bindView(data)
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if (position == list.size) {
-            FOOTER_VIEW
-        } else {
-            super.getItemViewType(position)
         }
     }
 

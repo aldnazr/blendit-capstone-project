@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.android.blendit.databinding.ProductItemBinding
+import com.android.blendit.databinding.ItemProductBinding
 import com.android.blendit.remote.response.ItemsFavorite
 import com.android.blendit.remote.response.ItemsProduct
 import com.android.blendit.ui.activity.detail.DetailActivity
@@ -19,13 +19,13 @@ class AdapterListProduct :
     private val listFavorite = mutableListOf<ItemsFavorite>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<ItemsFavorite>) {
+    fun setFavoriteList(list: List<ItemsFavorite>) {
         listFavorite.clear()
         listFavorite.addAll(list)
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(private val binding: ProductItemBinding) :
+    inner class ViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: ItemsProduct) {
@@ -40,6 +40,12 @@ class AdapterListProduct :
                         putExtra(DetailActivity.BRAND, product.brand)
                         putExtra(DetailActivity.PRODUCT_NAME, product.productName)
                         putExtra(DetailActivity.PICTURE, product.picture)
+                        putExtra(DetailActivity.TYPE, product.type)
+                        putExtra(DetailActivity.SKINTONE, product.skintone)
+                        putExtra(DetailActivity.SKINTYPE, product.skinType)
+                        putExtra(DetailActivity.UNDERTONE, product.undertone)
+                        putExtra(DetailActivity.SHADE, product.shade)
+                        putExtra(DetailActivity.MAKEUPTYPE, product.makeupType)
                         for (favorite in listFavorite) {
                             if (favorite.productId == product.id) {
                                 putExtra(DetailActivity.IS_FAVORITE, true)
@@ -53,7 +59,7 @@ class AdapterListProduct :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

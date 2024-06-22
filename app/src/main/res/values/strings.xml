@@ -26,4 +26,10 @@
     <string name="rekomendasi_produk">Rekomendasi Produk</string>
     <string name="makeup_category">Makeup\nCategory</string>
     <string name="foto_profil">Foto Profil</string>
+    <string name="product_type">Type:</string>
+    <string name="product_skintone">skintone:</string>
+    <string name="product_skintype">skinType:</string>
+    <string name="product_undertone">undertone:</string>
+    <string name="product_shade">shade:</string>
+    <string name="product_makeup_type">makeup type:</string>
 </resources>

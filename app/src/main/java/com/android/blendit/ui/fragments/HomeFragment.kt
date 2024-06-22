@@ -43,15 +43,20 @@ class HomeFragment : Fragment() {
 
         setFullscreen()
         setView()
-        fetchListFavorite()
         fetchUnsplashImage()
         setAdapter()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        fetchListFavorite()
     }
 
     private fun fetchListFavorite() {
         mainViewModel.getListFavorite().observe(viewLifecycleOwner) { result ->
             if (result is Result.Success) {
-                adapter.setList(result.data)
+                adapter.setFavoriteList(result.data)
             }
         }
     }

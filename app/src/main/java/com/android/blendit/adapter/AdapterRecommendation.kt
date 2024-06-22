@@ -7,20 +7,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.blendit.databinding.FavoriteItemBinding
-import com.android.blendit.databinding.ProductItemBinding
+import com.android.blendit.databinding.ItemProductBinding
 import com.android.blendit.remote.response.ItemsFavorite
 import com.android.blendit.remote.response.RecommendationResult
 import com.android.blendit.ui.activity.detail.DetailActivity
 import com.bumptech.glide.Glide
 
-class RecommendationAdapter :
-    ListAdapter<RecommendationResult, RecommendationAdapter.ViewHolder>(DIFF_CALLBACK) {
+class AdapterRecommendation :
+    ListAdapter<RecommendationResult, AdapterRecommendation.ViewHolder>(DIFF_CALLBACK) {
 
     private val listFavorite = mutableListOf<ItemsFavorite>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<ItemsFavorite>) {
+    fun setFavoriteList(list: List<ItemsFavorite>) {
         listFavorite.clear()
         listFavorite.addAll(list)
         notifyDataSetChanged()
@@ -28,7 +27,7 @@ class RecommendationAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -37,7 +36,7 @@ class RecommendationAdapter :
         holder.bind(recommendation)
     }
 
-    inner class ViewHolder(private val binding: ProductItemBinding) :
+    inner class ViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(recommendation: RecommendationResult) {
@@ -53,6 +52,12 @@ class RecommendationAdapter :
                     putExtra(DetailActivity.BRAND, recommendation.brand)
                     putExtra(DetailActivity.PRODUCT_NAME, recommendation.productName)
                     putExtra(DetailActivity.PICTURE, recommendation.picture)
+                    putExtra(DetailActivity.TYPE, recommendation.type)
+                    putExtra(DetailActivity.SKINTONE, recommendation.skintone)
+                    putExtra(DetailActivity.SKINTYPE, recommendation.skinType)
+                    putExtra(DetailActivity.UNDERTONE, recommendation.undertone)
+                    putExtra(DetailActivity.SHADE, recommendation.shade)
+                    putExtra(DetailActivity.MAKEUPTYPE, recommendation.makeupType)
                     for (favorite in listFavorite) {
                         if (favorite.productId == recommendation.id) {
                             putExtra(DetailActivity.IS_FAVORITE, true)
