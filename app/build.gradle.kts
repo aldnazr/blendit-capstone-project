@@ -13,7 +13,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -62,9 +62,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Camera
-    implementation ("androidx.camera:camera-camera2:1.3.3")
-    implementation ("androidx.camera:camera-lifecycle:1.3.3")
-    implementation ("androidx.camera:camera-view:1.3.3")
+    implementation ("androidx.camera:camera-camera2:1.3.4")
+    implementation ("androidx.camera:camera-lifecycle:1.3.4")
+    implementation ("androidx.camera:camera-view:1.3.4")
 
     // Coroutines KTX
     implementation (libs.kotlinx.coroutines.core)

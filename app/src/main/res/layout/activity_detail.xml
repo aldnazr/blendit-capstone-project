@@ -99,49 +99,55 @@
                 android:layout_marginTop="14dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="Spesifikasi"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/product_type" />
+                android:text="@string/product_type"
+                android:textSize="16sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvSkinTone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/product_skintone" />
+                android:layout_marginTop="10dp"
+                android:text="@string/product_skintone"
+                android:textSize="16sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvSkinType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/product_skintype" />
+                android:layout_marginTop="10dp"
+                android:text="@string/product_skintype"
+                android:textSize="16sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvUndertone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/product_undertone" />
+                android:layout_marginTop="10dp"
+                android:text="@string/product_undertone"
+                android:textSize="16sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvShade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/product_shade" />
+                android:layout_marginTop="10dp"
+                android:text="@string/product_shade"
+                android:textSize="16sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvMakeupType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/product_makeup_type" />
+                android:layout_marginTop="10dp"
+                android:text="@string/product_makeup_type"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

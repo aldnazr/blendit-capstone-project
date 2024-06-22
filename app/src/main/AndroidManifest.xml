@@ -24,7 +24,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.detail.DetailActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".ui.activity.category.CategoryTutorialActivity"
             android:exported="false" />
