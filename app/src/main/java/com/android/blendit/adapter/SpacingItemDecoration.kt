@@ -1,4 +1,4 @@
-package com.android.blendit.ui.activity.adapter
+package com.android.blendit.adapter
 
 import android.graphics.Rect
 import android.view.View

@@ -6,21 +6,18 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
-import com.android.blendit.R
-import com.android.blendit.adapter.RecommendationAdapter
+import com.android.blendit.adapter.AdapterRecommendation
 import com.android.blendit.databinding.ActivityRecommendationBinding
 import com.android.blendit.preference.AccountPreference
 import com.android.blendit.remote.Result
 import com.android.blendit.ui.activity.main.MainActivity
-import com.android.blendit.ui.fragments.FavoriteFragment
 import com.android.blendit.viewmodel.ViewModelFactory
 
 class RecommendationActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityRecommendationBinding.inflate(layoutInflater) }
     private val accountPreference by lazy { AccountPreference(this) }
-    val adapter = RecommendationAdapter()
+    val adapter = AdapterRecommendation()
     private val recommendationViewModel: RecommendationViewModel by viewModels {
         ViewModelFactory.getInstance(accountPreference)
     }
@@ -41,13 +38,15 @@ class RecommendationActivity : AppCompatActivity() {
 
     private fun setView() {
         binding.rvRecommendation.adapter = adapter
-        binding.btnHome.setOnClickListener { startActivity(
-            Intent(
-                this@RecommendationActivity,
-                MainActivity::class.java
+        binding.btnHome.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@RecommendationActivity,
+                    MainActivity::class.java
+                )
             )
-        )
-            finishAffinity() }
+            finishAffinity()
+        }
         binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
@@ -82,16 +81,8 @@ class RecommendationActivity : AppCompatActivity() {
 
     private fun fetchListFavorite() {
         recommendationViewModel.getListFavorite().observe(this) { result ->
-            when (result) {
-                is Result.Loading -> {
-                }
-
-                is Result.Error -> {
-                }
-
-                is Result.Success -> {
-                    adapter.setList(result.data)
-                }
+            if (result is Result.Success) {
+                adapter.setFavoriteList(result.data)
             }
         }
     }
