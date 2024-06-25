@@ -41,7 +41,7 @@
                 android:background="@drawable/custom_searchview_shape"
                 android:focusedByDefault="true"
                 android:iconifiedByDefault="false"
-                android:queryBackground="@drawable/custom_searchview_shape"
+                android:queryBackground="@android:color/transparent"
                 android:queryHint="Cari produk"
                 app:elevation="0dp" />
         </com.google.android.material.appbar.MaterialToolbar>
