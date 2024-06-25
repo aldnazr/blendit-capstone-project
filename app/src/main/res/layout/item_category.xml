@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="14dp"
     app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
     app:strokeWidth="0dp">
 
