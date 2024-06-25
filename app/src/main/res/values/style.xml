@@ -15,7 +15,7 @@
         <item name="android:backgroundTint">@color/gray</item>
     </style>
 
-    <style name="CustomSearchBarShape" parent="ShapeAppearanceOverlay.Material3.SearchBar">
+    <style name="CustomSearchBarShape" parent="Widget.Material3.SearchBar">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
     </style>
