@@ -1,0 +1,47 @@
+dependencies {
+
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.constraintlayout)
+
+    // Coroutines KTX
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Fragment KTX
+    implementation(libs.androidx.fragment.ktx)
+
+    // Image Network
+    implementation(libs.glide)
+
+    // Livedata
+    implementation(libs.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Paging 3
+    implementation(libs.androidx.paging.runtime.ktx)
+
+    //Dagger
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+
+    //Hilt Dagger
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    //Room Database
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    debugImplementation(libs.leakcanary.android)
+
+    //SQLCipher
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
+}

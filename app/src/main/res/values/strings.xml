@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Android Expert</string>
+
+    <string name="product_type">Type:</string>
+    <string name="product_skintone">skintone:</string>
+    <string name="product_skintype">skinType:</string>
+    <string name="product_undertone">undertone:</string>
+    <string name="product_shade">shade:</string>
+    <string name="product_makeup_type">makeup type:</string>
+    <string name="title_favorite">favorite</string>
+</resources>
